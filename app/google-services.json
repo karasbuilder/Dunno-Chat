@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "375439370417",
+    "project_id": "dunnochat",
+    "storage_bucket": "dunnochat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375439370417:android:16638e798b384e6d691a90",
+        "android_client_info": {
+          "package_name": "ChatApp.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375439370417-0m64hpsc8phocq0qpevg6sqto3dv7prv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqQqVK2sHeCbyot6pFaoj9VHBAV4ulIEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375439370417-0m64hpsc8phocq0qpevg6sqto3dv7prv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
