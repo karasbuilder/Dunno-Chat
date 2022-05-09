@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dunno Chat</string>
+    <string name="otp_verification">OTP Verification</string>
 </resources>

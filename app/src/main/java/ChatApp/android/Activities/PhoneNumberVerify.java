@@ -24,5 +24,14 @@ public class PhoneNumberVerify extends AppCompatActivity {
         getSupportActionBar().hide();
         binding=ActivityPhoneNumberVerifyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itIntent=new Intent(PhoneNumberVerify.this,ConfirmPhoneOTP.class);
+                itIntent.putExtra("phoneNumber","+84"+binding.inputPhoneNumber.getText().toString());
+                startActivity(itIntent);
+
+            }
+        });
     }
 }
