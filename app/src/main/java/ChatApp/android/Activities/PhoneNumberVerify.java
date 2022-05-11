@@ -23,6 +23,7 @@ public class PhoneNumberVerify extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         binding=ActivityPhoneNumberVerifyBinding.inflate(getLayoutInflater());
+        binding.inputPhoneNumber.requestFocus();
         setContentView(binding.getRoot());
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override

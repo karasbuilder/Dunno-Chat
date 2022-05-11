@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +32,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
     private ActivityConfirmPhoneOtpBinding binding;
     FirebaseAuth auth;
     String verificationID;
+    ProgressDialog dialog;
     private OtpTextView otpTextView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,11 +40,12 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         binding=ActivityConfirmPhoneOtpBinding.inflate(getLayoutInflater());
-
-
-
-
         setContentView(binding.getRoot());
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Sending OTP...");
+        dialog.setCancelable(false);
+        dialog.show();
+
         String phoneNumber=getIntent().getStringExtra("phoneNumber");
         binding.txtPhoneNumber.setText(phoneNumber);
         auth=FirebaseAuth.getInstance();
@@ -61,12 +67,18 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                     @Override
                     public void onCodeSent(@NonNull String verifyID, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(verifyID, forceResendingToken);
+                        dialog.dismiss();
                         verificationID=verifyID;
+                        //
+                        InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        binding.otpView.requestFocus();
                     }
                 }).build();
         PhoneAuthProvider.verifyPhoneNumber(options);
-       otpTextView=binding.otpView;
-       otpTextView.setOtpListener(new OTPListener(){
+        otpTextView=binding.otpView;
+
+        otpTextView.setOtpListener(new OTPListener(){
            @Override
            public void onInteractionListener() {
                // fired when user types something in the Otpbox
@@ -79,7 +91,12 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
-                           Toast.makeText(ConfirmPhoneOTP.this, "Verified", Toast.LENGTH_SHORT).show();
+                           dialog.setMessage("Verified");
+                           dialog.setCancelable(false);
+                           dialog.show();
+                           Intent intent=new Intent(ConfirmPhoneOTP.this,SetUpAccountSignUp.class);
+                           startActivity(intent);
+                           finishAffinity();
                        }
                        else{
                            Toast.makeText(ConfirmPhoneOTP.this, "Failed Verification Code", Toast.LENGTH_SHORT).show();

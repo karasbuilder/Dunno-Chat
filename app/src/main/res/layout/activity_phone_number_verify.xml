@@ -8,7 +8,7 @@
     tools:context=".Activities.PhoneNumberVerify">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgViewSetUp"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="72dp"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imgViewSetUp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -94,10 +94,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/btn_green"
+                android:background="@color/btn_purple"
                 android:gravity="center"
                 android:text="SEND"
-                android:textColor="#EDE1E1"
+                android:textColor="#FFEBEE"
                 android:textSize="22sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
