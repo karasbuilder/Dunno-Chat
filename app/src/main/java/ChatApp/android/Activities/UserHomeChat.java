@@ -14,5 +14,6 @@ public class UserHomeChat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= ActivityUserHomeChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
     }
 }

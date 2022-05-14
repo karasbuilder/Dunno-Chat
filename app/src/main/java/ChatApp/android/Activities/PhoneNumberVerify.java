@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import ChatApp.android.MainActivity;
 import ChatApp.android.databinding.ActivityPhoneNumberVerifyBinding;
 
 public class PhoneNumberVerify extends AppCompatActivity {
     private ActivityPhoneNumberVerifyBinding binding;
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,17 @@ public class PhoneNumberVerify extends AppCompatActivity {
         binding=ActivityPhoneNumberVerifyBinding.inflate(getLayoutInflater());
         binding.inputPhoneNumber.requestFocus();
         setContentView(binding.getRoot());
+
+        //check if the auth has already
+        auth = FirebaseAuth.getInstance();
+
+        if(auth.getCurrentUser() != null) {
+            Intent intent = new Intent(PhoneNumberVerify.this, UserHomeChat.class);
+            startActivity(intent);
+            finish();
+        }
+
+
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
