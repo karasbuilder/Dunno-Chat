@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_chats"
+        android:icon="@drawable/ic_search"
         android:title="Search"
         app:showAsAction="always" />
     <item
@@ -14,5 +14,8 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/scan"
-        android:title="Scan" />
+        android:title="Create group" />
+    <item android:title="Add friend" />
+    <item android:title="Dunno Calendar" />
+    <item android:title="Login history" />
 </menu>
