@@ -12,16 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
-            android:name=".ChatUserScreen"
+            android:name=".Activities.ChatUserScreen"
             android:exported="false" />
         <activity
             android:name=".Activities.UserHomeChat"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".Activities.SetUpAccountSignUp"
@@ -35,7 +32,14 @@
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".SplashScreen"
-            android:exported="false"></activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />
