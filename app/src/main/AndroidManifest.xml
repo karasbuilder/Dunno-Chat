@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
+            android:name=".ChatUserScreen"
+            android:exported="false" />
+        <activity
             android:name=".Activities.UserHomeChat"
             android:exported="true">
             <intent-filter>
@@ -32,9 +35,7 @@
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".SplashScreen"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />
