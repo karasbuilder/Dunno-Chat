@@ -24,7 +24,7 @@ import ChatApp.android.Activities.ChatUserScreen;
 import ChatApp.android.Model.User;
 import ChatApp.android.databinding.RowConversationChatComponentBinding;
 import  ChatApp.android.R;
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UsersViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     Context context;
     ArrayList<User> users;
 
@@ -35,14 +35,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UsersViewHolde
 
     @NonNull
     @Override
-    public UsersViewHolder   onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserViewHolder   onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_conversation_chat_component, parent, false);
 
-        return new UsersViewHolder(view);
+        return new UserViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = users.get(position);
 
         String senderId = FirebaseAuth.getInstance().getUid();
@@ -97,11 +97,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UsersViewHolde
         return users.size();
     }
 
-    public class UsersViewHolder extends RecyclerView.ViewHolder {
+    public class UserViewHolder extends RecyclerView.ViewHolder {
 
        RowConversationChatComponentBinding binding;
 
-        public UsersViewHolder(@NonNull View itemView) {
+        public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = RowConversationChatComponentBinding.bind(itemView);
         }

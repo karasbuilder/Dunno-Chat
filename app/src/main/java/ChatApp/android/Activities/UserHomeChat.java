@@ -60,10 +60,12 @@ public class UserHomeChat extends AppCompatActivity {
 
 
         usersAdapter = new UserAdapter(this, users);
+
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         binding.recyclerView.setAdapter(usersAdapter);
+
 
         database.getReference().child("users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,14 +79,16 @@ public class UserHomeChat extends AppCompatActivity {
                 }
 
                 usersAdapter.notifyDataSetChanged();
-                System.out.println(usersAdapter.getItemCount());
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
 
     }
 
