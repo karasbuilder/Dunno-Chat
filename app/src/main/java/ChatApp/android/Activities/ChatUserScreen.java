@@ -13,5 +13,6 @@ public class ChatUserScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
        binding=ActivityChatUserScreenBinding.inflate(getLayoutInflater());
        setContentView(binding.getRoot());
+
     }
 }
