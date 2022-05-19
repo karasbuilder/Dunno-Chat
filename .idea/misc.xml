@@ -16,23 +16,30 @@
         <entry key="..\:/Android_Chat_App/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/Android_Chat_App/app/src/main/res/layout/activity_user_home_chat.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable-v24/border_input.xml" value="0.3635" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/btn_blue.xml" value="0.3635" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/btn_gray.xml" value="0.3635" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_attachment.xml" value="0.3635" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_call.xml" value="0.252" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_camera.xml" value="0.252" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_circle_green.xml" value="0.3625" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2985" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_left_arrow.xml" value="0.252" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_search.xml" value="0.255" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_status.xml" value="0.3635" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/ic_video.xml" value="0.252" />
-        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_chat_user_screen.xml" value="0.67" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/input_num.xml" value="0.3635" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_chat_user_screen.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_confirm_phone_otp.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_main.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_phone_number_verify.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_set_up_account_sign_up.xml" value="0.2975630611372381" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_sign_in.xml" value="0.25" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_splash_screen.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_user_home_chat.xml" value="0.26763574176998717" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/border_input.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/row_conversation_chat_component.xml" value="0.3625" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/test.xml" value="0.26763574176998717" />
+        <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/toolbar_form1.xml" value="0.33" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/bottom_menu.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/top_menu.xml" value="0.29379485014774165" />
       </map>

@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
+            android:name=".SignIn"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ChatUserScreen"
             android:exported="false" />
         <activity
             android:name=".Activities.UserHomeChat"
-            android:exported="false">
-
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".Activities.SetUpAccountSignUp"
             android:exported="false" />
@@ -38,7 +38,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
