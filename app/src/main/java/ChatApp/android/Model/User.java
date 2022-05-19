@@ -2,7 +2,8 @@ package ChatApp.android.Model;
 
 public class User {
 
-    private String uid, name, phoneNumber, profileImage,token;
+    private String uid, name, phoneNumber, profileImage,token,password;
+
 
     public User() {
 
