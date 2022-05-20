@@ -37,8 +37,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();*/
+
         binding=ActivityConfirmPhoneOtpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         dialog = new ProgressDialog(this);

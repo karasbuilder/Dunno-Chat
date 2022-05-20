@@ -23,10 +23,9 @@ public class PhoneNumberVerify extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+
         binding=ActivityPhoneNumberVerifyBinding.inflate(getLayoutInflater());
-        binding.inputPhoneNumber.requestFocus();
+
         setContentView(binding.getRoot());
 
         //check if the auth has already
@@ -37,7 +36,7 @@ public class PhoneNumberVerify extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
+        binding.inputPhoneNumber.requestFocus();
 
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override

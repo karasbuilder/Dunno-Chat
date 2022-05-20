@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import ChatApp.android.Activities.PhoneNumberVerify;
 import ChatApp.android.Activities.UserHomeChat;
 
 public class MainActivity extends AppCompatActivity {
     TextView btnSignUp,btnSignIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 Intent intent=new Intent(MainActivity.this, UserHomeChat.class);
                 startActivity(intent);
             }

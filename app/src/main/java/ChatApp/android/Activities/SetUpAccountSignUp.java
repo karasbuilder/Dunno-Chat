@@ -45,7 +45,6 @@ public class SetUpAccountSignUp extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
-        getSupportActionBar().hide();
 
         binding.imgViewSetUp.setOnClickListener(new View.OnClickListener() {
             @Override

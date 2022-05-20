@@ -27,14 +27,18 @@ import ChatApp.android.databinding.RecivedChatComponentBinding;
 import ChatApp.android.databinding.SentChatComponentBinding;
 
 public class MessageAdapter  extends RecyclerView.Adapter {
+
     Context context;
     ArrayList<Message> messages;
-    final  int USER_SENT=1;
-    final  int USER_RECEIVE=2;
+
+    final int ITEM_SENT = 1;
+    final int ITEM_RECEIVE = 2;
+
     String senderRoom;
     String receiverRoom;
 
     FirebaseRemoteConfig remoteConfig;
+
     public MessageAdapter(Context context, ArrayList<Message> messages, String senderRoom, String receiverRoom) {
         remoteConfig = FirebaseRemoteConfig.getInstance();
         this.context = context;
@@ -46,7 +50,7 @@ public class MessageAdapter  extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == USER_SENT) {
+        if(viewType == ITEM_SENT) {
             View view = LayoutInflater.from(context).inflate(R.layout.sent_chat_component, parent, false);
             return new SentViewHolder(view);
         } else {
@@ -57,17 +61,16 @@ public class MessageAdapter  extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        Message message=messages.get(position);
-        if(FirebaseAuth.getInstance().getUid().equals(message.getSenderId())){
-            return USER_SENT;
-        }else{
-            return USER_RECEIVE;
+        Message message = messages.get(position);
+        if(FirebaseAuth.getInstance().getUid().equals(message.getSenderId())) {
+            return ITEM_SENT;
+        } else {
+            return ITEM_RECEIVE;
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            //load Message from bin view holder
         Message message = messages.get(position);
 
         int reactions[] = new int[]{
@@ -224,12 +227,12 @@ public class MessageAdapter  extends RecyclerView.Adapter {
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder)holder;
             if(message.getMessage().equals("photo")) {
-                viewHolder.binding.imageUser.setVisibility(View.VISIBLE);
+                viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
                 Glide.with(context)
                         .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholder)
-                        .into(viewHolder.binding.imageUser);
+                        .into(viewHolder.binding.image);
             }
             viewHolder.binding.message.setText(message.getMessage());
 
@@ -249,7 +252,7 @@ public class MessageAdapter  extends RecyclerView.Adapter {
                 }
             });
 
-            viewHolder.binding.imageUser.setOnTouchListener(new View.OnTouchListener() {
+            viewHolder.binding.image.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     popup.onTouch(v, event);
@@ -316,8 +319,9 @@ public class MessageAdapter  extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return messages.size();
     }
+
     public class SentViewHolder extends RecyclerView.ViewHolder {
 
         SentChatComponentBinding binding;
@@ -329,12 +333,13 @@ public class MessageAdapter  extends RecyclerView.Adapter {
 
     public class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
-        RecivedChatComponentBinding binding;
+       RecivedChatComponentBinding binding;
 
         public ReceiverViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RecivedChatComponentBinding.bind(itemView);
+            binding =RecivedChatComponentBinding.bind(itemView);
         }
     }
 
 }
+
