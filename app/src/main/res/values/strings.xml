@@ -4,4 +4,6 @@
     <string name="tap_to_chat">Tap to chat</string>
     <string name="_20_04">20:04</string>
     <string name="sample_name">Sample Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

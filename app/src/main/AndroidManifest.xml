@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
-            android:name=".SignIn"
+            android:name=".Activities.SignIn"
             android:exported="false" />
         <activity
             android:name=".Activities.ChatUserScreen"
