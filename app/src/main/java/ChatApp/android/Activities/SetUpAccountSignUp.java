@@ -78,8 +78,10 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                                         String uid = auth.getUid();
                                         String phone = auth.getCurrentUser().getPhoneNumber();
                                         String name = binding.editUserNameSetting.getText().toString();
+                                        String password=binding.editTextPassword.getText().toString();
+                                        String confirmPassword=binding.editTextConfirmPassword.getText().toString();
 
-                                        User user = new User(uid, name, phone, imageUrl);
+                                        User user = new User(uid, name, phone, imageUrl,password);
 
                                         database.getReference()
                                                 .child("users")
@@ -102,8 +104,9 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                 } else {
                     String uid = auth.getUid();
                     String phone = auth.getCurrentUser().getPhoneNumber();
-
-                    User user = new User(uid, name, phone, "No Image");
+                    String password=binding.editTextPassword.getText().toString();
+                    String confirmPassword=binding.editTextConfirmPassword.getText().toString();
+                    User user = new User(uid, name, phone, "No Image",password);
 
                     database.getReference()
                             .child("users")

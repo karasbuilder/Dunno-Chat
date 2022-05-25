@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,15 +37,17 @@ public class MessageAdapter  extends RecyclerView.Adapter {
 
     String senderRoom;
     String receiverRoom;
+    ImageView imageReceiver;
 
     FirebaseRemoteConfig remoteConfig;
 
-    public MessageAdapter(Context context, ArrayList<Message> messages, String senderRoom, String receiverRoom) {
+    public MessageAdapter(Context context, ArrayList<Message> messages, String senderRoom, String receiverRoom,ImageView imageReceiver) {
         remoteConfig = FirebaseRemoteConfig.getInstance();
         this.context = context;
         this.messages = messages;
         this.senderRoom = senderRoom;
         this.receiverRoom = receiverRoom;
+        this.imageReceiver=imageReceiver;
     }
 
     @NonNull
@@ -127,12 +130,12 @@ public class MessageAdapter  extends RecyclerView.Adapter {
             SentViewHolder viewHolder = (SentViewHolder)holder;
 
             if(message.getMessage().equals("photo")) {
-                viewHolder.binding.image.setVisibility(View.VISIBLE);
+                viewHolder.binding.imageUser.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
                 Glide.with(context)
                         .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholder)
-                        .into(viewHolder.binding.image);
+                        .into(viewHolder.binding.imageUser);
             }
 
             viewHolder.binding.message.setText(message.getMessage());
@@ -157,7 +160,7 @@ public class MessageAdapter  extends RecyclerView.Adapter {
                 }
             });
 
-            viewHolder.binding.image.setOnTouchListener(new View.OnTouchListener() {
+            viewHolder.binding.imageUser.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     popup.onTouch(v, event);

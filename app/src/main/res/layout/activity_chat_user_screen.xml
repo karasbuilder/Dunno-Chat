@@ -39,7 +39,7 @@
                 android:id="@+id/profile"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30sp"
                 android:src="@drawable/avatar" />
 
             <LinearLayout

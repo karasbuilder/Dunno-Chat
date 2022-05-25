@@ -2,25 +2,21 @@ package ChatApp.android.Model;
 
 public class User {
 
-    private String uid, name, phoneNumber, profileImage,token,password;
+    private String uid, name, phoneNumber, profileImage,token,passwordUser;
 
 
     public User() {
 
     }
 
-    public User(String uid, String name, String phoneNumber) {
-        this.uid = uid;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
 
-    }
 
-    public User(String uid, String name, String phoneNumber, String profileImage) {
+    public User(String uid, String name, String phoneNumber, String profileImage,String passwordUser) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
+        this.passwordUser=passwordUser;
     }
 
     public String getUid() {
@@ -63,4 +59,11 @@ public class User {
         this.token = token;
     }
 
+    public String getPasswordUser() {
+        return passwordUser;
+    }
+
+    public void setPasswordUser(String passwordUser) {
+        this.passwordUser = passwordUser;
+    }
 }

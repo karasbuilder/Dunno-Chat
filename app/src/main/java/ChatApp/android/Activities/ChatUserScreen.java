@@ -129,7 +129,7 @@ public class ChatUserScreen extends AppCompatActivity {
         senderRoom = senderUid + receiverUid;
         receiverRoom = receiverUid + senderUid;
 
-        adapter = new MessageAdapter(this, messages, senderRoom, receiverRoom);
+        adapter = new MessageAdapter(this, messages, senderRoom, receiverRoom,binding.profile);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
 
@@ -187,7 +187,7 @@ public class ChatUserScreen extends AppCompatActivity {
                                         .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                sendNotification(name, message.getMessage(), token);
+                                                /*sendNotification(name, message.getMessage(), token);*/
                                             }
                                         });
                             }
@@ -241,7 +241,7 @@ public class ChatUserScreen extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    void sendNotification(String name, String message, String token) {
+    /*void sendNotification(String name, String message, String token) {
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -285,7 +285,7 @@ public class ChatUserScreen extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
