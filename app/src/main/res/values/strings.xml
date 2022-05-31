@@ -6,4 +6,11 @@
     <string name="sample_name">Sample Name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nam_of_your_account">Nam of your account</string>
+    <string name="view_my_profile">View my profile</string>
+    <string name="account">Account</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notification">Notification</string>
+    <string name="todo">TODO</string>
+    <string name="loadNotification">TODO</string>
 </resources>
