@@ -113,6 +113,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
     <EditText
         android:id="@+id/editTextConfirmPassword"
         android:layout_width="0dp"
@@ -129,7 +130,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLabelConfirmPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/textLabelConfirmPassword"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 

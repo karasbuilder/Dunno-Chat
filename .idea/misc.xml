@@ -57,7 +57,26 @@
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/toolbar_form1.xml" value="0.33" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/bottom_menu.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/top_menu.xml" value="0.29379485014774165" />
-        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/fragment_account_detail.xml" value="0.4781048097631012" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/drawable/btn_blue.xml" value="0.3485" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_chat_user_screen.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_confirm_phone_otp.xml" value="0.22631578947368422" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_main.xml" value="0.22631578947368422" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_phone_number_verify.xml" value="0.22631578947368422" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_set_up_account_sign_up.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_splash_screen.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/activity_user_home_chat.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/fragment_account_detail.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/fragment_contact_user.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/fragment_conversation_user.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/item_status.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/row_conversation_chat_component.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/sent_chat_component.xml" value="0.10762766645119587" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/sent_groupchat_component.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/test.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/toolbar_custom.xml" value="0.346875" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/toolbar_form1.xml" value="0.21907894736842104" />
+        <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/top_menu.xml" value="0.21693811074918568" />
       </map>
     </option>
   </component>

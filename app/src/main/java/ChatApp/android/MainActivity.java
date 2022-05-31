@@ -28,18 +28,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(MainActivity.this, UserHomeChat.class);
-                startActivity(intent);
-            }
-        });
-        btnSignUp=findViewById(R.id.btnSignUp);
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, PhoneNumberVerify.class);
                 startActivity(intent);
-
             }
         });
+
     }
 }

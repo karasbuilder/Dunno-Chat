@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -92,6 +93,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                                                     public void onSuccess(Void aVoid) {
                                                         dialog.dismiss();
                                                         Intent intent = new Intent(SetUpAccountSignUp.this, UserHomeChat.class);
+                                                        Toast.makeText(SetUpAccountSignUp.this, "User Created Successfully", Toast.LENGTH_SHORT).show();
                                                         startActivity(intent);
                                                         finish();
                                                     }
