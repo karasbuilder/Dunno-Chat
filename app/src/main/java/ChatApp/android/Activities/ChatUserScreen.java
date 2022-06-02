@@ -6,7 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +20,10 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
+
+import ChatApp.android.Button.HomeWatcher;
+import ChatApp.android.FloatingWidgetService;
+import ChatApp.android.GlobalStuff;
 import ChatApp.android.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -37,6 +46,7 @@ import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +56,7 @@ import java.util.Map;
 import ChatApp.android.Adapters.MessageAdapter;
 import ChatApp.android.Model.Message;
 import ChatApp.android.databinding.ActivityChatUserScreenBinding;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatUserScreen extends AppCompatActivity {
     ActivityChatUserScreenBinding binding;
@@ -62,7 +73,9 @@ public class ChatUserScreen extends AppCompatActivity {
     String senderUid;
     String receiverUid;
     String token;
+    String profile;
     String name;
+    boolean isBack = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +96,22 @@ public class ChatUserScreen extends AppCompatActivity {
         messages = new ArrayList<>();
 
 
-        String name = getIntent().getStringExtra("name");
-        String profile = getIntent().getStringExtra("image");
-        String token = getIntent().getStringExtra("token");
+        if (GlobalStuff.getIsBackground() == true) {
+            final SharedPreferences sp = getSharedPreferences("sdata", MODE_PRIVATE);
+            receiverUid = sp.getString("rUID",null);
+            senderUid = sp.getString("sUID",null);
+            name = sp.getString("name",null);;
+            profile = sp.getString("profile",null);
+            GlobalStuff.setIsBackground(false);
+        }
+        else
+        {
+            receiverUid = getIntent().getStringExtra("uid");
+            senderUid = FirebaseAuth.getInstance().getUid();
+            name = getIntent().getStringExtra("name");
+            profile = getIntent().getStringExtra("image");
+            token = getIntent().getStringExtra("token");
+        }
 
         //Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
 
@@ -97,12 +123,12 @@ public class ChatUserScreen extends AppCompatActivity {
         binding.imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isBack = true;
                 finish();
             }
         });
 
-        receiverUid = getIntent().getStringExtra("uid");
-        senderUid = FirebaseAuth.getInstance().getUid();
+
 
         database.getReference().child("presence").child(receiverUid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -233,12 +259,25 @@ public class ChatUserScreen extends AppCompatActivity {
             };
         });
 
-
+        GlobalStuff.setCurrentActivity(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 //        getSupportActionBar().setTitle(name);
 //
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        HomeWatcher mHomeWatcher = new HomeWatcher(this);
+        mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
+            @Override
+            public void onHomePressed() {
+                SaveData();
+                RetrieveImg();
+                GlobalStuff.setIsBackground(true);
+                startService(new Intent(getApplicationContext(), FloatingWidgetService.class));
+            }
+            @Override
+            public void onHomeLongPressed() {
+            }
+        });
+        mHomeWatcher.startWatch();
     }
 
     /*void sendNotification(String name, String message, String token) {
@@ -361,6 +400,7 @@ public class ChatUserScreen extends AppCompatActivity {
         super.onResume();
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Online");
+        stopService(new Intent(this, FloatingWidgetService.class));
     }
 
     @Override
@@ -381,4 +421,46 @@ public class ChatUserScreen extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
+
+    protected void SaveData() {
+        final SharedPreferences sp = getSharedPreferences("sdata", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("rUID", receiverUid);
+        editor.putString("sUID", senderUid);
+        editor.putString("name", name);
+        editor.putString("profile", profile);
+        GlobalStuff.setIsBackground(true);
+        editor.commit();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        isBack = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(isBack)
+        {
+            GlobalStuff.setIsBackground(false);
+            stopService(new Intent(this, FloatingWidgetService.class));
+        }
+        Runtime.getRuntime().gc();
+    }
+
+
+    private void RetrieveImg()
+    {
+        CircleImageView imageView = binding.profile;
+        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        Intent i = new Intent("getting_data");
+        bitmap.compress(Bitmap.CompressFormat.PNG, 60, bs);
+        i.putExtra("byteArray", bs.toByteArray());
+        sendBroadcast(i);
+    }
+
 }

@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,9 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ChatApp.android.Adapters.UserAdapter;
+import ChatApp.android.FloatingWidgetService;
 import ChatApp.android.Fragments.AccountDetail;
 import ChatApp.android.Fragments.ContactUser;
 import ChatApp.android.Fragments.ConversationUser;
+import ChatApp.android.GlobalStuff;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
 
@@ -85,4 +89,20 @@ public class UserHomeChat extends AppCompatActivity {
 
         transaction.commit();
     }
+
+        @Override
+        protected void onResume()
+        {
+            super.onResume();
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+        }
+
+        @Override
+        protected void onDestroy() {
+        super.onDestroy();
+        }
 }

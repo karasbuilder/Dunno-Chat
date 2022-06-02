@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
+        <service
+            android:name=".FloatingWidgetService"
+            android:enabled="true"
+            android:exported="false" />
         <activity
             android:name=".Activities.ChatUserScreen"
             android:exported="false" />

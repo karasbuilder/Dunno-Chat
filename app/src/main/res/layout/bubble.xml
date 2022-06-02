@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bubble_frame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--Root container-->
+    <RelativeLayout
+        android:id="@+id/root_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <!--View while view is collapsed-->
+        <RelativeLayout
+            android:id="@+id/collapse_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/bubble_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/avatar" />
+            </RelativeLayout>
+
+            <!--Close button-->
+            <ImageView
+                android:id="@+id/close_btn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="54dp"
+                android:src="@drawable/ic_baseline_close_12"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</FrameLayout>
