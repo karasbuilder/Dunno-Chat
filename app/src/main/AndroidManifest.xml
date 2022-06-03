@@ -3,6 +3,8 @@
     package="ChatApp.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,16 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
+        <activity
+            android:name=".Activities.ScanQrCode"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.GetQrCode"
+            android:exported="false" />
+
         <service
             android:name=".FloatingWidgetService"
             android:enabled="true"
             android:exported="false" />
+
         <activity
             android:name=".Activities.ChatUserScreen"
             android:exported="false" />
         <activity
             android:name=".Activities.UserHomeChat"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Activities.SetUpAccountSignUp"
             android:exported="false" />
@@ -43,6 +53,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

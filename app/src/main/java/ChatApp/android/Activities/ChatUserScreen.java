@@ -19,6 +19,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ChatApp.android.Button.HomeWatcher;
@@ -68,7 +69,6 @@ public class ChatUserScreen extends AppCompatActivity {
 
     FirebaseDatabase database;
     FirebaseStorage storage;
-
     ProgressDialog dialog;
     String senderUid;
     String receiverUid;
@@ -264,6 +264,11 @@ public class ChatUserScreen extends AppCompatActivity {
 //        getSupportActionBar().setTitle(name);
 //
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        onHomeButton();
+    }
+
+    private void onHomeButton()
+    {
         HomeWatcher mHomeWatcher = new HomeWatcher(this);
         mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
             @Override

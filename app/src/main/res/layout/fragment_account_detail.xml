@@ -237,6 +237,33 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/componentQrcodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_marginBottom="8sp"
+            android:gravity="fill_horizontal|center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16sp"
+            android:paddingEnd="16sp">
+
+            <ImageView
+                android:id="@+id/imageQrcode"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:src="@drawable/ic_baseline_qr_code_24" />
+
+            <TextView
+                android:id="@+id/textViewQrcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="My QR Code" />
+
+
+        </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -249,10 +276,10 @@
                 android:text="Log Out"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.453"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.157" />
+                app:layout_constraintVertical_bias="0.395" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

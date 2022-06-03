@@ -25,8 +25,7 @@
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="0dp"
-        android:layout_height="730dp"
-
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +40,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
+
+    <ImageButton
+        android:id="@+id/ImgButtonScanQRCode"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/ic_baseline_qr_code_scanner_24"
+        app:layout_constraintBottom_toBottomOf="@+id/customToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/customToolbar"
+        app:layout_constraintTop_toTopOf="@+id/customToolbar"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/ImgButtonSearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/ic_baseline_search_24"
+        app:layout_constraintBottom_toBottomOf="@+id/customToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/customToolbar"
+        app:layout_constraintTop_toTopOf="@+id/customToolbar"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

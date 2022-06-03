@@ -10,7 +10,7 @@
     android:background="?selectableItemBackground">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile"
+        android:id="@+id/QrProfile"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/avatar"
@@ -26,8 +26,8 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/profile"
-        app:layout_constraintTop_toTopOf="@+id/profile" />
+        app:layout_constraintStart_toEndOf="@+id/QrProfile"
+        app:layout_constraintTop_toTopOf="@+id/QrProfile" />
 
     <TextView
         android:id="@+id/lastMsg"
@@ -57,6 +57,6 @@
         android:background="#E4E4E4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile" />
+        app:layout_constraintTop_toBottomOf="@+id/QrProfile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

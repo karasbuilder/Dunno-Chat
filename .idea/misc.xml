@@ -58,16 +58,26 @@
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/bottom_menu.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/Admin/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/top_menu.xml" value="0.29379485014774165" />
         <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/layout/fragment_account_detail.xml" value="0.4781048097631012" />
+        <entry key="..\:/Users/ssonp/.gradle/caches/transforms-3/b797f1a319c249d73e01ad3f8b0b3ab6/transformed/CAMView-2.0.1/res/layout/camview_view_scanner.xml" value="0.1" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable-v24/bubble.xml" value="0.1785" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable-v24/circle_bg.xml" value="0.1785" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/circle_bg.xml" value="0.168" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/ic_baseline_close_12.xml" value="0.168" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/ic_baseline_qr_code_24.xml" value="0.1785" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/roundedbutton.xml" value="0.1785" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_chat_user_screen.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_confirm_phone_otp.xml" value="0.25" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_get_qr_code.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_scan_qr_code.xml" value="0.13272543059777103" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_scan_qr_code2.xml" value="0.23867753623188406" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_splash_screen.xml" value="0.10625" />
-        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_user_home_chat.xml" value="0.25" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_user_home_chat.xml" value="0.33" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/bubble.xml" value="0.5" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/delete_dialog.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/fragment_account_detail.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/fragment_contact_user.xml" value="0.26721014492753625" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/fragment_qr_code_scan_result.xml" value="0.33" />
       </map>
     </option>
   </component>
