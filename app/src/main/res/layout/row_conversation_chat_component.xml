@@ -10,7 +10,7 @@
     android:background="?selectableItemBackground">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/QrProfile"
+        android:id="@+id/profile"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/avatar"
