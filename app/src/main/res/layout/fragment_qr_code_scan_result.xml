@@ -1,70 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     tools:context=".Fragments.QrCodeScanResult">
 
-    <LinearLayout
-        android:id="@+id/profile_account_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/border_dash"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="16sp"
-        android:paddingTop="16sp"
-        android:paddingEnd="16sp"
-        android:paddingBottom="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/QrProfile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/avatar"
-            tools:ignore="ImageContrastCheck" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/profile_account_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/border_dash"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="16sp"
+            android:paddingTop="16sp"
+            android:paddingEnd="16sp"
+            android:paddingBottom="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/QrAccountName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/nam_of_your_account"
-                android:textSize="22sp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/QrProfile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/avatar"
+                tools:ignore="ImageContrastCheck" />
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/QrAccountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="account's name"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/ButtonAddFriend"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="70dp"
+            android:text="Add Friend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_account_layout" />
 
-    <Button
-        android:id="@+id/ButtonAddFriend"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="70dp"
-        android:text="Add Friend"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_account_layout" />
+        <Button
+            android:id="@+id/ButtonCancel"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="160dp"
+            android:text="Cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_account_layout" />
 
-    <Button
-        android:id="@+id/ButtonCancel"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="160dp"
-        android:text="Cancel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_account_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

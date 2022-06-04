@@ -20,6 +20,10 @@ public class GetQrCode extends AppCompatActivity {
     Button ConfirmBtn;
     ImageView QrCodeImage;
     TextView QrCodeInfo;
+    byte[] value;
+    String name;
+    Bitmap bitmap;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +48,25 @@ public class GetQrCode extends AppCompatActivity {
     {
         QrCodeImage = findViewById(R.id.QRCodeImg);
         QrCodeInfo = findViewById(R.id.TextViewQrCodeInfo);
-        Intent intent=getIntent();
-        byte[] value = intent.getByteArrayExtra("QRCodebyteArray");
-        String info = intent.getStringExtra("QRCodeInfo");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(value, 0, value.length);
+        intent=getIntent();
+        value = intent.getByteArrayExtra("QRCodebyteArray");
+        name = intent.getStringExtra("QRCodeInfo");
+        bitmap = BitmapFactory.decodeByteArray(value, 0, value.length);
         QrCodeImage.setImageBitmap(bitmap);
-        QrCodeInfo.setText("Dunno Chat: " + info);
+        QrCodeInfo.setText("Dunno Chat: " + name);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ConfirmBtn = null;
+        QrCodeImage= null;
+        QrCodeInfo= null;
+        value= null;
+        name= null;
+        bitmap= null;
+        intent= null;
+        Runtime.getRuntime().gc();
+    }
+
 }

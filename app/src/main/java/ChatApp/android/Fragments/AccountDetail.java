@@ -89,7 +89,6 @@ public class AccountDetail extends Fragment {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Toast.makeText(getActivity(), "Sign Out from App", Toast.LENGTH_SHORT).show();
                 auth.signOut();
                 Intent intent=new Intent(getActivity(), MainActivity.class);
@@ -106,22 +105,20 @@ public class AccountDetail extends Fragment {
         txtGetQrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = user.getName();
-                    // Initialize multi format writer
+                String current_name = user.getName();
+                String current_uid = user.getUid();
+
                     MultiFormatWriter writer = new MultiFormatWriter();
-                    // Initialize bit matrix
+
                     try {
-                        BitMatrix matrix = writer.encode(data, BarcodeFormat.QR_CODE, 200, 200);
-                        // Initialize barcode encoder
+                        BitMatrix matrix = writer.encode(current_uid, BarcodeFormat.QR_CODE, 200, 200);
                         BarcodeEncoder encoder = new BarcodeEncoder();
-                        // Initialize Bitmap
                         Bitmap bitmap = encoder.createBitmap(matrix);
-                        //set bitmap on image view
                         ByteArrayOutputStream bs = new ByteArrayOutputStream();
                         Intent i = new Intent(getActivity(),GetQrCode.class);
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 90, bs);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 80, bs);
                         i.putExtra("QRCodebyteArray", bs.toByteArray());
-                        i.putExtra("QRCodeInfo", data);
+                        i.putExtra("QRCodeInfo", current_name);
                         startActivity(i);
 
                     } catch (WriterException e) {

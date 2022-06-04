@@ -445,17 +445,6 @@ public class ChatUserScreen extends AppCompatActivity {
         isBack = true;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(isBack)
-        {
-            GlobalStuff.setIsBackground(false);
-            stopService(new Intent(this, FloatingWidgetService.class));
-        }
-        Runtime.getRuntime().gc();
-    }
-
 
     private void RetrieveImg()
     {
@@ -468,4 +457,14 @@ public class ChatUserScreen extends AppCompatActivity {
         sendBroadcast(i);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(isBack)
+        {
+            GlobalStuff.setIsBackground(false);
+            stopService(new Intent(this, FloatingWidgetService.class));
+        }
+        Runtime.getRuntime().gc();
+    }
 }

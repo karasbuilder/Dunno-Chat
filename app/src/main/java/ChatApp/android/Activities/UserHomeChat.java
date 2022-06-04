@@ -34,6 +34,7 @@ import ChatApp.android.FloatingWidgetService;
 import ChatApp.android.Fragments.AccountDetail;
 import ChatApp.android.Fragments.ContactUser;
 import ChatApp.android.Fragments.ConversationUser;
+import ChatApp.android.Fragments.QrCodeScanResult;
 import ChatApp.android.GlobalStuff;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
@@ -46,11 +47,11 @@ public class UserHomeChat extends AppCompatActivity {
     private ActivityUserHomeChatBinding binding;
 
     ImageButton ButtonScanQRCode;
-    User user;
     ConversationUser conversationUserFragment=new ConversationUser();
     AccountDetail accountDetailFragment=new AccountDetail();
     ContactUser contactUserFragment=new ContactUser();
     BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +107,13 @@ public class UserHomeChat extends AppCompatActivity {
 
         @Override
         protected void onDestroy() {
-        super.onDestroy();
+            super.onDestroy();
+            ButtonScanQRCode = null;
+            conversationUserFragment =null;
+            accountDetailFragment=null;
+            contactUserFragment=null;
+            bottomNavigationView=null;
+            bottomNavigationView.setOnItemSelectedListener(null);
         }
 
     private void onScanQRCode()

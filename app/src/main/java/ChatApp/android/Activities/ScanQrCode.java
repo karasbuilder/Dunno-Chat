@@ -8,19 +8,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ChatApp.android.FloatingWidgetService;
+import ChatApp.android.Fragments.QrCodeScanResult;
+import ChatApp.android.GlobalStuff;
 import ChatApp.android.R;
 import eu.livotov.labs.android.camview.ScannerLiveView;
 import eu.livotov.labs.android.camview.scanner.decoder.zxing.ZXDecoder;
 
 public class ScanQrCode extends AppCompatActivity {
 
-    private ScannerLiveView scannerLiveView;
-    public String scannedTextView;
+    ScannerLiveView scannerLiveView;
+    String current_uid;
+    QrCodeScanResult qcsr = new QrCodeScanResult();
+    ZXDecoder decoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +58,18 @@ public class ScanQrCode extends AppCompatActivity {
             }
 
             @Override
-            public void onCodeScanned(String data) {
+            public void onCodeScanned(String scanned_data) {
 
-                scannedTextView = data;
+                current_uid = scanned_data;
+                Bundle bundle = new Bundle();
+                bundle.putString("scanned_UID", current_uid);
+                qcsr.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.qrcodescanframe_layout,qcsr)
+                        .addToBackStack("ScanQRCode")
+                        .commit();
             }
         });
-
-
     }
 
     private boolean checkPermission(){
@@ -81,7 +92,7 @@ public class ScanQrCode extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ZXDecoder decoder = new ZXDecoder();
+        decoder = new ZXDecoder();
         decoder.setScanAreaPercent(0.8);
         scannerLiveView.setDecoder(decoder);
         scannerLiveView.startScanner();
@@ -101,4 +112,14 @@ public class ScanQrCode extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        scannerLiveView.setScannerViewEventListener(null);
+        scannerLiveView = null;
+        current_uid = null;
+        qcsr  = null;
+        decoder = null;
+        Runtime.getRuntime().gc();
+    }
 }
