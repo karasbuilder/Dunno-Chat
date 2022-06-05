@@ -20,8 +20,7 @@ public class SectionContactAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position){
-            case 0:
-                return  new FriendsContact();
+
             case 1:
                 return new GroupsContact();
             default:
