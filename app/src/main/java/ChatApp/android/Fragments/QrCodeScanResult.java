@@ -80,7 +80,6 @@ public class QrCodeScanResult extends Fragment {
         cancelbtn = null;
         binding = null;
         reference = null;
-        reference.addValueEventListener(null);
         cancelbtn.setOnClickListener(null);
         Runtime.getRuntime().gc();
     }

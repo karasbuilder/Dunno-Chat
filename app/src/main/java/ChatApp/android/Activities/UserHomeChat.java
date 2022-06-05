@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +43,7 @@ import ChatApp.android.databinding.FragmentConversationUserBinding;
 public class UserHomeChat extends AppCompatActivity {
     private ActivityUserHomeChatBinding binding;
 
-
+    ImageButton ButtonScanQRCode;
     User user;
     ConversationUser conversationUserFragment=new ConversationUser();
     AccountDetail accountDetailFragment=new AccountDetail();
@@ -76,6 +79,7 @@ public class UserHomeChat extends AppCompatActivity {
               return false;
           }
       });
+      onScanQRCode();
 }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,5 +93,17 @@ public class UserHomeChat extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, fragment);
 
         transaction.commit();
+    }
+
+    private void onScanQRCode()
+    {
+        ButtonScanQRCode = findViewById(R.id.ButtonQrScan);
+        ButtonScanQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);
+                startActivity(i);
+            }
+        });
     }
 }

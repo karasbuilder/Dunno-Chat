@@ -1,47 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bubble_frame"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--Root container-->
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
 
-        <!--View while view is collapsed-->
-        <RelativeLayout
-            android:id="@+id/collapse_view"
+        <TextView
+            android:id="@+id/txtchatpop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:background="@drawable/roundedtextview"
+            android:paddingStart="5dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="2dp"
+            android:text="Test test"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.513"
+            tools:layout_editor_absoluteX="173dp" />
 
-            <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/circle_bg">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bubble_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/avatar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="175dp" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/bubble_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/avatar" />
-            </RelativeLayout>
-
-            <!--Close button-->
-            <ImageView
-                android:id="@+id/close_btn"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginLeft="54dp"
-                android:src="@drawable/ic_baseline_close_12"
-                tools:ignore="ContentDescription" />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_baseline_close_12"
+            app:layout_constraintEnd_toEndOf="@+id/bubble_img"
+            app:layout_constraintStart_toEndOf="@+id/bubble_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

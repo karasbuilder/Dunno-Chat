@@ -18,8 +18,14 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Build;
+
+import android.os.CountDownTimer;
+
+import android.os.Handler;
+
 import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,6 +34,12 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import android.widget.Toast;
+
+import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.NotificationCompat;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,8 +51,16 @@ public class FloatingWidgetService extends Service {
     private View mFloatingView;
     private Point szWindow = new Point();
     private WindowManager.LayoutParams params;
-    private boolean isLeft = true;
-    private CircleImageView BubbleImage;
+
+    public boolean isLeft = true;
+    public CircleImageView BubbleImage;
+    public DisplayMetrics metrics;
+    public int windowWidth;
+    public ConstraintLayout constraintLayout;
+    public ConstraintSet constraintSet = new ConstraintSet();
+    public String receive_text;
+    public TextView txtBubbleText;
+
     BroadcastReceiver broadcastReceiver;
 
 
@@ -63,7 +83,7 @@ public class FloatingWidgetService extends Service {
             startForeground(1, new Notification());
         //Inflate the floating view layout we created
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.bubble, null);
-        FrameLayout bubble = mFloatingView.findViewById(R.id.bubble_frame);
+        //FrameLayout bubble = mFloatingView.findViewById(R.id.bubble_frame);
 
         int LAYOUT_FLAG;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -88,7 +108,6 @@ public class FloatingWidgetService extends Service {
                     PixelFormat.TRANSLUCENT);
             szWindow.set(width, height);
         }
-        //
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -99,16 +118,27 @@ public class FloatingWidgetService extends Service {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imgbyte, 0, imgbyte.length);
                     BubbleImage.setImageBitmap(bitmap);
                 }
+                if (action.equalsIgnoreCase("getting_text")) {
+                    receive_text = intent.getStringExtra("receive_text");
+                    txtBubbleText = mFloatingView.findViewById(R.id.txtchatpop);
+                    txtBubbleText.setVisibility(View.VISIBLE);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Hide your View after 3 seconds
+                            txtBubbleText.setText(receive_text);
+                            txtBubbleText.setVisibility(View.GONE);
+                        }
+                    }, 3000);
+                }
             }
         };
 
         IntentFilter intentFilter = new IntentFilter();
-        // set the custom action
         intentFilter.addAction("getting_data");
-        // register the receiver
         registerReceiver(broadcastReceiver, intentFilter);
 
-        //
         //Specify the view position
         params.gravity = Gravity.TOP | Gravity.LEFT;        //Initially view will be added to top-left corner
         params.x = 0;
@@ -131,10 +161,9 @@ public class FloatingWidgetService extends Service {
         mFloatingView.findViewById(R.id.root_container).setOnTouchListener(new View.OnTouchListener() {
             DisplayMetrics metrics = getResources().getDisplayMetrics();
             int windowWidth = metrics.widthPixels;
+            int windowHeight = metrics.heightPixels;
             private int initialX;
             private int initialY;
-            long time_start;
-            long time_end;
             private float initialTouchX;
             private float initialTouchY;
 
@@ -152,46 +181,39 @@ public class FloatingWidgetService extends Service {
                         initialTouchY = event.getRawY();
                         return true;
                     case MotionEvent.ACTION_UP:
-                        time_start = System.currentTimeMillis();
+
                         int Xdiff = (int) (event.getRawX() - initialTouchX);
                         int Ydiff = (int) (event.getRawY() - initialTouchY);
 
-                        if (Math.abs(Xdiff) != 0 || Math.abs(Ydiff) != 0)
-                        {
+                        if (Xdiff != 0 || Ydiff !=0 ) {
                             resetPosition((int) event.getRawX());
                         }
-
-                        //The check for Xdiff <10 && YDiff< 10 because sometime elements moves a little while clicking.
                         //
-                        if (Math.abs(Xdiff) < 10 && Math.abs(Ydiff) < 10) {
-                            if ((time_end - time_start) < 300) {
-                                time_end = System.currentTimeMillis();
-                                Activity currentactivity = GlobalStuff.getCurrentActivity();
-                                Intent intent = new Intent(getApplicationContext(), currentactivity.getClass());
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("fromwhere", "ser");
-                                PendingIntent pendingIntent =
-                                        PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-                                try {
-                                    pendingIntent.send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    e.printStackTrace();
-                                }
+                        if (Math.abs(Xdiff) < 5 && Math.abs(Ydiff) < 5) {
+                            Activity currentactivity = GlobalStuff.getCurrentActivity();
+                            Intent intent = new Intent(getApplicationContext(), currentactivity.getClass());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("fromwhere","ser");
+                            PendingIntent pendingIntent =
+                                    PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+                            try {
+                                pendingIntent.send();
+                            } catch (PendingIntent.CanceledException e) {
+                                e.printStackTrace();
                             }
                         }
+
                         return true;
                     case MotionEvent.ACTION_MOVE:
-                        Xdiff = (int) (event.getRawX() - initialTouchX);
-//                        Ydiff = (int) (event.getRawY() - initialTouchY);
-//                        Log.d("test",String.valueOf(Xdiff) + " - "+String.valueOf(Ydiff));
+
                         //Calculate the X and Y coordinates of the view.
+
+                        Xdiff = (int) (event.getRawX() - initialTouchX);
+                        resetMessagePosition((int) event.getRawX());
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
-                        if(Xdiff < 0)
-                        {
-                            params.x = params.x - 150;
-                        }
-                        //Update the layout with new X & Y coordinate
+
                         mWindowManager.updateViewLayout(mFloatingView, params);
                         return true;
                 }
@@ -200,11 +222,9 @@ public class FloatingWidgetService extends Service {
         });
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
         if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
     }
 
@@ -232,22 +252,21 @@ public class FloatingWidgetService extends Service {
     }
 
     private void moveToLeft() {
-        ValueAnimator va = ValueAnimator.ofFloat(params.x, 0);
-        int mDuration = 100;
-        va.setDuration(mDuration);
-        va.addUpdateListener(animation -> {
-            params.x = Math.round((Float) animation.getAnimatedValue());
-            mWindowManager.updateViewLayout(mFloatingView, params);
-        });
-        va.start();
+                ValueAnimator va = ValueAnimator.ofFloat(params.x, 0);
+                int mDuration = 250;
+                va.setDuration(mDuration);
+                va.addUpdateListener(animation -> {
+                    params.x = Math.round((Float) animation.getAnimatedValue());
+                    mWindowManager.updateViewLayout(mFloatingView, params);
+                });
+                va.start();
     }
 
-    /*  Method to move the Floating widget view to Right  */
     private void moveToRight() {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        int windowWidth = metrics.widthPixels;
+        metrics = getResources().getDisplayMetrics();
+        windowWidth = metrics.widthPixels;
         ValueAnimator va = ValueAnimator.ofFloat(params.x, windowWidth);
-        int mDuration = 100;
+        int mDuration = 250;
         va.setDuration(mDuration);
         va.addUpdateListener(animation -> {
             params.x = Math.round((Float) animation.getAnimatedValue());
@@ -257,16 +276,35 @@ public class FloatingWidgetService extends Service {
     }
 
     private void resetPosition(int x_cord_now) {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        int windowWidth = metrics.widthPixels;
-        if (x_cord_now <= windowWidth / 2) {
-            isLeft = true;
-            moveToLeft();
-        } else {
-            isLeft = false;
-            moveToRight();
-        }
+        metrics = getResources().getDisplayMetrics();
+        windowWidth = metrics.widthPixels;
+        if (x_cord_now <= szWindow.x / 2) {
+                isLeft = true;
+                moveToLeft();
+            } else {
+                isLeft = false;
+                moveToRight();
+            }
+
     }
 
+    private void resetMessagePosition(int x_cord_now) {
+        metrics = getResources().getDisplayMetrics();
+        constraintLayout = mFloatingView.findViewById(R.id.root_container);
+        constraintSet.clone(constraintLayout);
+        windowWidth = metrics.widthPixels;
+        constraintSet.clear(R.id.txtchatpop,ConstraintSet.START);
+        constraintSet.clear(R.id.txtchatpop,ConstraintSet.END);
+        constraintSet.clear(R.id.bubble_img,ConstraintSet.END);
+        if (x_cord_now <= windowWidth / 2) {
+            isLeft = true;
+            constraintSet.connect(R.id.txtchatpop,ConstraintSet.START,R.id.bubble_img,ConstraintSet.END,5);
+        } else {
+            isLeft = false;
+            constraintSet.connect(R.id.txtchatpop,ConstraintSet.END,R.id.bubble_img,ConstraintSet.START,5);
+            constraintSet.connect(R.id.bubble_img,ConstraintSet.END,R.id.txtchatpop,ConstraintSet.START,5);
+        }
+        constraintSet.applyTo(constraintLayout);
+    }
 
 }

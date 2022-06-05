@@ -3,28 +3,35 @@ package ChatApp.android.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ChatApp.android.Button.HomeWatcher;
 import ChatApp.android.FloatingWidgetService;
 import ChatApp.android.GlobalStuff;
+
+import ChatApp.android.MainActivity;
+
 import ChatApp.android.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -37,9 +44,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -64,18 +74,19 @@ public class ChatUserScreen extends AppCompatActivity {
 
     MessageAdapter adapter;
     ArrayList<Message> messages;
+    boolean isBack = false;
 
     String senderRoom, receiverRoom;
-
+    CircleImageView imageView;
     FirebaseDatabase database;
     FirebaseStorage storage;
+
     ProgressDialog dialog;
     String senderUid;
     String receiverUid;
     String token;
     String profile;
     String name;
-    boolean isBack = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +105,6 @@ public class ChatUserScreen extends AppCompatActivity {
         dialog.setCancelable(false);
 
         messages = new ArrayList<>();
-
 
         if (GlobalStuff.getIsBackground() == true) {
             final SharedPreferences sp = getSharedPreferences("sdata", MODE_PRIVATE);
@@ -123,12 +133,9 @@ public class ChatUserScreen extends AppCompatActivity {
         binding.imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isBack = true;
                 finish();
             }
         });
-
-
 
         database.getReference().child("presence").child(receiverUid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -171,7 +178,6 @@ public class ChatUserScreen extends AppCompatActivity {
                             message.setMessageId(snapshot1.getKey());
                             messages.add(message);
                         }
-
                         adapter.notifyDataSetChanged();
                     }
 
@@ -180,6 +186,41 @@ public class ChatUserScreen extends AppCompatActivity {
 
                     }
                 });
+
+
+        Query query =  database.getReference().child("chats")
+                .child(senderRoom).child("messages");
+
+        query.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.child("senderId").getValue().toString() == senderUid) {
+                    String data = snapshot.child("message").getValue().toString();
+                    Log.d("RECEIVE MESSAGE: ", data);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,12 +300,12 @@ public class ChatUserScreen extends AppCompatActivity {
             };
         });
 
-        GlobalStuff.setCurrentActivity(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        GlobalStuff.setCurrentActivity(this);
+        onHomeButton();
 //        getSupportActionBar().setTitle(name);
 //
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        onHomeButton();
     }
 
     private void onHomeButton()
@@ -284,6 +325,7 @@ public class ChatUserScreen extends AppCompatActivity {
         });
         mHomeWatcher.startWatch();
     }
+
 
     /*void sendNotification(String name, String message, String token) {
         try {
@@ -405,6 +447,7 @@ public class ChatUserScreen extends AppCompatActivity {
         super.onResume();
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Online");
+        GlobalStuff.setIsBackground(false);
         stopService(new Intent(this, FloatingWidgetService.class));
     }
 
@@ -413,6 +456,7 @@ public class ChatUserScreen extends AppCompatActivity {
         super.onPause();
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Offline");
+        finish();
     }
 
     @Override
@@ -448,7 +492,7 @@ public class ChatUserScreen extends AppCompatActivity {
 
     private void RetrieveImg()
     {
-        CircleImageView imageView = binding.profile;
+        imageView = binding.profile;
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream bs = new ByteArrayOutputStream();
         Intent i = new Intent("getting_data");
@@ -460,11 +504,6 @@ public class ChatUserScreen extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(isBack)
-        {
-            GlobalStuff.setIsBackground(false);
-            stopService(new Intent(this, FloatingWidgetService.class));
-        }
         Runtime.getRuntime().gc();
     }
 }
