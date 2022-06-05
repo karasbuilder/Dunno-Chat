@@ -3,14 +3,15 @@
 buildscript {
     repositories {
         // Check that you have the following line (if not, add it):
-        google()  // Google's Maven repository
+        google()
+        mavenCentral()
         jcenter()
 
 
     }
     dependencies {
 
-        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath "com.android.tools.build:gradle:7.0.0"
         classpath 'com.google.gms:google-services:4.3.4'
 
     }
@@ -24,10 +25,9 @@ allprojects {
 
     repositories {
         // Check that you have the following line (if not, add it):
-        google()  // Google's Maven repository
-        jcenter()
-        maven { url "https://jitpack.io" }
 
+        maven { url "https://jitpack.io" }
+        google()  // Google's Maven repository
 
     }
 }

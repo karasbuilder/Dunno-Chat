@@ -34,4 +34,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        btnSignIn = null;
+        btnSignUp= null;
+        btnSignIn.setOnClickListener(null);
+        Runtime.getRuntime().gc();
+    }
 }
