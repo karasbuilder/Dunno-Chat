@@ -11,4 +11,6 @@
     <color name="input_text">#E8F5E9</color>
     <color name="btn_purple">#8184CB</color>
     <color name="greenDark">#28852C</color>
+    <color name="speech_bubble_user">#6F74EC</color>
+    <color name="speech_bubble_agent">#F7F7F7</color>
 </resources>
