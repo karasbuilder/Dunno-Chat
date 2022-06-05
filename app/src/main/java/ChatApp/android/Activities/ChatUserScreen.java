@@ -58,6 +58,7 @@ import com.google.firebase.storage.UploadTask;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,6 +75,7 @@ public class ChatUserScreen extends AppCompatActivity {
 
     MessageAdapter adapter;
     ArrayList<Message> messages;
+
     boolean isBack = false;
 
     String senderRoom, receiverRoom;
@@ -378,6 +380,7 @@ public class ChatUserScreen extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 25) {
+
             if(data != null) {
                 if(data.getData() != null) {
                     Uri selectedImage = data.getData();
