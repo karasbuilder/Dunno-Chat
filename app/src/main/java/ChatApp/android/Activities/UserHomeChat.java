@@ -29,6 +29,7 @@ import ChatApp.android.Adapters.UserAdapter;
 import ChatApp.android.Fragments.AccountDetail;
 import ChatApp.android.Fragments.ContactUser;
 import ChatApp.android.Fragments.ConversationUser;
+import ChatApp.android.Fragments.Timelines;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
 
@@ -44,6 +45,7 @@ public class UserHomeChat extends AppCompatActivity {
     ConversationUser conversationUserFragment=new ConversationUser();
     AccountDetail accountDetailFragment=new AccountDetail();
     ContactUser contactUserFragment=new ContactUser();
+    Timelines timelinesFragment=new Timelines();
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +63,11 @@ public class UserHomeChat extends AppCompatActivity {
                       getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,conversationUserFragment).commit();
                       return  true;
                   case R.id.contact:
-                      Toast.makeText(UserHomeChat.this, "Click to Contact", Toast.LENGTH_LONG).show();
+
                       getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,contactUserFragment).commit();
+                      return true;
+                  case R.id.timeline:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,timelinesFragment).commit();
                       return true;
                   case R.id.account:
                       getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,accountDetailFragment).commit();

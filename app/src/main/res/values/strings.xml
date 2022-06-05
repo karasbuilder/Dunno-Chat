@@ -12,5 +12,7 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="notification">Notification</string>
     <string name="todo">TODO</string>
-    <string name="loadNotification">TODO</string>
+    <string name="loadNotification">Load Notification</string>
+
+
 </resources>

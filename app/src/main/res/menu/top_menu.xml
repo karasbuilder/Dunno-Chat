@@ -3,17 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/search"
+        android:id="@+id/call"
         android:icon="@drawable/ic_call"
         android:title="Search"
         app:showAsAction="always" />
     <item
-        android:id="@+id/plus"
+        android:id="@+id/contact"
         android:icon="@drawable/ic_contact"
         android:title="Plus"
         app:showAsAction="always" />
     <item
-        android:id="@+id/scan"
+
         android:title="Create group" />
     <item android:title="Add friend" />
     <item android:title="Dunno Calendar" />

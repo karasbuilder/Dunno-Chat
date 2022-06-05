@@ -4,6 +4,9 @@ public class Status {
     private String imageUrl;
     private long timeStamp;
 
+
+
+    private String contentStatus;
     public Status() {
     }
 
@@ -26,5 +29,12 @@ public class Status {
 
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+    public String getContentStatus() {
+        return contentStatus;
+    }
+
+    public void setContentStatus(String contentStatus) {
+        this.contentStatus = contentStatus;
     }
 }

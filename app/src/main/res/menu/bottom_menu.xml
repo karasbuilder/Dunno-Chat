@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_contact"
         android:title="Contacts" />
     <item
-        android:id="@+id/history"
+        android:id="@+id/timeline"
         android:icon="@drawable/ic_history"
-        android:title="Histories" />
+        android:title="Time Line" />
     <item
         android:id="@+id/account"
         android:icon="@drawable/ic_account"

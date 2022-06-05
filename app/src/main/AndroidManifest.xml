@@ -12,11 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
+            android:name=".GroupChatScreen"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ChatUserScreen"
             android:exported="false" />
         <activity
             android:name=".Activities.UserHomeChat"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Activities.SetUpAccountSignUp"
             android:exported="false" />
