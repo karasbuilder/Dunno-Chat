@@ -31,6 +31,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -38,9 +40,20 @@ import android.widget.Toast;
 
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,8 +73,13 @@ public class FloatingWidgetService extends Service {
     public ConstraintSet constraintSet = new ConstraintSet();
     public String receive_text;
     public TextView txtBubbleText;
-
-    BroadcastReceiver broadcastReceiver;
+    long oldtime;
+    long newtime;
+    public Bitmap bitmap;
+    public FirebaseDatabase database;
+    String senderRoom;
+    String receiverUid;
+    String data;
 
 
     public FloatingWidgetService() {
@@ -69,7 +87,7 @@ public class FloatingWidgetService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return (IBinder) intent;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -81,9 +99,12 @@ public class FloatingWidgetService extends Service {
             startMyOwnForeground();
         else
             startForeground(1, new Notification());
-        //Inflate the floating view layout we created
+
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.bubble, null);
         //FrameLayout bubble = mFloatingView.findViewById(R.id.bubble_frame);
+        BubbleImage = mFloatingView.findViewById(R.id.bubble_img);
+        txtBubbleText = mFloatingView.findViewById(R.id.txtchatpop);
+        txtBubbleText.setVisibility(View.GONE);
 
         int LAYOUT_FLAG;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -109,41 +130,13 @@ public class FloatingWidgetService extends Service {
             szWindow.set(width, height);
         }
 
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (action.equalsIgnoreCase("getting_data")) {
-                    byte[] imgbyte = intent.getByteArrayExtra("byteArray");
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(imgbyte, 0, imgbyte.length);
-                    BubbleImage.setImageBitmap(bitmap);
-                }
-                if (action.equalsIgnoreCase("getting_text")) {
-                    receive_text = intent.getStringExtra("receive_text");
-                    txtBubbleText = mFloatingView.findViewById(R.id.txtchatpop);
-                    txtBubbleText.setVisibility(View.VISIBLE);
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Hide your View after 3 seconds
-                            txtBubbleText.setText(receive_text);
-                            txtBubbleText.setVisibility(View.GONE);
-                        }
-                    }, 3000);
-                }
-            }
-        };
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("getting_data");
-        registerReceiver(broadcastReceiver, intentFilter);
-
         //Specify the view position
         params.gravity = Gravity.TOP | Gravity.LEFT;        //Initially view will be added to top-left corner
         params.x = 0;
         params.y = 100;
 
+        //
+        resetMessagePosition( params.x);
         //Add the view to the window
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         mWindowManager.addView(mFloatingView, params);
@@ -185,15 +178,11 @@ public class FloatingWidgetService extends Service {
                         int Xdiff = (int) (event.getRawX() - initialTouchX);
                         int Ydiff = (int) (event.getRawY() - initialTouchY);
 
-                        if (Xdiff != 0 || Ydiff !=0 ) {
-                            resetPosition((int) event.getRawX());
-                        }
                         //
-                        if (Math.abs(Xdiff) < 5 && Math.abs(Ydiff) < 5) {
+                        if (Math.abs(Xdiff) < 3 && Math.abs(Ydiff) < 3) {
                             Activity currentactivity = GlobalStuff.getCurrentActivity();
                             Intent intent = new Intent(getApplicationContext(), currentactivity.getClass());
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("fromwhere","ser");
                             PendingIntent pendingIntent =
                                     PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
@@ -202,6 +191,10 @@ public class FloatingWidgetService extends Service {
                             } catch (PendingIntent.CanceledException e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        if (Xdiff != 0 || Ydiff !=0 ) {
+                            resetPosition((int) event.getRawX());
                         }
 
                         return true;
@@ -214,6 +207,10 @@ public class FloatingWidgetService extends Service {
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
 
+                        if(Xdiff < 0)
+                        {
+                            params.x -= 180;
+                        }
                         mWindowManager.updateViewLayout(mFloatingView, params);
                         return true;
                 }
@@ -223,9 +220,14 @@ public class FloatingWidgetService extends Service {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
+    public int onStartCommand (Intent intent, int flags, int startId) {
+            byte[] imgbyte = intent.getByteArrayExtra("byteArray");
+            bitmap = BitmapFactory.decodeByteArray(imgbyte, 0, imgbyte.length);
+            BubbleImage.setImageBitmap(bitmap);
+            senderRoom = intent.getStringExtra("sender_room");
+            receiverUid = intent.getStringExtra("receiver_uid");
+            ReceiveMessageListen();
+        return START_NOT_STICKY;
     }
 
     private void startMyOwnForeground() {
@@ -253,10 +255,11 @@ public class FloatingWidgetService extends Service {
 
     private void moveToLeft() {
                 ValueAnimator va = ValueAnimator.ofFloat(params.x, 0);
-                int mDuration = 250;
+                int mDuration = 180;
                 va.setDuration(mDuration);
                 va.addUpdateListener(animation -> {
                     params.x = Math.round((Float) animation.getAnimatedValue());
+                    if(mFloatingView.getWindowToken() != null)
                     mWindowManager.updateViewLayout(mFloatingView, params);
                 });
                 va.start();
@@ -266,7 +269,7 @@ public class FloatingWidgetService extends Service {
         metrics = getResources().getDisplayMetrics();
         windowWidth = metrics.widthPixels;
         ValueAnimator va = ValueAnimator.ofFloat(params.x, windowWidth);
-        int mDuration = 250;
+        int mDuration = 180;
         va.setDuration(mDuration);
         va.addUpdateListener(animation -> {
             params.x = Math.round((Float) animation.getAnimatedValue());
@@ -278,7 +281,7 @@ public class FloatingWidgetService extends Service {
     private void resetPosition(int x_cord_now) {
         metrics = getResources().getDisplayMetrics();
         windowWidth = metrics.widthPixels;
-        if (x_cord_now <= szWindow.x / 2) {
+        if (x_cord_now <= windowWidth / 2) {
                 isLeft = true;
                 moveToLeft();
             } else {
@@ -306,5 +309,77 @@ public class FloatingWidgetService extends Service {
         }
         constraintSet.applyTo(constraintLayout);
     }
+
+    private void ReceiveMessageListen()
+    {
+        database = FirebaseDatabase.getInstance();
+        Query query =  database.getReference().child("chats")
+                .child(senderRoom).child("messages");
+        query.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener(){
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.child("senderId").getValue().toString().equals(receiverUid)) {
+                    Date date = new Date();
+                    newtime = date.getTime();
+                    oldtime = Long.parseLong(snapshot.child("timestamp").getValue().toString());
+                    if(newtime - oldtime <= 980)
+                    {
+                        data = snapshot.child("message").getValue().toString();
+                        txtBubbleText = mFloatingView.findViewById(R.id.txtchatpop);
+                        txtBubbleText.setText(data);
+                        txtBubbleText.setVisibility(View.VISIBLE);
+                        AlphaAnimation alphaAnim = new AlphaAnimation(1.0f,0.0f);
+                        alphaAnim.setStartOffset(500);
+                        alphaAnim.setDuration(800);
+                        alphaAnim.setAnimationListener(new Animation.AnimationListener()
+                        {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            public void onAnimationEnd(Animation animation)
+                            {
+                                txtBubbleText.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        txtBubbleText.setAnimation(alphaAnim);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
 
 }

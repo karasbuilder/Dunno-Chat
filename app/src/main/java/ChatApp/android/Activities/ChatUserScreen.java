@@ -8,9 +8,12 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -87,6 +90,7 @@ public class ChatUserScreen extends AppCompatActivity {
     String token;
     String profile;
     String name;
+    public boolean recentAppClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,40 +191,9 @@ public class ChatUserScreen extends AppCompatActivity {
                     }
                 });
 
+        //Get latest message////////////
 
-        Query query =  database.getReference().child("chats")
-                .child(senderRoom).child("messages");
-
-        query.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.child("senderId").getValue().toString() == senderUid) {
-                    String data = snapshot.child("message").getValue().toString();
-                    Log.d("RECEIVE MESSAGE: ", data);
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        //////////////////
 
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,25 +280,6 @@ public class ChatUserScreen extends AppCompatActivity {
 //
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    private void onHomeButton()
-    {
-        HomeWatcher mHomeWatcher = new HomeWatcher(this);
-        mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
-            @Override
-            public void onHomePressed() {
-                SaveData();
-                RetrieveImg();
-                GlobalStuff.setIsBackground(true);
-                startService(new Intent(getApplicationContext(), FloatingWidgetService.class));
-            }
-            @Override
-            public void onHomeLongPressed() {
-            }
-        });
-        mHomeWatcher.startWatch();
-    }
-
 
     /*void sendNotification(String name, String message, String token) {
         try {
@@ -456,7 +410,6 @@ public class ChatUserScreen extends AppCompatActivity {
         super.onPause();
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Offline");
-        finish();
     }
 
     @Override
@@ -489,21 +442,60 @@ public class ChatUserScreen extends AppCompatActivity {
         isBack = true;
     }
 
+    private void onHomeButton()
+    {
+        recentAppClicked = false;
+        HomeWatcher mHomeWatcher = new HomeWatcher(this);
+        mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
+            @Override
+            public void onHomePressed() {
+                if(recentAppClicked == false) {
+                    SaveData();
+                    RetrieveData();
+                    GlobalStuff.setIsBackground(true);
+                    //finish();
+                }
+                recentAppClicked = false;
+            }
+            @Override
+            public void onHomeLongPressed() {
+                if(isMyServiceRunning(FloatingWidgetService.class)){
+                    GlobalStuff.setIsBackground(false);
+                    stopService(new Intent(ChatUserScreen.this, FloatingWidgetService.class));
+                }
+                recentAppClicked = true;
+            }
+        });
+        mHomeWatcher.startWatch();
+    }
 
-    private void RetrieveImg()
+    private void RetrieveData()
     {
         imageView = binding.profile;
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        Intent i = new Intent("getting_data");
+        Intent i = new Intent(ChatUserScreen.this, FloatingWidgetService.class);
         bitmap.compress(Bitmap.CompressFormat.PNG, 60, bs);
+        i.putExtra(android.content.Intent.EXTRA_TEXT,senderRoom);
         i.putExtra("byteArray", bs.toByteArray());
-        sendBroadcast(i);
+        i.putExtra("sender_room", senderRoom);
+        i.putExtra("receiver_uid", receiverUid);
+        startService(i);
+
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Runtime.getRuntime().gc();
     }
 }
