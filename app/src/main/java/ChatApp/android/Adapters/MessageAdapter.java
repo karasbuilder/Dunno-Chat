@@ -20,7 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import ChatApp.android.R;
 import ChatApp.android.Model.Message;
 import ChatApp.android.databinding.DeleteDialogBinding;
@@ -75,6 +79,8 @@ public class MessageAdapter  extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message message = messages.get(position);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        //setting prepare format datetime and convert from time stamp to date
 
         int reactions[] = new int[]{
                 R.drawable.ic_fb_like,
@@ -139,6 +145,9 @@ public class MessageAdapter  extends RecyclerView.Adapter {
             }
 
             viewHolder.binding.message.setText(message.getMessage());
+            //convert time stamp from firebase to data load into component
+            long time=message.getTimestamp();
+            viewHolder.binding.timeStamp.setText(dateFormat.format(new Date(time)));
 
             if(message.getFeeling() >= 0) {
                 viewHolder.binding.feeling.setImageResource(reactions[message.getFeeling()]);
@@ -229,16 +238,21 @@ public class MessageAdapter  extends RecyclerView.Adapter {
             });
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder)holder;
-            if(message.getMessage().equals("photo")) {
+            /*if(message.getMessage().equals("photo")) {
                 viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
                 Glide.with(context)
                         .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholder)
                         .into(viewHolder.binding.image);
-            }
+            }*/
             viewHolder.binding.message.setText(message.getMessage());
 
+            //convert time stamp from firebase to data load into component
+            long time=message.getTimestamp();
+            viewHolder.binding.timeStamp.setText(dateFormat.format(new Date(time)));
+
+           //viewHolder.binding.timeStamp.setText("No no");
             if(message.getFeeling() >= 0) {
                 //message.setFeeling(reactions[message.getFeeling()]);
                 viewHolder.binding.feeling.setImageResource(reactions[message.getFeeling()]);
@@ -255,13 +269,13 @@ public class MessageAdapter  extends RecyclerView.Adapter {
                 }
             });
 
-            viewHolder.binding.image.setOnTouchListener(new View.OnTouchListener() {
+           /* *viewHolder.binding.image.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     popup.onTouch(v, event);
                     return false;
                 }
-            });
+            });*/
 
             viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

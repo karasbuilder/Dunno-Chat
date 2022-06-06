@@ -3,10 +3,9 @@ package ChatApp.android.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 
 import android.app.ProgressDialog;
@@ -28,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import ChatApp.android.Adapters.UserAdapter;
 import ChatApp.android.Fragments.AccountDetail;
 import ChatApp.android.Fragments.ContactUser;
 import ChatApp.android.Fragments.ConversationUser;
@@ -37,7 +35,6 @@ import ChatApp.android.Model.User;
 import ChatApp.android.R;
 
 import ChatApp.android.databinding.ActivityUserHomeChatBinding;
-import ChatApp.android.databinding.FragmentConversationUserBinding;
 
 
 public class UserHomeChat extends AppCompatActivity {
