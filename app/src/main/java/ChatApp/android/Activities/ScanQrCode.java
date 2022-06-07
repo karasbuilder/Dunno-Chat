@@ -8,15 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import ChatApp.android.FloatingWidgetService;
 import ChatApp.android.Fragments.QrCodeScanResult;
-import ChatApp.android.GlobalStuff;
 import ChatApp.android.R;
 import eu.livotov.labs.android.camview.ScannerLiveView;
 import eu.livotov.labs.android.camview.scanner.decoder.zxing.ZXDecoder;

@@ -23,9 +23,15 @@
         <activity
             android:name=".Activities.EditProfile"
             android:exported="false" />
-
         <service
-            android:name=".FloatingWidgetService"
+            android:name=".Services.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Services.FloatingWidgetService"
             android:enabled="true"
             android:exported="false" />
 

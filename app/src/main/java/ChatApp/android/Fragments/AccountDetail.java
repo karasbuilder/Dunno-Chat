@@ -28,6 +28,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 
 import java.io.ByteArrayOutputStream;
@@ -99,7 +104,7 @@ public class AccountDetail extends Fragment {
         });
         System.out.println(auth.getCurrentUser().getUid());
         onSignOutAccount();
-      //  onGetQrCode();
+        onGetQrCode();
         return view;
     }
     public void onSignOutAccount(){
@@ -117,7 +122,7 @@ public class AccountDetail extends Fragment {
 
     }
 
-  /*  public void onGetQrCode()
+  public void onGetQrCode()
     {
         txtGetQrCode = binding.textViewQrcode;
         txtGetQrCode.setOnClickListener(new View.OnClickListener() {
@@ -144,9 +149,5 @@ public class AccountDetail extends Fragment {
                     }
             }
         });
-    }*/
-
-
-
-
+    }
 }

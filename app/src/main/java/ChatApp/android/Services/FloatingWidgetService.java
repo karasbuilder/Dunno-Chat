@@ -1,4 +1,4 @@
-package ChatApp.android;
+package ChatApp.android.Services;
 
 import android.animation.ValueAnimator;
 import android.app.Service;
@@ -42,6 +42,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.NotificationCompat;
 
+import ChatApp.android.GlobalStuff;
+import ChatApp.android.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
