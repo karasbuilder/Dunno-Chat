@@ -66,7 +66,8 @@ public class UserHomeChat extends AppCompatActivity {
 //        FirebaseMessaging.getInstance().getToken()
 //                .addOnCompleteListener(task -> {
 //                    if (task.isSuccessful() && task.getResult() != null) {
-//                        new PushNotificationHelper().execute(task.getResult());
+//                        NotificationModel nm = new NotificationModel(task.getResult(),"test","haha");
+//                        new PushNotificationSender().execute(nm);
 //                            Log.d("TOKEN",task.getResult());
 //                            Log.d("STATUS","success");
 //                    }

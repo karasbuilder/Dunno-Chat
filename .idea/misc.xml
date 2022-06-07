@@ -91,7 +91,11 @@
         <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/menu_home.xml" value="0.22631578947368422" />
         <entry key="..\:/Users/Admin/OneDrive/Desktop/Android Project/Dunno_Chat/app/src/main/res/menu/top_menu.xml" value="0.21693811074918568" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable-v24/circle_bg.xml" value="0.272" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/btn_endcall.xml" value="0.208" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.251" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/ic_baseline_call_end_24.xml" value="0.208" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/ic_close_black_24dp.xml" value="0.208" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/sent_drawable.xml" value="0.208" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/white_call_end.xml" value="0.251" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/drawable/white_call_end_80.xml" value="0.272" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_chat_user_screen.xml" value="0.33" />
@@ -107,9 +111,13 @@
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/row_conversation_chat_component.xml" value="0.1" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/sent_chat_component.xml" value="0.1" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/sent_groupchat_component.xml" value="0.1" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/small_video_view_dock.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/test.xml" value="0.1" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/toolbar_custom.xml" value="0.11296296296296296" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/toolbar_form1.xml" value="0.11296296296296296" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/user_control_mask.xml" value="0.10364583333333334" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/video_view_container.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/videocalltest.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/menu/top_menu.xml" value="0.2765625" />
       </map>
     </option>

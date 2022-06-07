@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ChatApp.android">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -15,6 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".GridVideoViewContainer.java"
+            android:exported="false" />
+
         <service
             android:name=".Services.MyFirebaseMessagingService"
             android:exported="false">
@@ -22,6 +28,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".Activities.VideoCallIn"
             android:exported="false" />

@@ -9,8 +9,6 @@ public class User {
 
     }
 
-
-
     public User(String uid, String name, String phoneNumber, String profileImage,String passwordUser) {
         this.uid = uid;
         this.name = name;

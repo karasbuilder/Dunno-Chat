@@ -5,7 +5,7 @@
     <item
         android:id="@+id/call"
         android:icon="@drawable/ic_call"
-        android:title="Search"
+        android:title="Call"
         app:showAsAction="always" />
     <item
         android:id="@+id/contact"

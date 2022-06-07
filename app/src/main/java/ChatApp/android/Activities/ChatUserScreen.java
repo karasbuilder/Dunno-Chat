@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import ChatApp.android.Button.HomeWatcher;
@@ -69,6 +70,7 @@ public class ChatUserScreen extends AppCompatActivity {
     String token;
     String profile;
     String name;
+
     public boolean recentAppClicked;
 
     @Override
@@ -93,8 +95,9 @@ public class ChatUserScreen extends AppCompatActivity {
             final SharedPreferences sp = getSharedPreferences("sdata", MODE_PRIVATE);
             receiverUid = sp.getString("rUID",null);
             senderUid = sp.getString("sUID",null);
-            name = sp.getString("name",null);;
+            name = sp.getString("name",null);
             profile = sp.getString("profile",null);
+            token = sp.getString("token",null);
             GlobalStuff.setIsBackground(false);
         }
         else
@@ -170,10 +173,6 @@ public class ChatUserScreen extends AppCompatActivity {
                     }
                 });
 
-        //Get latest message////////////
-
-        //////////////////
-
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +220,7 @@ public class ChatUserScreen extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, 25);
+                startActivity(intent);
             }
         });
 
@@ -395,6 +394,18 @@ public class ChatUserScreen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_menu, menu);
+        menu.findItem(R.id.call).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(ChatUserScreen.this, VideoCallOut.class);
+                intent.putExtra("callreceiver",receiverUid);
+                intent.putExtra("callsender",senderUid);
+                intent.putExtra("callsender_token", token);
+                intent.putExtra("callreceiver_name", name);
+                startActivity(intent);
+                return true;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -411,6 +422,7 @@ public class ChatUserScreen extends AppCompatActivity {
         editor.putString("sUID", senderUid);
         editor.putString("name", name);
         editor.putString("profile", profile);
+        editor.putString("token", token);
         GlobalStuff.setIsBackground(true);
         editor.commit();
     }

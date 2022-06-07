@@ -13,4 +13,5 @@
     <color name="greenDark">#28852C</color>
     <color name="speech_bubble_user">#6F74EC</color>
     <color name="speech_bubble_agent">#F7F7F7</color>
+    <color name="blue">#00B8D4</color>
 </resources>

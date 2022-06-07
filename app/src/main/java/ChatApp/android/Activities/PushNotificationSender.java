@@ -17,12 +17,15 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Arrays;
 
-public class PushNotificationHelper extends AsyncTask<String, String, String> {
+public class PushNotificationSender extends AsyncTask<NotificationModel, Void, Void> {
     public final static String AUTH_KEY_FCM = "AAAAV2nuKLE:APA91bEYryE8KuV7I2Hs7MR4-8vnTSShBYaKz95_cbiBK-_bIwcv-aerF5-KpaCi3nmQkFAtQkQzR_PJjDbonHJXeWWeAboSJBbeaC-VDBsNArZbvHxNGTXdD5tLb6g0UThTv20CWaui";
     public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
     @Override
-    protected String doInBackground(String... deviceToken) {
+    protected Void doInBackground(NotificationModel... nmodel) {
+        String rawtoken = nmodel[0].receiver_token;
+        String title = nmodel[0].title;
+        String body = nmodel[0].body;
 
         URL url = null;
         try {
@@ -50,17 +53,18 @@ public class PushNotificationHelper extends AsyncTask<String, String, String> {
 
         JSONObject json = new JSONObject();
 
-        StringBuilder builder = new StringBuilder();
-        for (String value : deviceToken) {
-            builder.append(value);
-        }
-        String token = builder.toString();
+//        StringBuilder builder = new StringBuilder();
+//        for (String value : rawtoken) {
+//            builder.append(value);
+//        }
+//        String token = builder.toString();
+
         try {
-            json.put("to", token);
+            json.put("to", rawtoken);
             json.put("color", "#FF33CC");
             JSONObject info = new JSONObject();
-            info.put("title", "TEST"); // Notification title
-            info.put("body", "Dang test tinh nang"); // Notification
+            info.put("title", title); // Notification title
+            info.put("body", body); // Notification
             // body
             json.put("notification", info);
         } catch (JSONException e) {
@@ -84,6 +88,12 @@ public class PushNotificationHelper extends AsyncTask<String, String, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        ///Cleanup after operation
+        nmodel[0].receiver_token = null;
+        nmodel[0].title = null;
+        nmodel[0].body = null;
+        ///
         return null;
     }
+
 }

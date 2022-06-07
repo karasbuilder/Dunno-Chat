@@ -8,6 +8,7 @@ buildscript {
         jcenter()
 
 
+
     }
     dependencies {
 
@@ -24,10 +25,13 @@ plugins {
 allprojects {
 
     repositories {
-        // Check that you have the following line (if not, add it):
 
-        maven { url "https://jitpack.io" }
-        google()  // Google's Maven repository
+        jcenter()
+        maven { url 'https://www.jitpack.io'}
+        google()
+        mavenCentral()
+
+
 
     }
 }

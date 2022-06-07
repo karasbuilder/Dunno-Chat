@@ -33,18 +33,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        if(isAppForeground()){
-            // Handle notification silently without displaying in notification tray
-        }else {
-
-            if (remoteMessage.getNotification() != null) {
-                //Log.d(TAG, "Current useruid: " + user.getUid());
-                String body = remoteMessage.getNotification().getBody();
-                String title = remoteMessage.getNotification().getTitle();
-                //int color = Integer.parseInt(remoteMessage.getNotification().getColor());
-                sendNotification(body, title);
-            }
+        if (remoteMessage.getNotification() != null) {
+            String body = remoteMessage.getNotification().getBody();
+            String title = remoteMessage.getNotification().getTitle();
+            sendNotification(body, title);
         }
+//        if(isAppForeground()){
+//            // Handle notification silently without displaying in notification tray
+//        }else {
+//
+//            if (remoteMessage.getNotification() != null) {
+//                //Log.d(TAG, "Current useruid: " + user.getUid());
+//                String body = remoteMessage.getNotification().getBody();
+//                String title = remoteMessage.getNotification().getTitle();
+//                //int color = Integer.parseInt(remoteMessage.getNotification().getColor());
+//                sendNotification(body, title);
+//            }
+//        }
     }
 
     @Override
@@ -59,7 +64,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendNotification(String messageBody, String messageTitle) {
         Intent intent = new Intent(this, UserHomeChat.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = getString(R.string.project_id);
