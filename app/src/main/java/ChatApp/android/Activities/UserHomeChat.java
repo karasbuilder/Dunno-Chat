@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ChatApp.android.Fragments.AccountDetail;
@@ -55,7 +60,19 @@ public class UserHomeChat extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,conversationUserFragment).commit();
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
 
-      bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        //String token = FirebaseMessaging.getInstance().getToken().toString();
+        //Log.d("TOKEN",token);
+        //FirebaseMessaging.getInstance().deleteToken();
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful() && task.getResult() != null) {
+//                        new PushNotificationHelper().execute(task.getResult());
+//                            Log.d("TOKEN",task.getResult());
+//                            Log.d("STATUS","success");
+//                    }
+//                });
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
               switch (item.getItemId()){
@@ -103,4 +120,7 @@ public class UserHomeChat extends AppCompatActivity {
             }
         });
     }
+    
+
+    
 }

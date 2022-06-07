@@ -13,14 +13,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.DunnoChat">
+        android:theme="@style/Theme.DunnoChat"
+        android:usesCleartextTraffic="true">
+        <service
+            android:name=".Services.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <activity
+            android:name=".Activities.VideoCallIn"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.VideoCallOut"
+            android:exported="false" />
         <activity
             android:name=".Activities.VideoCall"
             android:exported="false" />
 
         <service
-            android:name=".FloatingWidgetService"
+            android:name=".Services.FloatingWidgetService"
             android:enabled="true"
             android:exported="true" />
 

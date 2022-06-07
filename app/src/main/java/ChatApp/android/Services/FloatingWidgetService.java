@@ -1,4 +1,4 @@
-package ChatApp.android;
+package ChatApp.android.Services;
 
 import android.animation.ValueAnimator;
 import android.app.Service;
@@ -55,6 +55,8 @@ import com.google.firebase.database.Query;
 
 import java.util.Date;
 
+import ChatApp.android.GlobalStuff;
+import ChatApp.android.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
