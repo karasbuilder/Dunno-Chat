@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "375439370417",
+    "firebase_url": "https://dunnochat-default-rtdb.firebaseio.com",
     "project_id": "dunnochat",
     "storage_bucket": "dunnochat.appspot.com"
   },

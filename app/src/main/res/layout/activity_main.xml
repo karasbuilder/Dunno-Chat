@@ -17,7 +17,7 @@
         android:textColor="#354C8C"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,10 +30,11 @@
         android:layout_marginEnd="16dp"
         android:autoStart="true"
         android:flipInterval="2000"
+        android:textSize="26sp"
         android:inAnimation="@android:anim/slide_in_left"
         android:outAnimation="@android:anim/slide_out_right"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.498"
+
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
@@ -161,7 +162,7 @@
         android:paddingTop="12sp"
         android:paddingEnd="48sp"
         android:paddingBottom="12sp"
-        android:text="Get Started"
+        android:text="Sign In"
         android:textColor="#EAE5E5"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -169,5 +170,28 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewDunnoFlipper" />
+
+    <TextView
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_red_primary"
+        android:gravity="center"
+        android:paddingStart="48sp"
+        android:paddingTop="12sp"
+        android:paddingEnd="48sp"
+        android:paddingBottom="12sp"
+        android:text="Sign Up"
+        android:textColor="#EAE5E5"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

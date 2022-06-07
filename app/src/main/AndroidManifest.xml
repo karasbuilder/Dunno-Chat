@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -17,10 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".GridVideoViewContainer.java"
-            android:exported="false" />
-
         <service
             android:name=".Services.MyFirebaseMessagingService"
             android:exported="false">
@@ -38,12 +35,24 @@
         <activity
             android:name=".Activities.VideoCall"
             android:exported="false" />
-
         <service
             android:name=".Services.FloatingWidgetService"
             android:enabled="true"
             android:exported="true" />
-
+        android:theme="@style/Theme.DunnoChat">
+        <activity
+            android:name=".Activities.SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SignIn"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.EditProfile"
+            android:exported="false" />
+        <service
+            android:name=".Services.FloatingWidgetService"
+            android:enabled="true"
+            android:exported="false" />
         <activity
             android:name=".Activities.ScanQrCode"
             android:exported="false" />

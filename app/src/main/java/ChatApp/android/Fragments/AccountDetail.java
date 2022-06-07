@@ -1,11 +1,14 @@
 package ChatApp.android.Fragments;
 
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 
+import ChatApp.android.Activities.EditProfile;
 import ChatApp.android.Activities.GetQrCode;
 import ChatApp.android.Activities.PhoneNumberVerify;
+import ChatApp.android.Activities.UserHomeChat;
 import ChatApp.android.MainActivity;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
@@ -45,6 +51,8 @@ public class AccountDetail extends Fragment {
     TextView txtGetQrCode;
     FragmentAccountDetailBinding binding;
     User user;
+    LinearLayout openVEditProfile;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,20 @@ public class AccountDetail extends Fragment {
 
         binding= FragmentAccountDetailBinding.inflate(inflater,container,false);
         View view=binding.getRoot();
+
+        //initialize get permission camera and storage
+
+        //set get content tool of custom detail
+        openVEditProfile=binding.profileAccountLayout;
+
+        openVEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
         auth=FirebaseAuth.getInstance();
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
         reference.addValueEventListener(new ValueEventListener() {
@@ -123,5 +145,8 @@ public class AccountDetail extends Fragment {
             }
         });
     }*/
+
+
+
 
 }

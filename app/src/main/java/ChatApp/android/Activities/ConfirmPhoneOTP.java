@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -15,8 +16,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -25,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +42,9 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
 
     private ActivityConfirmPhoneOtpBinding binding;
     FirebaseAuth auth;
+    FirebaseUser user;
+
+    String phoneNumber;
     String verificationID;
     ProgressDialog dialog;
     DatabaseReference reference;
@@ -58,11 +65,12 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.show();
 
-        String phoneNumber = getIntent().getStringExtra("phoneNumber");
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
         binding.txtPhoneNumber.setText(phoneNumber);
         auth = FirebaseAuth.getInstance();
-
+        user=auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
+
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber(phoneNumber)
                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -100,38 +108,13 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
 
             @Override
             public void onOTPComplete(String otp) {
-                // fired when user has entered the OTP fully.
+
+
+
+               //link multiple authentication
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID, otp);
-                auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            dialog.setMessage("Verified");
-                            dialog.setCancelable(false);
-                            dialog.show();
+                linkCredential(credential);
 
-                            DatabaseReference phoneRefs = reference.child("users").child(auth.getUid()).child(phoneNumber);
-
-                            Intent intent=new Intent(ConfirmPhoneOTP.this,SetUpAccountSignUp.class);
-                            startActivity(intent);
-                            finish();
-                           /* if(phoneRefs!=null){
-                                Intent intent=new Intent(ConfirmPhoneOTP.this,UserHomeChat.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else{
-                                Intent intent=new Intent(ConfirmPhoneOTP.this,SetUpAccountSignUp.class);
-                                startActivity(intent);
-                                finish();
-                            }
-*/
-
-                        } else {
-                            Toast.makeText(ConfirmPhoneOTP.this, "Failed Verification Code", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
 
 
             }
@@ -139,5 +122,35 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
 
 
     }
+    public void linkCredential(AuthCredential credential) {
+        auth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            dialog.setMessage("Verified");
+                            dialog.setCancelable(false);
+                            dialog.show();
+
+                            FirebaseUser user=task.getResult().getUser();
+                            Toast.makeText(ConfirmPhoneOTP.this, user.getEmail()+"|||"+user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+
+
+
+                            Intent intent=new Intent(ConfirmPhoneOTP.this,SetUpAccountSignUp.class);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+
+
+
+                            Toast.makeText(ConfirmPhoneOTP.this, "Failed to merge" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
+
 
 }
