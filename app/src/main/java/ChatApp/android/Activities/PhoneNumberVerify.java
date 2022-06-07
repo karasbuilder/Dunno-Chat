@@ -31,11 +31,11 @@ public class PhoneNumberVerify extends AppCompatActivity {
         //check if the auth has already
         auth = FirebaseAuth.getInstance();
 
-        if(auth.getCurrentUser() != null) {
+       /* if(auth.getCurrentUser() != null) {
             Intent intent = new Intent(PhoneNumberVerify.this, UserHomeChat.class);
             startActivity(intent);
             finish();
-        }
+        }*/
         binding.inputPhoneNumber.requestFocus();
 
         binding.btnSend.setOnClickListener(new View.OnClickListener() {

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ChatApp.android.Activities.PhoneNumberVerify;
+import ChatApp.android.Activities.SignIn;
+import ChatApp.android.Activities.SignUp;
 import ChatApp.android.Activities.UserHomeChat;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,13 +25,24 @@ public class MainActivity extends AppCompatActivity {
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();*/
 
+        btnSignUp=findViewById(R.id.btnSignUp);
         btnSignIn=findViewById(R.id.btnSignIn);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //set onclick sign In event
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Intent intent=new Intent(MainActivity.this, PhoneNumberVerify.class);
+                Intent intent=new Intent(MainActivity.this, SignIn.class);
                 startActivity(intent);
+
             }
         });
 

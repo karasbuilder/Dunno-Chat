@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,20 +28,30 @@ import java.util.HashMap;
 import ChatApp.android.Model.User;
 import ChatApp.android.databinding.ActivitySetUpAccountSignUpBinding;
 
+import ChatApp.android.R;
+
 public class SetUpAccountSignUp extends AppCompatActivity {
     private ActivitySetUpAccountSignUpBinding binding;
     FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
+
+    Uri coverImage;
     Uri selectedImage;
     ProgressDialog dialog;
 
+    String gender;
+    RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivitySetUpAccountSignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //set id initialize
+        radioGroup=binding.genderSelect;
 
+
+        //initialized
         dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");
         dialog.setCancelable(false);
@@ -47,6 +59,27 @@ public class SetUpAccountSignUp extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        //set event radio group
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton=radioGroup.findViewById(checkedId);
+                gender=radioButton.getText().toString();
+            }
+        });
+
+        //set cover image event
+        binding.coverImageUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, 45);
+            }
+        });
+
+        //get image profile event
         binding.imgViewSetUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,17 +89,29 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                 startActivityForResult(intent, 45);
             }
         });
+        //User(String uid, String name, String phoneNumber,String email,String passwordUser ,String profileImage,String coverImage)
+
         binding.btnSaveSetting.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //initialize attribute of user model
                 String name=binding.editUserNameSetting.getText().toString();
+                String address=binding.editTextAddress.getText().toString();
+
+                String phone=auth.getCurrentUser().getPhoneNumber();
+                String email=auth.getCurrentUser().getEmail();
+                String uid = auth.getCurrentUser().getUid();
+                String password="";
+
                 if(name.isEmpty()){
                     binding.editUserNameSetting.setError("Please Enter your name");
                     return;
                 }
                 dialog.show();
+
                 if(selectedImage != null) {
-                    StorageReference reference = storage.getReference().child("Profiles").child(auth.getUid());
+
+                    StorageReference reference = storage.getReference().child("Profiles").child(FirebaseAuth.getInstance().getUid());
                     reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -75,14 +120,11 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String imageUrl = uri.toString();
+                                        String coverURL="NORUl";
 
-                                        String uid = auth.getUid();
-                                        String phone = auth.getCurrentUser().getPhoneNumber();
-                                        String name = binding.editUserNameSetting.getText().toString();
-                                        String password=binding.editTextPassword.getText().toString();
-                                        String confirmPassword=binding.editTextConfirmPassword.getText().toString();
 
-                                        User user = new User(uid, name, phone, imageUrl,password);
+
+                                        User user = new User(uid, name, phone,email,password,imageUrl,coverURL,address,gender);
 
                                         database.getReference()
                                                 .child("users")
@@ -104,11 +146,10 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                         }
                     });
                 } else {
-                    String uid = auth.getUid();
-                    String phone = auth.getCurrentUser().getPhoneNumber();
-                    String password=binding.editTextPassword.getText().toString();
-                    String confirmPassword=binding.editTextConfirmPassword.getText().toString();
-                    User user = new User(uid, name, phone, "No Image",password);
+
+
+
+                    User user = new User(uid, name, phone,email,password,"imageUrl","coverURL",address,gender);
 
                     database.getReference()
                             .child("users")
@@ -170,4 +211,5 @@ public class SetUpAccountSignUp extends AppCompatActivity {
             }
         }
     }
+
 }

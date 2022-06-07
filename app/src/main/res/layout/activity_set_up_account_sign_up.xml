@@ -9,12 +9,21 @@
     tools:context=".Activities.SetUpAccountSignUp">
 
 
+    <ImageView
+        android:id="@+id/coverImageUser"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/blank_border" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgViewSetUp"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
@@ -68,14 +77,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
 
-
     <TextView
-        android:id="@+id/textLabelPassword"
+        android:id="@+id/textLabelConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Password"
+        android:layout_marginTop="20dp"
+        android:text="Address"
         android:textColor="#222020"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -83,39 +91,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUserNameSetting" />
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLabelPassword" />
-
-
-
-    <TextView
-        android:id="@+id/textLabelConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Confirm Password"
-        android:textColor="#222020"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <EditText
-        android:id="@+id/editTextConfirmPassword"
+        android:id="@+id/editTextAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -123,7 +101,7 @@
         android:layout_marginEnd="16dp"
         android:drawableEnd="@drawable/ic_close"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:minHeight="48dp"
         android:paddingStart="6sp"
         android:textSize="12sp"
@@ -132,10 +110,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLabelConfirmPassword"
         tools:ignore="SpeakableTextPresentCheck" />
-
-
-
-
 
     <TextView
         android:id="@+id/textView16"
@@ -166,6 +140,45 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/genderSelect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddress" >
+
+
+        <TextView
+            android:id="@+id/labelGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_weight="0"
+            android:text="Gender: "
+            android:textColor="#393636"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radio_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/radio_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Female" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
