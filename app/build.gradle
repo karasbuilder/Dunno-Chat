@@ -59,9 +59,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.2'
     implementation ('eu.livotov.labs.android:CAMView:2.0.1@aar') {transitive=true}
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
-    implementation 'com.github.agorabuilder:agora-full-preview:4.0.0'
-    //implementation 'io.agora.rtc:full-sdk:3.0.0.2'
-    implementation 'io.agora.rtm:rtm-sdk:1.2.2'
+    implementation ('org.jitsi.react:jitsi-meet-sdk:4.1.0') { transitive = true }
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

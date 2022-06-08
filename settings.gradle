@@ -15,7 +15,10 @@ dependencyResolutionManagement {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
             // jitpack repo is necessary to fetch ucrop dependency
-            maven { url "https://jitpack.io" }
+            maven { url "https://jitpack.io"
+                maven {
+                    url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+                }}
         }
     }
 }

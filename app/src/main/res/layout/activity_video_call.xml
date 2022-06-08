@@ -1,91 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".Activities.VideoCall">
 
-    <ChatApp.android.GridVideoViewContainer
-        android:id="@+id/grid_video_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ViewStub
-        android:id="@+id/small_video_view_dock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:inflatedId="@id/small_video_view_dock"
-        android:layout="@layout/small_video_view_dock" />
-
     <LinearLayout
-        android:id="@+id/layout_show_friends"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:background="#F1F1F1"
-        android:layout_marginTop="120dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Agora Houseparty"
-            android:textSize="20dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="20dp"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_show_friendList"
-            android:layout_width="match_parent"
-            android:layout_height="320dp"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/control_panel"
+        android:id="@+id/callControlLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/control_bottom_margin">
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
 
         <ImageView
-            android:id="@+id/start_call_end_call_btn"
-            android:layout_width="@dimen/call_button_size"
-            android:layout_height="@dimen/call_button_size"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_close_black_24dp"
-            android:scaleType="centerCrop"/>
+            android:id="@+id/btntoggleVideo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="#99000000"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_videocam_24" />
 
         <ImageView
-            android:id="@+id/switch_camera_btn"
-            android:layout_width="@dimen/other_button_size"
-            android:layout_height="@dimen/other_button_size"
-
-            android:layout_toLeftOf="@id/start_call_end_call_btn"
-            android:layout_toStartOf="@id/start_call_end_call_btn"
-            android:layout_marginRight="@dimen/control_bottom_horizontal_margin"
-
-            android:layout_centerVertical="true"
-            android:onClick="onSwitchCameraClicked"
-            android:src="@drawable/btn_switch_camera"
-            android:scaleType="centerCrop"/>
+            android:id="@+id/btnendCall"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="36dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_call_end_24" />
 
         <ImageView
-            android:id="@+id/audio_mute_audio_unmute_btn"
-            android:layout_width="@dimen/other_button_size"
-            android:layout_height="@dimen/other_button_size"
-            android:layout_toRightOf="@id/start_call_end_call_btn"
-            android:layout_toEndOf="@id/start_call_end_call_btn"
-            android:layout_marginLeft="@dimen/control_bottom_horizontal_margin"
+            android:id="@+id/btntoggleMic"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="36dp"
+            android:background="#99000000"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_mic_24" />
 
-            android:layout_centerVertical="true"
-            android:onClick="onLocalAudioMuteClicked"
-            android:src="@drawable/btn_unmute"
-            android:scaleType="centerCrop"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

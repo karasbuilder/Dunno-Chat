@@ -254,56 +254,11 @@ public class ChatUserScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         GlobalStuff.setCurrentActivity(this);
         onHomeButton();
+        checkCallInvitation();
 //        getSupportActionBar().setTitle(name);
 //
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    /*void sendNotification(String name, String message, String token) {
-        try {
-            RequestQueue queue = Volley.newRequestQueue(this);
-
-            String url = "https://fcm.googleapis.com/fcm/send";
-
-            JSONObject data = new JSONObject();
-            data.put("title", name);
-            data.put("body", message);
-            JSONObject notificationData = new JSONObject();
-            notificationData.put("notification", data);
-            notificationData.put("to",token);
-
-            JsonObjectRequest request = new JsonObjectRequest(url, notificationData
-                    , new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    // Toast.makeText(ChatActivity.this, "success", Toast.LENGTH_SHORT).show();
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                  //  Toast.makeText(ChatUserScreen.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> map = new HashMap<>();
-                    String key = "Key=AAAASn2Fs4A:APA91bGdTVxFBP-V0NN_zLjQTUb7yr9Shy0sYcSN2MvHxTksz11FktDxUt44hKD3CyD2ghCX61RGJW25F0mBPpTBrSArmo9emaKP8HqRQGe5A8vrdygKbY-Kfph9YvaeQnPmif5a1Zr7";
-                    map.put("Content-Type", "application/json");
-                    map.put("Authorization", key);
-
-                    return map;
-                }
-            };
-
-            queue.add(request);
-
-
-        } catch (Exception ex) {
-
-        }
-
-
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -398,10 +353,12 @@ public class ChatUserScreen extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(ChatUserScreen.this, VideoCallOut.class);
-                intent.putExtra("callreceiver",receiverUid);
-                intent.putExtra("callsender",senderUid);
+                intent.putExtra("callreceiver_uid",receiverUid);
+                intent.putExtra("callsender_uid",senderUid);
                 intent.putExtra("callsender_token", token);
                 intent.putExtra("callreceiver_name", name);
+                intent.putExtra("callsender_room", receiverRoom);
+                intent.putExtra("callreceiver_room", senderRoom);
                 startActivity(intent);
                 return true;
             }
@@ -474,6 +431,30 @@ public class ChatUserScreen extends AppCompatActivity {
         i.putExtra("receiver_uid", receiverUid);
         startService(i);
 
+    }
+
+    //Check if someone video called
+    private void checkCallInvitation()
+    {
+        FirebaseDatabase.getInstance().getReference("videochat").child(receiverRoom).child("res").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String sender_response = snapshot.getValue().toString();
+                if(sender_response == "true")
+                {
+                    Intent intent = new Intent(ChatUserScreen.this, VideoCallIn.class);
+                    intent.putExtra("callsender_room", receiverRoom);
+                    intent.putExtra("callreceiver_room", senderRoom);
+                    intent.putExtra("callsender_name", name);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

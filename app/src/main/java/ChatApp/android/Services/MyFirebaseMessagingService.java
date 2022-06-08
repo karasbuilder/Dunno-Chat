@@ -22,6 +22,7 @@ import java.util.List;
 
 import ChatApp.android.Activities.ChatUserScreen;
 import ChatApp.android.Activities.UserHomeChat;
+import ChatApp.android.Activities.VideoCallIn;
 import ChatApp.android.MainActivity;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
@@ -29,14 +30,20 @@ import ChatApp.android.R;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "DunnoFirebaseService";
 
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         if (remoteMessage.getNotification() != null) {
             String body = remoteMessage.getNotification().getBody();
             String title = remoteMessage.getNotification().getTitle();
-            sendNotification(body, title);
+            if(title.equals("Video Call"))
+            {
+                callNofitication(title,body);
+            }
+            else
+            {
+                normalNofitication(title,body);
+            }
         }
 //        if(isAppForeground()){
 //            // Handle notification silently without displaying in notification tray
@@ -62,8 +69,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: Implement this method to send token to your app server.
     }
 
-    private void sendNotification(String messageBody, String messageTitle) {
-        Intent intent = new Intent(this, UserHomeChat.class);
+    private void sendNotification(String messageBody, String messageTitle, Intent intent, String decline, String accept) {
+        //Intent intent = new Intent(this, UserHomeChat.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -84,11 +91,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setPriority(NotificationManager.IMPORTANCE_HIGH)
                         .addAction(new NotificationCompat.Action(
                                 android.R.drawable.sym_call_missed,
-                                "Cancel",
+                                decline,
                                 PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)))
                         .addAction(new NotificationCompat.Action(
                                 android.R.drawable.sym_call_outgoing,
-                                "OK",
+                                accept,
                                 PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)));
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -119,5 +126,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         }
         return false;
+    }
+
+    private void normalNofitication(String title, String body)
+    {
+        Intent intent = new Intent(this, UserHomeChat.class);
+        sendNotification(body, title, intent, "Cancel", "OK");
+    }
+
+    private void callNofitication(String title, String body)
+    {
+        Intent intent = new Intent(getApplicationContext(), VideoCallIn.class);
+        intent.putExtra("notif_callsender", body);
+        sendNotification(body, title, intent, "Decline", "Accept");
     }
 }

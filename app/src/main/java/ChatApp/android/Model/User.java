@@ -12,7 +12,6 @@ public class User {
     }
 
 
-
     public User(String uid, String name, String phoneNumber,String email,String passwordUser ,String profileImage,String coverImage,String addressUser,String gender) {
         this.uid = uid;
         this.name = name;
