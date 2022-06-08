@@ -103,10 +103,14 @@ public class VideoCallOut extends AppCompatActivity  {
                 else if(callreceiver_res == "true")
                 {
                     Toast.makeText(VideoCallOut.this, "Receiver accepted the call", Toast.LENGTH_SHORT).show();
-                    String key = null;
-                    joinmeeting(key);
-//                    Intent intent = new Intent(VideoCallOut.this, VideoCall.class);
-//                    startActivity(intent);
+                    joinmeeting(callsender_uid);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            FirebaseDatabase.getInstance().getReference("videochat").child(callsender_room).child("res").setValue("null");
+                        }
+                    }, 2000);
                 }
                 else if(callreceiver_res == "false")
                 {
@@ -172,7 +176,7 @@ public class VideoCallOut extends AppCompatActivity  {
         try {
             JitsiMeetConferenceOptions option = new JitsiMeetConferenceOptions.Builder()
                     .setServerURL(new URL("https://meet.jit.si"))
-                    .setRoom(callsender_name)
+                    .setRoom(key)
                     .setAudioMuted(false)
                     .setVideoMuted(false)
                     .setAudioOnly(false)
