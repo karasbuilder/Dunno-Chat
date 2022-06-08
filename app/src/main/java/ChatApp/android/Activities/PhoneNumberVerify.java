@@ -37,12 +37,14 @@ public class PhoneNumberVerify extends AppCompatActivity {
             finish();
         }*/
         binding.inputPhoneNumber.requestFocus();
+        String password=getIntent().getStringExtra("passwordUser");
 
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent itIntent=new Intent(PhoneNumberVerify.this,ConfirmPhoneOTP.class);
                 itIntent.putExtra("phoneNumber","+84"+binding.inputPhoneNumber.getText().toString());
+                itIntent.putExtra("passwordUser",password);
                 startActivity(itIntent);
 
             }

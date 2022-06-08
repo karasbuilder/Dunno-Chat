@@ -86,13 +86,17 @@ public class AccountDetail extends Fragment {
         });
 
         auth=FirebaseAuth.getInstance();
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
+        FirebaseUser currentUser= auth.getCurrentUser();
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     user=snapshot.getValue(User.class);
+
                     binding.txtNameAccountAuth.setText(user.getName());
+
                     Glide.with(getActivity()).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profile);
 
                 }
@@ -102,9 +106,10 @@ public class AccountDetail extends Fragment {
 
             }
         });
-        System.out.println(auth.getCurrentUser().getUid());
+
         onSignOutAccount();
         onGetQrCode();
+
         return view;
     }
     public void onSignOutAccount(){

@@ -125,10 +125,9 @@ public class SignUp extends AppCompatActivity {
                                     if (isNewUser) {
                                         Log.e("TAG", "Is New User!");
                                         //
-                                        String finalEmail = emailUser.getText().toString();
-                                        String finalpassword=passwordUser.getText().toString();
+
                                         //
-                                        registerAccountEmailPassword(finalEmail,finalpassword);
+                                        registerAccountEmailPassword(email,password);
 
                                     } else {
                                         Log.e("TAG", "Is Old User!");
@@ -166,10 +165,11 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
-                            String current_uid = auth.getCurrentUser().getUid();
-                            createUserDataObject(current_uid);
+                            //String current_uid = auth.getCurrentUser().getUid();
+                            //createUserDataObject(current_uid);
                             //next authentication intent
                             Intent intent=new Intent(SignUp.this,PhoneNumberVerify.class);
+                            intent.putExtra("passwordUser",password);
                             startActivity(intent);
                         }
                     }
