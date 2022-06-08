@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,6 +19,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import ChatApp.android.databinding.ActivitySignInBinding;
 import ChatApp.android.databinding.ActivitySignUpBinding;
@@ -29,6 +38,7 @@ public class SignUp extends AppCompatActivity {
     Button nextBtn;
     EditText emailUser,passwordUser,confirmPasswordUser;
     ProgressDialog progressDialog;
+    DatabaseReference reference;
 
     /*The idea following this
     * 1. We will get the information from fields of UI
@@ -102,13 +112,52 @@ public class SignUp extends AppCompatActivity {
                     return;
                 }
 
-                registerAccountEmailPassword(email,password);
+                else
+                {
+                    //Check if email is existed
+                    auth.fetchSignInMethodsForEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
 
+                                    boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+
+                                    if (isNewUser) {
+                                        Log.e("TAG", "Is New User!");
+                                        //
+                                        String finalEmail = emailUser.getText().toString();
+                                        String finalpassword=passwordUser.getText().toString();
+                                        //
+                                        registerAccountEmailPassword(finalEmail,finalpassword);
+
+                                    } else {
+                                        Log.e("TAG", "Is Old User!");
+                                        Toast.makeText(getApplicationContext(), "Already used email", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+                }
             }
         });
-
-        //
     }
+
+    public void createUserDataObject(String uid)
+    {
+        FirebaseDatabase.getInstance().getReference().child("users").push();
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+        reference.child("addressUSer").setValue("");
+        reference.child("coverImage").setValue("");
+        reference.child("email").setValue("");
+        reference.child("gender").setValue("");
+        reference.child("name").setValue("");
+        reference.child("passwordUser").setValue("");
+        reference.child("phoneNumber").setValue("");
+        reference.child("profileImage").setValue("");
+        reference.child("token").setValue("");
+        reference.child("uid").setValue(uid);
+    }
+
     public void registerAccountEmailPassword(String email,String password){
         progressDialog.show();
         auth.createUserWithEmailAndPassword(email,password)
@@ -117,7 +166,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
-                            FirebaseUser user=auth.getCurrentUser();
+                            String current_uid = auth.getCurrentUser().getUid();
+                            createUserDataObject(current_uid);
                             //next authentication intent
                             Intent intent=new Intent(SignUp.this,PhoneNumberVerify.class);
                             startActivity(intent);
