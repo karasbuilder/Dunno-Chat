@@ -125,8 +125,6 @@ public class SignUp extends AppCompatActivity {
                                     if (isNewUser) {
                                         Log.e("TAG", "Is New User!");
                                         //
-
-                                        //
                                         registerAccountEmailPassword(email,password);
 
                                     } else {
@@ -141,20 +139,25 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    public void createUserDataObject(String uid)
+    public void createUserDataObject(String uid, String email, String password)
     {
-        FirebaseDatabase.getInstance().getReference().child("users").push();
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
-        reference.child("addressUSer").setValue("");
-        reference.child("coverImage").setValue("");
-        reference.child("email").setValue("");
-        reference.child("gender").setValue("");
-        reference.child("name").setValue("");
-        reference.child("passwordUser").setValue("");
-        reference.child("phoneNumber").setValue("");
-        reference.child("profileImage").setValue("");
-        reference.child("token").setValue("");
-        reference.child("uid").setValue(uid);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        String token =  task.getResult();
+                        FirebaseDatabase.getInstance().getReference().child("users").push();
+                        reference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+                        reference.child("addressUSer").setValue("");
+                        reference.child("coverImage").setValue("");
+                        reference.child("email").setValue(email);
+                        reference.child("gender").setValue("");
+                        reference.child("name").setValue("");
+                        reference.child("passwordUser").setValue(password);
+                        reference.child("phoneNumber").setValue("");
+                        reference.child("profileImage").setValue("");
+                        reference.child("token").setValue(token);
+                        reference.child("uid").setValue(uid);
+                    }
+                });
     }
 
     public void registerAccountEmailPassword(String email,String password){
@@ -165,8 +168,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
-                            //String current_uid = auth.getCurrentUser().getUid();
-                            //createUserDataObject(current_uid);
+                            String current_uid = auth.getCurrentUser().getUid();
+                            createUserDataObject(current_uid,email,password);
                             //next authentication intent
                             Intent intent=new Intent(SignUp.this,PhoneNumberVerify.class);
                             intent.putExtra("passwordUser",password);

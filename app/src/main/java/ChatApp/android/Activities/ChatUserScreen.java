@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -353,17 +354,42 @@ public class ChatUserScreen extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(ChatUserScreen.this, VideoCallOut.class);
-                intent.putExtra("callreceiver_uid",receiverUid);
-                intent.putExtra("callsender_uid",senderUid);
-                intent.putExtra("callsender_token", token);
+                intent.putExtra("callsender_room", senderRoom);
+                intent.putExtra("callreceiver_room", receiverRoom);
+                intent.putExtra("callreceiver_token", token);
                 intent.putExtra("callreceiver_name", name);
-                intent.putExtra("callsender_room", receiverRoom);
-                intent.putExtra("callreceiver_room", senderRoom);
+                intent.putExtra("callreceiver_uid",receiverUid);
                 startActivity(intent);
                 return true;
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    //Check if someone video called
+    private void checkCallInvitation()
+    {
+        FirebaseDatabase.getInstance().getReference("videochat").child(receiverRoom).child("res").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String sender_response = snapshot.getValue().toString();
+                Log.d("result 1",sender_response);
+                if(sender_response.equals("true"))
+                {
+                    Log.d("result",sender_response);
+                    Intent intent = new Intent(ChatUserScreen.this, VideoCallIn.class);
+                    intent.putExtra("callsender_room", receiverRoom);
+                    intent.putExtra("callreceiver_room", senderRoom);
+                    intent.putExtra("callsender_name", name);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -431,30 +457,6 @@ public class ChatUserScreen extends AppCompatActivity {
         i.putExtra("receiver_uid", receiverUid);
         startService(i);
 
-    }
-
-    //Check if someone video called
-    private void checkCallInvitation()
-    {
-        FirebaseDatabase.getInstance().getReference("videochat").child(receiverRoom).child("res").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String sender_response = snapshot.getValue().toString();
-                if(sender_response == "true")
-                {
-                    Intent intent = new Intent(ChatUserScreen.this, VideoCallIn.class);
-                    intent.putExtra("callsender_room", receiverRoom);
-                    intent.putExtra("callreceiver_room", senderRoom);
-                    intent.putExtra("callsender_name", name);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

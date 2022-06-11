@@ -42,6 +42,24 @@ public class VideoCallIn extends AppCompatActivity {
         getCallSenderName();
         acceptCallInvitation();
         declineCallInvitation();
+        checkIfCallSenderEnd();
+    }
+
+    private void checkIfCallSenderEnd() {
+        FirebaseDatabase.getInstance().getReference("videochat").child(callsender_room).child("res").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue().toString().equals("null"))
+                {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getCallSenderName()
@@ -108,6 +126,14 @@ public class VideoCallIn extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseDatabase.getInstance().getReference("videochat").child(callreceiver_room).child("res").setValue("false");
                 Toast.makeText(VideoCallIn.this, "Declined video call", Toast.LENGTH_SHORT).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        FirebaseDatabase.getInstance().getReference("videochat").child(callreceiver_room).child("res").setValue("null");
+                        finish();
+                    }
+                }, 2000);
             }
         });
     }

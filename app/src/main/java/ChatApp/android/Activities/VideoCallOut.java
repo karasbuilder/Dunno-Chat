@@ -46,36 +46,12 @@ public class VideoCallOut extends AppCompatActivity  {
         outcomingcallDecline_btn = findViewById(R.id.btnoutcomingDecline);
         outcomingcallName_txt= findViewById(R.id.txtoutcomingName);
 
-        callreceiver_uid = getIntent().getStringExtra("callreceiver");
-        callsender_uid = getIntent().getStringExtra("callsender");
-        callreceiver_name = getIntent().getStringExtra("callreceiver_name");
-        callsender_token = getIntent().getStringExtra("callsender_token");
-        callreceiver_room = getIntent().getStringExtra("callreceiver_room");
-        callsender_room = getIntent().getStringExtra("callsender_room");
-
-            //Get call receiver's token
-        FirebaseDatabase.getInstance().getReference().child("users").child(callreceiver_uid).child("token")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        callreceiver_token = snapshot.getValue().toString();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-        FirebaseDatabase.getInstance().getReference().child("users").child(callreceiver_uid)
-                .addValueEventListener(new ValueEventListener() {
+        callsender_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("users").child(callsender_uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    callreceiver_name = snapshot.child("name").getValue().toString();
-                    outcomingcallName_txt.setText(callreceiver_name);
-                }
+                callsender_token = snapshot.child("token").getValue().toString();
+                callsender_name = snapshot.child("name").getValue().toString();
             }
 
             @Override
@@ -83,6 +59,13 @@ public class VideoCallOut extends AppCompatActivity  {
 
             }
         });
+
+        callsender_room = getIntent().getStringExtra("callsender_room");
+
+        callreceiver_uid = getIntent().getStringExtra("callreceiver_uid");
+        callreceiver_name = getIntent().getStringExtra("callreceiver_name");
+        callreceiver_token = getIntent().getStringExtra("callreceiver_token");
+        callreceiver_room = getIntent().getStringExtra("callreceiver_room");
 
         sendCallInvitation();
         checkResponse();
@@ -96,11 +79,11 @@ public class VideoCallOut extends AppCompatActivity  {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 callreceiver_res = snapshot.getValue().toString();
-                if(callreceiver_res == "null")
+                if(callreceiver_res .equals("null"))
                 {
                     Toast.makeText(VideoCallOut.this, "Waiting for response", Toast.LENGTH_LONG).show();
                 }
-                else if(callreceiver_res == "true")
+                else if(callreceiver_res.equals("true"))
                 {
                     Toast.makeText(VideoCallOut.this, "Receiver accepted the call", Toast.LENGTH_SHORT).show();
                     joinmeeting(callsender_uid);
@@ -112,7 +95,7 @@ public class VideoCallOut extends AppCompatActivity  {
                         }
                     }, 2000);
                 }
-                else if(callreceiver_res == "false")
+                else if(callreceiver_res .equals("false"))
                 {
                     Toast.makeText(VideoCallOut.this, "Receiver declined the call", Toast.LENGTH_SHORT).show();
                     finish();
@@ -139,11 +122,12 @@ public class VideoCallOut extends AppCompatActivity  {
                         NotificationModel call_noti = new NotificationModel(callreceiver_token,"Video Call","Miss call from " +callsender_name);
                         new PushNotificationSender().execute(call_noti);
                         ///Set call sender response to null when cancel the call
-                        reference = FirebaseDatabase.getInstance().getReference("videochat").child(callsender_uid).child("res");
+                        reference = FirebaseDatabase.getInstance().getReference("videochat").child(callsender_room).child("res");
                         reference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 reference.setValue("null");
+
                             }
 
                             @Override
@@ -165,7 +149,7 @@ public class VideoCallOut extends AppCompatActivity  {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                NotificationModel call_noti = new NotificationModel(callreceiver_token,"Video Call",callsender_name);
+                NotificationModel call_noti = new NotificationModel(callreceiver_token,"Video Call", callsender_name + " calling...");
                         new PushNotificationSender().execute(call_noti);
             }
         }, 2000);

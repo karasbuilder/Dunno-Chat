@@ -15,6 +15,8 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -61,11 +63,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        //Log.d(TAG, "Refreshed token: " + token);
         sendRegistrationToServer(token);
     }
 
     private void sendRegistrationToServer(String token) {
+//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(token);
+//        Log.d("Firebase uid",uid);
+//        Log.d(TAG, "Refreshed Firebase token: " + token);
         // TODO: Implement this method to send token to your app server.
     }
 
