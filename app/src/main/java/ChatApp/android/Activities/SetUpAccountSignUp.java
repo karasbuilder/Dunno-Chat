@@ -56,6 +56,8 @@ public class SetUpAccountSignUp extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");
         dialog.setCancelable(false);
+
+        //set firebase initialize
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -76,7 +78,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, 45);
+                startActivityForResult(intent, 55);
             }
         });
 
@@ -178,42 +180,85 @@ public class SetUpAccountSignUp extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(data != null) {
-            if(data.getData() != null) {
-                Uri uri = data.getData(); // filepath
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                long time = new Date().getTime();
-                StorageReference reference = storage.getReference().child("Profiles").child(time+"");
-                reference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful()) {
-                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String filePath = uri.toString();
-                                    HashMap<String, Object> obj = new HashMap<>();
-                                    obj.put("image", filePath);
-                                    database.getReference().child("users")
-                                            .child(FirebaseAuth.getInstance().getUid())
-                                            .updateChildren(obj).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
 
+        switch (requestCode){
+            case 45:{
+                if(data != null) {
+                    if(data.getData() != null) {
+                        Uri uri = data.getData(); // filepath
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        long time = new Date().getTime();
+                        StorageReference reference = storage.getReference().child("Profiles").child(time+"");
+                        reference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                if(task.isSuccessful()) {
+                                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String filePath = uri.toString();
+                                            HashMap<String, Object> obj = new HashMap<>();
+                                            obj.put("image", filePath);
+                                            database.getReference().child("users")
+                                                    .child(FirebaseAuth.getInstance().getUid())
+                                                    .updateChildren(obj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+
+                                                        }
+                                                    });
                                         }
                                     });
                                 }
-                            });
-                        }
+                            }
+                        });
+
+
+                        binding.imgViewSetUp.setImageURI(data.getData());
+                        selectedImage = data.getData();
                     }
-                });
+                }
+            }
+            case 55:{
+                if(data != null) {
+                    if(data.getData() != null) {
+                        Uri uri = data.getData(); // filepath
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        long time = new Date().getTime();
+                        StorageReference reference = storage.getReference().child("Covers").child(time+"");
+                        reference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                if(task.isSuccessful()) {
+                                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String filePath = uri.toString();
+                                            HashMap<String, Object> obj = new HashMap<>();
+                                            obj.put("image", filePath);
+                                            database.getReference().child("users")
+                                                    .child(FirebaseAuth.getInstance().getUid())
+                                                    .updateChildren(obj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+
+                                                        }
+                                                    });
+                                        }
+                                    });
+                                }
+                            }
+                        });
 
 
-                binding.imgViewSetUp.setImageURI(data.getData());
-                selectedImage = data.getData();
+                        binding.coverImageUser.setImageURI(data.getData());
+                       coverImage = data.getData();
+                    }
+                }
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
 }

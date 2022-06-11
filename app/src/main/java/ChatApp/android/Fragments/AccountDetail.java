@@ -53,7 +53,7 @@ public class AccountDetail extends Fragment {
 
     FirebaseAuth auth;
     Button btnLogOut;
-    TextView txtGetQrCode;
+    TextView txtGetQrCode,textViewInfo;
     FragmentAccountDetailBinding binding;
     User user;
     LinearLayout openVEditProfile;
@@ -112,7 +112,17 @@ public class AccountDetail extends Fragment {
 
         return view;
     }
+    public void onLoadInfo(){
+        textViewInfo=binding.textViewInfo;
+        textViewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
     public void onSignOutAccount(){
+        //sign out instance firebase authentication
         btnLogOut=binding.btnLogOut;
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,4 +165,5 @@ public class AccountDetail extends Fragment {
             }
         });
     }
+
 }
