@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -101,7 +102,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                 String phone=auth.getCurrentUser().getPhoneNumber();
                 String email=auth.getCurrentUser().getEmail();
                 String uid = auth.getCurrentUser().getUid();
-                String password="";
+                String password=getIntent().getStringExtra("passwordUser");
 
                 if(name.isEmpty()){
                     binding.editUserNameSetting.setError("Please Enter your name");
@@ -111,6 +112,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
 
                 if(selectedImage != null) {
 
+                    //store database to storage database
                     StorageReference reference = storage.getReference().child("Profiles").child(FirebaseAuth.getInstance().getUid());
                     reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -125,6 +127,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
 
 
                                         User user = new User(uid, name, phone,email,password,imageUrl,coverURL,address,gender);
+                                        Log.d("logg",user.getPasswordUser());
 
                                         database.getReference()
                                                 .child("users")
@@ -160,6 +163,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     dialog.dismiss();
                                     Intent intent = new Intent(SetUpAccountSignUp.this, UserHomeChat.class);
+                                    Toast.makeText(SetUpAccountSignUp.this, "User Created Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                     finish();
                                 }

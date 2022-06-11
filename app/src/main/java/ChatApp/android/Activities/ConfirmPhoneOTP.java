@@ -66,6 +66,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
         dialog.show();
 
         phoneNumber = getIntent().getStringExtra("phoneNumber");
+
         binding.txtPhoneNumber.setText(phoneNumber);
         auth = FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
@@ -136,8 +137,9 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                             Toast.makeText(ConfirmPhoneOTP.this, user.getEmail()+"|||"+user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
 
 
-
+                            String password=getIntent().getStringExtra("passwordUser");
                             Intent intent=new Intent(ConfirmPhoneOTP.this,SetUpAccountSignUp.class);
+                            intent.putExtra("passwordUser",password);
                             startActivity(intent);
                             finish();
 
