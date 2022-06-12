@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,6 +48,9 @@ public class UserHomeChat extends AppCompatActivity {
     ContactUser contactUserFragment=new ContactUser();
     Timelines timelinesFragment=new Timelines();
     BottomNavigationView bottomNavigationView;
+
+    LinearLayout searchBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +58,7 @@ public class UserHomeChat extends AppCompatActivity {
         setContentView(R.layout.activity_user_home_chat);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,conversationUserFragment).commit();
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
+
 
       bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
           @Override
@@ -77,6 +82,7 @@ public class UserHomeChat extends AppCompatActivity {
           }
       });
       onScanQRCode();
+      onSearchUsers();
 }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,6 +106,17 @@ public class UserHomeChat extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);
                 startActivity(i);
+            }
+        });
+    }
+
+    //search event
+    private void onSearchUsers(){
+        searchBar=binding.searchBar;
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

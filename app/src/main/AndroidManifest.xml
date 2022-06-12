@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
+            android:name=".PostTimeLine"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SearchUser"
+            android:exported="false" />
+        <activity
             android:name=".Activities.SignUp"
             android:exported="false" />
         <activity
@@ -23,6 +29,7 @@
         <activity
             android:name=".Activities.EditProfile"
             android:exported="false" />
+
         <service
             android:name=".Services.MyFirebaseMessagingService"
             android:exported="false">
