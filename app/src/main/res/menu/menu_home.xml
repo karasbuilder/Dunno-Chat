@@ -3,8 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <item android:id="@+id/btnCreateGroup" android:title="Create group" />
-    <item android:id="@+id/btnAddFriend" android:title="Add friend" />
-    <item android:title="Login History" />
-    <item android:title="Zalo Calendar" />
+    <item android:id="@+id/ButtonQrScanMenu" android:icon="@drawable/ic_baseline_qr_code_scanner_24"
+        android:title="" app:showAsAction="always"  />
+    <item android:title="" android:id="@+id/btnAddNewContactMenu" android:icon="@drawable/ic_baseline_person_add_alt_1_24" app:showAsAction="always" />
+    <item android:id="@+id/btnCreateGroupMenu" android:title="Create group" />
+    <item android:id="@+id/btnAddFriendMenu" android:title="Add friend" />
+    <item android:title="Login History" android:id="@+id/btnLoginHistoryMenu"/>
+    <item android:title="Zalo Calendar" android:id="@+id/btnCalendarMenu"/>
 </menu>

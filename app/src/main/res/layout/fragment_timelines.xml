@@ -4,11 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.Timelines">
-
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="dsa"
+        android:layout_height="wrap_content">
 
+    </TextView>
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+  </ScrollView>
 </FrameLayout>

@@ -447,6 +447,8 @@ public class EditProfile extends AppCompatActivity {
         //upload new image for avatar and cover
         uploadProfileAvatar(imageProfileUri,"profileImage");
         uploadProfileAvatar(imageCoverUri,"coverImage");
+        //set uri
+
         databaseReference.child(user.getUid()).updateChildren(result)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

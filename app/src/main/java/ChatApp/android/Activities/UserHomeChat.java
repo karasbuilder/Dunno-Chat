@@ -2,6 +2,8 @@ package ChatApp.android.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -41,7 +43,7 @@ import ChatApp.android.databinding.ActivityUserHomeChatBinding;
 public class UserHomeChat extends AppCompatActivity {
     private ActivityUserHomeChatBinding binding;
 
-    ImageButton ButtonScanQRCode;
+    MenuItem ButtonScanQRCode;
     User user;
     ConversationUser conversationUserFragment=new ConversationUser();
     AccountDetail accountDetailFragment=new AccountDetail();
@@ -50,7 +52,7 @@ public class UserHomeChat extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     LinearLayout searchBar;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,15 +62,39 @@ public class UserHomeChat extends AppCompatActivity {
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
 
 
+        toolbar=findViewById(R.id.customToolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_add_24));
+
+
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.ButtonQrScanMenu:
+                        Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);
+                        startActivity(i);
+                        return true;
+                    case R.id.btnCreateGroupMenu:
+
+
+
+                }
+                return false;
+            }
+        });
+
       bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
               switch (item.getItemId()){
                   case R.id.message:
+                      toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(false);
                       getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,conversationUserFragment).commit();
                       return  true;
                   case R.id.contact:
-
+                      toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(true);
                       getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,contactUserFragment).commit();
                       return true;
                   case R.id.timeline:
@@ -81,12 +107,15 @@ public class UserHomeChat extends AppCompatActivity {
               return false;
           }
       });
-      onScanQRCode();
+      //onScanQRCode();
       onSearchUsers();
 }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu,menu);
+
+        getMenuInflater().inflate(R.menu.menu_home,menu);
+        menu.findItem(R.id.btnAddNewContactMenu).setVisible(false);
         return super.onCreateOptionsMenu(menu);
 
     }
@@ -98,9 +127,24 @@ public class UserHomeChat extends AppCompatActivity {
         transaction.commit();
     }
 
-    private void onScanQRCode()
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ButtonQrScanMenu:
+                Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);
+                startActivity(i);
+                return true;
+            case R.id.btnCreateGroupMenu:
+
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+   /* private void onScanQRCode()
     {
-        ButtonScanQRCode = findViewById(R.id.ButtonQrScan);
+        ButtonScanQRCode = findViewById(R.id.ButtonQrScanMenu);
         ButtonScanQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,16 +152,21 @@ public class UserHomeChat extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
+    }*/
 
     //search event
     private void onSearchUsers(){
-        searchBar=binding.searchBar;
-        searchBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+    }
+
+    //when user use application => status of user will online
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+//when user stop use application => status offline
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }
