@@ -36,6 +36,7 @@ public class VideoCallOut extends AppCompatActivity  {
     String callsender_token, callreceiver_token;
     String callsender_res, callreceiver_res;
     String callsender_room, callreceiver_room;
+    int count = 0;
     DatabaseReference reference;
 
     @Override
@@ -61,11 +62,12 @@ public class VideoCallOut extends AppCompatActivity  {
         });
 
         callsender_room = getIntent().getStringExtra("callsender_room");
-
         callreceiver_uid = getIntent().getStringExtra("callreceiver_uid");
         callreceiver_name = getIntent().getStringExtra("callreceiver_name");
         callreceiver_token = getIntent().getStringExtra("callreceiver_token");
         callreceiver_room = getIntent().getStringExtra("callreceiver_room");
+
+        outcomingcallName_txt.setText("Calling " + callreceiver_name);
 
         sendCallInvitation();
         checkResponse();
@@ -79,9 +81,10 @@ public class VideoCallOut extends AppCompatActivity  {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 callreceiver_res = snapshot.getValue().toString();
-                if(callreceiver_res .equals("null"))
+                if(callreceiver_res .equals("null") && count < 1)
                 {
                     Toast.makeText(VideoCallOut.this, "Waiting for response", Toast.LENGTH_LONG).show();
+                    count++;
                 }
                 else if(callreceiver_res.equals("true"))
                 {
@@ -95,7 +98,7 @@ public class VideoCallOut extends AppCompatActivity  {
                         }
                     }, 2000);
                 }
-                else if(callreceiver_res .equals("false"))
+                else if(callreceiver_res.equals("false"))
                 {
                     Toast.makeText(VideoCallOut.this, "Receiver declined the call", Toast.LENGTH_SHORT).show();
                     finish();
@@ -119,7 +122,7 @@ public class VideoCallOut extends AppCompatActivity  {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        NotificationModel call_noti = new NotificationModel(callreceiver_token,"Video Call","Miss call from " +callsender_name);
+                        NotificationModel call_noti = new NotificationModel(callreceiver_token,"Notification","Miss call from " +callsender_name);
                         new PushNotificationSender().execute(call_noti);
                         ///Set call sender response to null when cancel the call
                         reference = FirebaseDatabase.getInstance().getReference("videochat").child(callsender_room).child("res");

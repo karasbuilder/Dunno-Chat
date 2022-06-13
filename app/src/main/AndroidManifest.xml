@@ -66,9 +66,6 @@
             android:name=".Activities.VideoCallOut"
             android:exported="false"/>
         <activity
-            android:name=".Activities.VideoCall"
-            android:exported="false"/>
-        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>

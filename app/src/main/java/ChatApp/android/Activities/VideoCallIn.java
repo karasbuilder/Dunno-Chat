@@ -65,12 +65,13 @@ public class VideoCallIn extends AppCompatActivity {
     private void getCallSenderName()
     {
         txtincomingcall_sender = findViewById(R.id.txtincomingCall);
-        int len = callreceiver_room.length()/2;
-        callsender_uid = callreceiver_room.substring(0,len);
+        int len = callsender_room.length()/2;
+        callsender_uid = callsender_room.substring(0,len);
         FirebaseDatabase.getInstance().getReference("users").child(callsender_uid).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 callsender_name = snapshot.getValue().toString();
+                txtincomingcall_sender.setText(callsender_name + " is calling...");
             }
 
             @Override
@@ -133,7 +134,8 @@ public class VideoCallIn extends AppCompatActivity {
                         FirebaseDatabase.getInstance().getReference("videochat").child(callreceiver_room).child("res").setValue("null");
                         finish();
                     }
-                }, 2000);
+                }, 1000);
+
             }
         });
     }

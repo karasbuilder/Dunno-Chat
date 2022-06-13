@@ -372,15 +372,11 @@ public class ChatUserScreen extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("videochat").child(receiverRoom).child("res").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String sender_response = snapshot.getValue().toString();
-                Log.d("result 1",sender_response);
-                if(sender_response.equals("true"))
+                if(snapshot.getValue().toString().equals("true"))
                 {
-                    Log.d("result",sender_response);
                     Intent intent = new Intent(ChatUserScreen.this, VideoCallIn.class);
                     intent.putExtra("callsender_room", receiverRoom);
                     intent.putExtra("callreceiver_room", senderRoom);
-                    intent.putExtra("callsender_name", name);
                     startActivity(intent);
                 }
             }
