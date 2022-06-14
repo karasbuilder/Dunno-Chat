@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -255,6 +256,7 @@ public class ChatUserScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         GlobalStuff.setCurrentActivity(this);
         onHomeButton();
+        createVideoCallRoomIfNotExist();
         checkCallInvitation();
 //        getSupportActionBar().setTitle(name);
 //
@@ -372,12 +374,13 @@ public class ChatUserScreen extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("videochat").child(receiverRoom).child("res").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue().toString().equals("true"))
-                {
-                    Intent intent = new Intent(ChatUserScreen.this, VideoCallIn.class);
-                    intent.putExtra("callsender_room", receiverRoom);
-                    intent.putExtra("callreceiver_room", senderRoom);
-                    startActivity(intent);
+                if(snapshot.exists()) {
+                    if (snapshot.getValue().toString().equals("true")) {
+                        Intent intent = new Intent(ChatUserScreen.this, VideoCallIn.class);
+                        intent.putExtra("callsender_room", receiverRoom);
+                        intent.putExtra("callreceiver_room", senderRoom);
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -463,6 +466,45 @@ public class ChatUserScreen extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private void createVideoCallRoomIfNotExist()
+    {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("videochat");
+        FirebaseDatabase.getInstance().getReference("videochat").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(senderRoom).exists() && snapshot.child(receiverRoom).exists())
+                {
+                    Log.d("EXIST?:", "yes");
+                }
+                else {
+                    String vroom;
+                    String vuid;
+                    for(int i = 0; i < 2;i++) {
+                        if(i == 0)
+                        {
+                            vroom = senderRoom;
+                            vuid = senderUid;
+                        }
+                        else
+                        {
+                            vroom = receiverRoom;
+                            vuid = receiverUid;
+                        }
+                        reference.child(vroom).setValue("res");
+                        reference.child(vroom).setValue("key");
+                        reference.child(vroom).child("res").setValue("null");
+                        reference.child(vroom).child("key").setValue(vuid);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

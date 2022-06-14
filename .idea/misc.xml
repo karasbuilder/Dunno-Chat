@@ -127,7 +127,11 @@
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_video_call.xml" value="0.2427536231884058" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_video_call_in.xml" value="0.5" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/activity_video_call_out.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/delete_dialog.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/fragment_account_detail.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/recived_chat_component.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/row_conversation_chat_component.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/ssonp/Documents/GitHub/Dunno-Chat/app/src/main/res/layout/sent_chat_component.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

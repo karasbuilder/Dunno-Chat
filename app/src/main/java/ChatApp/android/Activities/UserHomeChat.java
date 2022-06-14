@@ -63,18 +63,16 @@ public class UserHomeChat extends AppCompatActivity {
 //        String token = FirebaseMessaging.getInstance().getToken().toString();
 //        Log.d("TOKEN",token);
 //        FirebaseMessaging.getInstance().deleteToken();
-            FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                            if (task.isSuccessful() && task.getResult() != null) {
+//            FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(task -> {
+//                            if (task.isSuccessful() && task.getResult() != null) {
 //                        NotificationModel nm = new NotificationModel(task.getResult(),"test","haha");
 //                        new PushNotificationSender().execute(nm);
-                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(task.getResult());
-                                Log.d("TOKEN", task.getResult());
-                            }
-                        });
-//        String uid = FirebaseAuth.getInstance().getUid();
-//        Log.d("UID",uid);
+//                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                        FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(task.getResult());
+//                                Log.d("TOKEN", task.getResult());
+//                            }
+//                        });
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
