@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/post_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/post_commentbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/roundedpost" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/post_profileimage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintStart_toStartOf="@+id/post_background"
+        app:layout_constraintTop_toTopOf="@+id/post_background"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/post_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:paddingTop="5dp"
+        android:text="12:00 AM"
+        android:textAlignment="viewStart"
+        android:textColor="#80000000"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/post_profileimage"
+        app:layout_constraintTop_toBottomOf="@+id/post_name" />
+
+    <TextView
+        android:id="@+id/post_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/post_profileimage"
+        app:layout_constraintTop_toTopOf="@+id/post_background" />
+
+    <TextView
+        android:id="@+id/post_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textColor="#CC000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/post_background"
+        app:layout_constraintStart_toStartOf="@+id/post_background"
+        app:layout_constraintTop_toBottomOf="@+id/post_profileimage" />
+
+    <TextView
+        android:id="@+id/post_likenum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/post_background"
+        app:layout_constraintTop_toBottomOf="@+id/post_content"
+        tools:text="Like:" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/post_likebutton"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="40dp"
+        android:stateListAnimator="@null"
+        android:text="Like"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/post_background"
+        app:layout_constraintStart_toStartOf="@+id/post_background"
+        app:layout_constraintTop_toBottomOf="@+id/post_likenum"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/post_commentbutton"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="40dp"
+        android:stateListAnimator="@null"
+        android:text="Comment"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/post_background"
+        app:layout_constraintEnd_toEndOf="@+id/post_background"
+        app:layout_constraintStart_toEndOf="@+id/post_likebutton"
+        app:layout_constraintTop_toBottomOf="@+id/post_likenum"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/post_likeicon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/post_likebutton"
+        app:layout_constraintStart_toStartOf="@+id/post_likebutton"
+        app:layout_constraintTop_toTopOf="@+id/post_likebutton"
+        app:srcCompat="@drawable/notlike_ic" />
+
+    <ImageView
+        android:id="@+id/post_commenticon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/post_commentbutton"
+        app:layout_constraintStart_toStartOf="@+id/post_commentbutton"
+        app:layout_constraintTop_toTopOf="@+id/post_commentbutton"
+        app:srcCompat="@drawable/comment_ic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
