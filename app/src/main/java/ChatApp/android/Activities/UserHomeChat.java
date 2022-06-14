@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import ChatApp.android.Fragments.AccountDetail;
 import ChatApp.android.Fragments.ContactUser;
 import ChatApp.android.Fragments.ConversationUser;
+import ChatApp.android.Fragments.Notification;
 import ChatApp.android.Fragments.Timelines;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
@@ -49,6 +50,7 @@ public class UserHomeChat extends AppCompatActivity {
     AccountDetail accountDetailFragment=new AccountDetail();
     ContactUser contactUserFragment=new ContactUser();
     Timelines timelinesFragment=new Timelines();
+    Notification notificationFragment=new Notification();
     BottomNavigationView bottomNavigationView;
 
     LinearLayout searchBar;
@@ -105,6 +107,11 @@ public class UserHomeChat extends AppCompatActivity {
                       toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(true);
                       getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,contactUserFragment).commit();
                       return true;
+                  case R.id.notification:
+                      toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(false);
+                      getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,notificationFragment).commit();
+                      return true;
+
                   case R.id.timeline:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,timelinesFragment).commit();
                       return true;

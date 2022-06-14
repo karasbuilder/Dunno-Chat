@@ -8,6 +8,10 @@ import ChatApp.android.databinding.ActivityPostTimeLineBinding;
 
 public class PostTimeLine extends AppCompatActivity {
     private ActivityPostTimeLineBinding binding;
+
+    /**
+     * create post and upload screen
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
