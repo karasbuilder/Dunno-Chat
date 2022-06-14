@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-config'
+    // FirebaseUI for Firebase Realtime Database
+    implementation 'com.firebaseui:firebase-ui-database:8.0.1'
     //add google sign in library
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 

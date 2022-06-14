@@ -84,6 +84,14 @@ public class UserHomeChat extends AppCompatActivity {
                 return false;
             }
         });
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(UserHomeChat.this,SearchUser.class);
+                startActivity(intent);
+            }
+
+        });
 
       bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
           @Override
@@ -169,4 +177,5 @@ public class UserHomeChat extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
 }

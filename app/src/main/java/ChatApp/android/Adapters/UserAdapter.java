@@ -103,7 +103,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RowConversationChatComponentBinding.bind(itemView);
+            binding=RowConversationChatComponentBinding.bind(itemView);
+
         }
     }
 }

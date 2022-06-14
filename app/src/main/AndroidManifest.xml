@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
-            android:name=".PostTimeLine"
+            android:name=".Activities.ProfileContactUser"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PostTimeLine"
             android:exported="false" />
         <activity
             android:name=".Activities.SearchUser"

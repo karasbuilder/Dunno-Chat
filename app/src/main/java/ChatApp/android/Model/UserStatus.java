@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class UserStatus {
     private String name, profileImage;
     private long lastUpdated;
-    private ArrayList<Status> statuses;
+    private ArrayList<Post> userPosts;
 
     public UserStatus() {
     }
 
-    public UserStatus(String name, String profileImage, long lastUpdated, ArrayList<Status> statuses) {
+    public UserStatus(String name, String profileImage, long lastUpdated, ArrayList<Post> userPosts) {
         this.name = name;
         this.profileImage = profileImage;
         this.lastUpdated = lastUpdated;
-        this.statuses = statuses;
+        this.userPosts=userPosts;
     }
 
     public String getName() {
@@ -41,11 +41,11 @@ public class UserStatus {
         this.lastUpdated = lastUpdated;
     }
 
-    public ArrayList<Status> getStatuses() {
-        return statuses;
+    public ArrayList<Post> getUserPosts() {
+        return userPosts;
     }
 
-    public void setStatuses(ArrayList<Status> statuses) {
-        this.statuses = statuses;
+    public void setUserPosts(ArrayList<Post> statuses) {
+        this.userPosts= statuses;
     }
 }
