@@ -74,7 +74,7 @@ public class Timelines extends Fragment {
                         likeslistMap.clear();
                         for(DataSnapshot datas: snapshot.getChildren()){
                                 post = new Post();
-                                post.setPostid(datas.toString());
+                                post.setPostid(datas.getKey());
                                 post.setUid(datas.child("uid").getValue().toString());
                                 post.setContent(datas.child("content").getValue().toString());
                                 post.setTimestamp((Long) datas.child("timestamp").getValue());
