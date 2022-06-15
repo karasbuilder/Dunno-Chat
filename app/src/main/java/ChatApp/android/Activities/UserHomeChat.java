@@ -81,13 +81,10 @@ public class UserHomeChat extends AppCompatActivity {
 //                                Log.d("TOKEN", task.getResult());
 //                            }
 //                        });
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
         toolbar=findViewById(R.id.customToolbar);
         setSupportActionBar(toolbar);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_add_24));
-
-
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
