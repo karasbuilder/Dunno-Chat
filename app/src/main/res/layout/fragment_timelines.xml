@@ -4,63 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Fragments.Timelines">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/roundedbottom">
+        android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/timeline_postplace"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_postplace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/roundedpostplace"
-            android:ems="12"
-            android:gravity="center|left"
-            android:inputType="textMultiLine"
-            android:lines="4"
-            android:paddingLeft="5dp"
-            android:paddingTop="3dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="3dp"
-            android:text="asdasd"
-            android:textSize="13sp"
+            android:background="@drawable/roundedbottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/timeline_postbutton"
+            <EditText
+                android:id="@+id/timeline_postplace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/roundedpostplace"
+                android:ems="12"
+                android:gravity="center|left"
+                android:inputType="textMultiLine"
+                android:lines="1"
+                android:paddingLeft="5dp"
+                android:paddingTop="3dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="3dp"
+                android:text="asdasd"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/timeline_postbutton"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/roundedbutton"
+                android:fontFamily="@font/roboto_medium"
+                android:text="POST"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeline_postplace"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/timeline_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/roundedbutton"
-            android:fontFamily="@font/roboto_medium"
-            android:text="POST"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/roundedtop"
+            android:paddingTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeline_postplace" />
+            app:layout_constraintTop_toBottomOf="@+id/constraint_postplace" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/timeline_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/roundedtop" />
 
 
 </FrameLayout>

@@ -1,17 +1,24 @@
 package ChatApp.android.Fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +47,10 @@ public class Timelines extends Fragment {
     DatabaseReference database;
     ArrayList<Post> posts;
     TimelineAdapter timelineAdapter;
+    EditText postplace;
     Post post;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +64,13 @@ public class Timelines extends Fragment {
         binding=FragmentTimelinesBinding.inflate(inflater,container,false);
         View view= binding.getRoot();
         createTimeline();
+        PostPlace();
+
+
         return view;
+
     }
+
 
     public void createTimeline(){
         timelinerv = binding.timelineRecyclerview;
@@ -114,4 +129,28 @@ public class Timelines extends Fragment {
         timelinerv.setAdapter(timelineAdapter);
 
     }
+
+    public void PostPlace()
+    {
+        postplace = binding.timelinePostplace;
+        postplace.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    postplace.setLines(2);
+                    postplace.setMaxLines(4);
+                } else {
+                    postplace.setLines(1);
+                    hideKeyboard(view);
+
+                }
+            }
+        });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
 }
