@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.facebook.react:react-native-community_clipboard:1.5.1-jitsi-9316999@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/transforms-3/eee81167bbc166efab481c64dba14419/transformed/react-native-community_clipboard-1.5.1-jitsi-9316999/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/AppData/Local/Android/Sdk/caches/transforms-3/eee81167bbc166efab481c64dba14419/transformed/react-native-community_clipboard-1.5.1-jitsi-9316999/res" />
+      <root url="file://$USER_HOME$/AppData/Local/Android/Sdk/caches/transforms-3/eee81167bbc166efab481c64dba14419/transformed/react-native-community_clipboard-1.5.1-jitsi-9316999/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.facebook.react/react-native-community_clipboard/1.5.1-jitsi-9316999/7732aa6857f269e0cc79dac609b168dd792c9de8/react-native-community_clipboard-1.5.1-jitsi-9316999-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

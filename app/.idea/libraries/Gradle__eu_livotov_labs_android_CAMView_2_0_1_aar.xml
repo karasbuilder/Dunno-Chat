@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: eu.livotov.labs.android:CAMView:2.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/transforms-3/b797f1a319c249d73e01ad3f8b0b3ab6/transformed/CAMView-2.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/AppData/Local/Android/Sdk/caches/transforms-3/b797f1a319c249d73e01ad3f8b0b3ab6/transformed/CAMView-2.0.1/res" />
+      <root url="file://$USER_HOME$/AppData/Local/Android/Sdk/caches/transforms-3/b797f1a319c249d73e01ad3f8b0b3ab6/transformed/CAMView-2.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/eu.livotov.labs.android/CAMView/2.0.1/2514ff62ebd96e7a40f551d2db2216aa8856c55d/CAMView-2.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/eu.livotov.labs.android/CAMView/2.0.1/470a8d8182b664b2dc15bbfa6b62bf5ee5bb5377/CAMView-2.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
