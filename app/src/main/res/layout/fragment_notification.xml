@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.FriendsContact">
+    tools:context=".Fragments.Notification">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_request"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_user"/>
+        android:text="Notification Fragment" />
+
 </FrameLayout>

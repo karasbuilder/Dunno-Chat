@@ -1,5 +1,10 @@
 package ChatApp.android.Model;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
 
     private String uid, name, phoneNumber, profileImage,token,passwordUser,coverImage,addressUser;
@@ -22,6 +27,21 @@ public class User {
         this.passwordUser=passwordUser;
         this.addressUser=addressUser;
         this.gender=gender;
+    }
+    @Exclude
+    public Map<String,Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("uid",uid);
+        result.put("name",name);
+        result.put("phoneNumber",phoneNumber);
+        result.put("email",email);
+        result.put("coverImage",coverImage);
+        result.put("profileImage",profileImage);
+        result.put("passwordUser",passwordUser);
+        result.put("addressUser",addressUser);
+        result.put("gender",gender);
+
+        return result;
     }
 
     public String getUid() {
@@ -103,4 +123,5 @@ public class User {
     public void setAddressUser(String addressUser) {
         this.addressUser = addressUser;
     }
+
 }

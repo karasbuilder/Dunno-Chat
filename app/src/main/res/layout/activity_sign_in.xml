@@ -90,6 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailUserSignIn"
+
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -123,7 +124,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtRecoverPassword" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/textNoAccount"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -135,22 +136,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInGoogleBtn" />
-
-    <TextView
-        android:id="@+id/signUpOpen"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center"
-        android:text="Sign Up"
-        android:textColor="#E48181"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
         android:id="@+id/textView21"
@@ -185,7 +170,7 @@
         android:maxWidth="42dp"
         android:maxHeight="42dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintBottom_toTopOf="@+id/textNoAccount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21"
         app:layout_constraintVertical_bias="0.253"

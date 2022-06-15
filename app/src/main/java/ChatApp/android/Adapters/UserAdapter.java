@@ -76,7 +76,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.binding.username.setText(user.getName());
 
         Glide.with(context).load(user.getProfileImage())
-                .placeholder(R.drawable.photo)
+                .placeholder(R.drawable.avatar)
                 .into(holder.binding.profile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RowConversationChatComponentBinding.bind(itemView);
+            binding=RowConversationChatComponentBinding.bind(itemView);
+
         }
     }
 }

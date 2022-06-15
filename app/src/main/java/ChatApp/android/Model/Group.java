@@ -6,7 +6,8 @@ public class Group {
 
 
 
-    private String groupID,groupName,adminID,adminName,createAt;
+    private String groupID,groupName,adminID,adminName;
+    private  long createAt;
     private ArrayList<User> members;
 
     public String getGroupID() {
@@ -41,13 +42,7 @@ public class Group {
         this.adminName = adminName;
     }
 
-    public String getCreateAt() {
-        return createAt;
-    }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
-    }
 
     public ArrayList<User> getMembers() {
         return members;
