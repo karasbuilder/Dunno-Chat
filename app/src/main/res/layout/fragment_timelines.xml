@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     android:clickable="true"
     android:focusableInTouchMode="true"
     tools:context=".Fragments.Timelines">
@@ -11,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_postplace"
@@ -22,46 +23,72 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/timeline_postplace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/timeline_avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/roundedpostplace"
-                android:ems="12"
-                android:gravity="center|left"
-                android:inputType="textMultiLine"
-                android:lines="1"
-                android:paddingLeft="5dp"
-                android:paddingTop="3dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="3dp"
-                android:text="asdasd"
-                android:textSize="13sp"
+                android:src="@drawable/avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/timeline_backbutton"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="100dp"
+                android:background="@drawable/roundedbutton"
+                android:src="@drawable/up_arrow_ic"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <EditText
+                android:id="@+id/timeline_postplace"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/roundedpostplace"
+                android:ems="12"
+                android:gravity="center|left"
+                android:hint="How do you feel today ?"
+                android:inputType="textMultiLine"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:paddingTop="3dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="3dp"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@+id/timeline_postbutton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/timeline_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/timeline_backbutton"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/timeline_postbutton"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="12dp"
+                android:visibility="gone"
                 android:background="@drawable/roundedbutton"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/roboto"
                 android:text="POST"
                 android:textColor="#FFFFFF"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/timeline_postplace"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -71,15 +98,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/roundedtop"
             android:paddingTop="5dp"
+            android:background="#EEEEEE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraint_postplace" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </FrameLayout>
