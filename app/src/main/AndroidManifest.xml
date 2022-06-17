@@ -18,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DunnoChat">
         <activity
+            android:name=".Activities.GroupParticipantsAdd"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.GroupCreative"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.GroupChatScreen"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ProfileContactUser"
             android:exported="false" />
         <activity
@@ -47,6 +56,7 @@
             android:name=".Services.FloatingWidgetService"
             android:enabled="true"
             android:exported="false" />
+
         <activity
             android:name=".Activities.ScanQrCode"
             android:exported="false" />
@@ -74,7 +84,7 @@
             android:exported="false" />
         <activity
             android:name=".Activities.VideoCallOut"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">

@@ -1,0 +1,750 @@
+Index: app/src/main/java/ChatApp/android/Model/Group.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ChatApp.android.Model;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class Group {\r\n\r\n\r\n\r\n    private String groupID,groupName,adminID,adminName;\r\n    private  long createAt;\r\n    private ArrayList<User> members;\r\n\r\n    public String getGroupID() {\r\n        return groupID;\r\n    }\r\n\r\n    public void setGroupID(String groupID) {\r\n        this.groupID = groupID;\r\n    }\r\n\r\n    public String getGroupName() {\r\n        return groupName;\r\n    }\r\n\r\n    public void setGroupName(String groupName) {\r\n        this.groupName = groupName;\r\n    }\r\n\r\n    public String getAdminID() {\r\n        return adminID;\r\n    }\r\n\r\n    public void setAdminID(String adminID) {\r\n        this.adminID = adminID;\r\n    }\r\n\r\n    public String getAdminName() {\r\n        return adminName;\r\n    }\r\n\r\n    public void setAdminName(String adminName) {\r\n        this.adminName = adminName;\r\n    }\r\n\r\n\r\n\r\n    public ArrayList<User> getMembers() {\r\n        return members;\r\n    }\r\n\r\n    public void setMembers(ArrayList<User> members) {\r\n        this.members = members;\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/Model/Group.java b/app/src/main/java/ChatApp/android/Model/Group.java
+--- a/app/src/main/java/ChatApp/android/Model/Group.java	(revision 4bc2722ecf9bc2df60608c3d7a4148bc24aa673d)
++++ b/app/src/main/java/ChatApp/android/Model/Group.java	(date 1655322070489)
+@@ -6,9 +6,50 @@
+ 
+ 
+ 
+-    private String groupID,groupName,adminID,adminName;
+-    private  long createAt;
++    private String groupID;
++    private String groupName;
++
++    public String getGroupIcon() {
++        return groupIcon;
++    }
++
++    public void setGroupIcon(String groupIcon) {
++        this.groupIcon = groupIcon;
++    }
++
++    private String groupIcon;
++    public String getGroupDescription() {
++        return groupDescription;
++    }
++
++    public void setGroupDescription(String groupDescription) {
++        this.groupDescription = groupDescription;
++    }
++
++    private String groupDescription;
++    private String adminID;
++
++    private long createAt;
+     private ArrayList<User> members;
++    public long getCreateAt() {
++        return createAt;
++    }
++
++    public void setCreateAt(long createAt) {
++        this.createAt = createAt;
++    }
++
++    
++
++    public Group(String groupID,String groupName,String groupDescription,String adminID,long createAt,String icon){
++        this.groupID=groupID;
++        this.groupName=groupName;
++        this.groupDescription=groupDescription;
++        this.groupIcon=icon;
++        this.createAt=createAt;
++        
++
++    }
+ 
+     public String getGroupID() {
+         return groupID;
+@@ -34,13 +75,7 @@
+         this.adminID = adminID;
+     }
+ 
+-    public String getAdminName() {
+-        return adminName;
+-    }
+ 
+-    public void setAdminName(String adminName) {
+-        this.adminName = adminName;
+-    }
+ 
+ 
+ 
+Index: app/src/main/res/layout/activity_group_creative.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_group_creative.xml b/app/src/main/res/layout/activity_group_creative.xml
+new file mode 100644
+--- /dev/null	(date 1655318447979)
++++ b/app/src/main/res/layout/activity_group_creative.xml	(date 1655318447979)
+@@ -0,0 +1,80 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="#E1DCDC"
++    tools:context=".Activities.GroupCreative">
++
++    <de.hdodenhof.circleimageview.CircleImageView
++        android:id="@+id/imageView8"
++        android:layout_width="100dp"
++        android:layout_height="100dp"
++
++        android:layout_marginTop="32dp"
++        android:background="@color/white"
++
++        android:src="@drawable/ic_groupchat"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/editTextGroupTitle"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="56dp"
++        android:layout_marginEnd="16dp"
++        android:backgroundTint="#FFFFFF"
++        android:ems="10"
++        android:hint="Group Titile"
++        android:inputType="textPersonName"
++        android:paddingStart="10dp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
++
++    <EditText
++        android:id="@+id/editTextGroupDescription"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="56dp"
++        android:layout_marginEnd="16dp"
++        android:background="@drawable/border_input"
++        android:ems="10"
++        android:gravity="top"
++        android:hint="Group Titile"
++        android:inputType="textPersonName"
++        android:minHeight="200dp"
++        android:paddingStart="10dp"
++
++        android:paddingTop="10sp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/editTextGroupTitle" />
++
++    <TextView
++        android:id="@+id/textView6"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="112dp"
++        android:background="@drawable/btn_green"
++        android:paddingStart="20sp"
++        android:paddingTop="8sp"
++        android:paddingEnd="20sp"
++        android:paddingBottom="8sp"
++        android:text="Create Group"
++        android:textColor="#FAF7F7"
++        android:textSize="20sp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/editTextGroupDescription" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/ChatApp/android/ultis/LoadingDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/ultis/LoadingDialog.java b/app/src/main/java/ChatApp/android/ultis/LoadingDialog.java
+new file mode 100644
+--- /dev/null	(date 1655360629356)
++++ b/app/src/main/java/ChatApp/android/ultis/LoadingDialog.java	(date 1655360629356)
+@@ -0,0 +1,36 @@
++package ChatApp.android.ultis;
++
++import android.app.Dialog;
++import android.os.Bundle;
++import android.view.Gravity;
++import android.view.Window;
++import android.view.WindowManager;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatDialogFragment;
++import ChatApp.android.R;
++
++
++public class LoadingDialog extends AppCompatDialogFragment {
++
++    @NonNull
++    @Override
++    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
++
++        // TODO Auto-generated method stub
++        final Dialog dialog = new Dialog(getActivity());
++        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
++        dialog.setContentView(R.layout.dialog_loading);
++        dialog.setCanceledOnTouchOutside(false);
++        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
++        lp.copyFrom(dialog.getWindow().getAttributes());
++        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
++        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
++        lp.gravity = Gravity.CENTER;
++
++        dialog.getWindow().setAttributes(lp);
++
++        return dialog;
++    }
++}
+Index: app/src/main/java/ChatApp/android/Activities/GroupCreative.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/Activities/GroupCreative.java b/app/src/main/java/ChatApp/android/Activities/GroupCreative.java
+new file mode 100644
+--- /dev/null	(date 1655322932259)
++++ b/app/src/main/java/ChatApp/android/Activities/GroupCreative.java	(date 1655322932259)
+@@ -0,0 +1,305 @@
++package ChatApp.android.Activities;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.ActionBar;
++import androidx.appcompat.app.AlertDialog;
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.core.app.ActivityCompat;
++import androidx.core.content.ContextCompat;
++
++import android.Manifest;
++import android.app.ProgressDialog;
++import android.content.ContentValues;
++import android.content.DialogInterface;
++import android.content.Intent;
++import android.content.pm.PackageManager;
++import android.net.Uri;
++import android.os.Bundle;
++import android.provider.MediaStore;
++import android.text.TextUtils;
++import android.view.View;
++import android.widget.EditText;
++import android.widget.ImageView;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.google.android.gms.tasks.OnFailureListener;
++import com.google.android.gms.tasks.OnSuccessListener;
++import com.google.android.gms.tasks.Task;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++import com.google.firebase.database.FirebaseDatabase;
++import com.google.firebase.storage.FirebaseStorage;
++import com.google.firebase.storage.StorageReference;
++import com.google.firebase.storage.UploadTask;
++
++import ChatApp.android.Model.Group;
++import ChatApp.android.databinding.ActivityGroupCreativeBinding;
++
++public class GroupCreative extends AppCompatActivity {
++
++    //permission constants camera and storage request
++    private static final int CAMERA_REQUEST_CODE = 100;
++    private static final int STORAGE_REQUEST_CODE = 200;
++    //image pick constants
++    private static final int IMAGE_PICK_CAMERA_CODE = 300;
++    private static final int IMAGE_PICK_GALLERY_CODE = 400;
++
++    //array permision
++    private String cameraPermission[];
++    private String storagePermission[];
++    private Uri imageUri;
++
++    private ActivityGroupCreativeBinding binding;
++    private ImageView groupIconIV;
++    private EditText groupTitle, groupDescription;
++    private TextView btnCreateGroup;
++    FirebaseAuth firebaseAuth;
++    FirebaseUser user;
++    FirebaseDatabase database;
++
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        binding = ActivityGroupCreativeBinding.inflate(getLayoutInflater());
++        setContentView(binding.getRoot());
++
++        firebaseAuth = FirebaseAuth.getInstance();
++        user = firebaseAuth.getCurrentUser();
++        database=FirebaseDatabase.getInstance();
++
++        //Init UI views in activity group creative
++        groupIconIV = binding.imageView8;
++        groupTitle = binding.editTextGroupTitle;
++        groupDescription = binding.editTextGroupDescription;
++        btnCreateGroup = binding.textView6;
++        //init array permission
++        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
++
++        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
++
++        //pick image event
++        groupIconIV.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                showImagePickDialog();
++
++            }
++        });
++
++        //create group event
++        btnCreateGroup.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                createGroupLoad();
++
++            }
++        });
++    }
++
++
++    public void showImagePickDialog() {
++        //options to pick image from
++        String[] options = {"Camera", "Gallery"};
++        AlertDialog.Builder builder = new AlertDialog.Builder(this);
++        builder.setTitle("Icon Group");
++        builder.setItems(options, new DialogInterface.OnClickListener() {
++            @Override
++            public void onClick(DialogInterface dialog, int which) {
++                if (which == 0) {
++                    //camera clicked
++                    if (!checkCameraPermission()) {
++                        requestCameraPermission();
++                    } else {
++                        pickFromCamera();
++
++                    }
++
++                } else {
++                    //when user click gallery
++                    if (!checkStoragePermission()) {
++                        requestStoragePermission();
++                    } else {
++                        pickFromGallery();
++
++                    }
++                }
++
++            }
++        }).show();
++    }
++
++    private void pickFromGallery() {
++        Intent intent = new Intent(Intent.ACTION_PICK);
++        intent.setType("image/*");
++        startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
++    }
++
++    private void pickFromCamera() {
++
++        ContentValues values = new ContentValues();
++        values.put(MediaStore.Images.Media.TITLE, "Group Image title");
++        values.put(MediaStore.Images.Media.DESCRIPTION, "Group Image Description");
++
++        imageUri = GroupCreative.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
++
++        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
++        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
++        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
++
++    }
++
++    private boolean checkStoragePermission() {
++        // check if storage permission is enabled or not
++        //return false if permission is not enable
++        //return true if enabled
++        boolean result = ContextCompat.checkSelfPermission(GroupCreative.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
++        return result;
++
++    }
++
++    public void requestStoragePermission() {
++        ActivityCompat.requestPermissions(GroupCreative.this, storagePermission, STORAGE_REQUEST_CODE);
++
++    }
++
++    private boolean checkCameraPermission() {
++        // check if camera permission is enabled or not
++        //return false if permission is not enable
++        //return true if enabled
++        boolean resultCamera = ContextCompat.checkSelfPermission(GroupCreative.this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
++        boolean result = ContextCompat.checkSelfPermission(GroupCreative.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
++        return result && resultCamera;
++
++    }
++
++    public void requestCameraPermission() {
++        ActivityCompat.requestPermissions(GroupCreative.this, cameraPermission, CAMERA_REQUEST_CODE);
++
++
++    }
++
++    @Override
++    public boolean onSupportNavigateUp() {
++        onBackPressed();
++        return super.onSupportNavigateUp();
++    }
++
++    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
++
++        switch (requestCode) {
++            case CAMERA_REQUEST_CODE: {
++                if (grantResults.length > 0) {
++                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
++                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
++                    if (cameraAccepted && writeStorageAccepted) {
++                        pickFromCamera();
++                    } else {
++                        Toast.makeText(GroupCreative.this, "Please  enable Camera and Storage Permission", Toast.LENGTH_SHORT).show();
++                    }
++                }
++            }
++            case STORAGE_REQUEST_CODE: {
++                if (grantResults.length > 0) {
++
++                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
++                    if (writeStorageAccepted) {
++                        pickFromGallery();
++                    } else {
++                        Toast.makeText(GroupCreative.this, "Please  enable Storage Permission", Toast.LENGTH_SHORT).show();
++                    }
++                }
++            }
++        }
++        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
++
++    }
++
++    @Override
++    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
++        if (resultCode == RESULT_OK) {
++            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
++                imageUri = data.getData();
++                groupIconIV.setImageURI(imageUri);
++            } else if (requestCode == IMAGE_PICK_GALLERY_CODE) {
++                imageUri = data.getData();
++                groupIconIV.setImageURI(imageUri);
++            }
++            super.onActivityResult(requestCode, resultCode, data);
++        }
++    }
++    public void createGroupLoad(){
++        ProgressDialog progressDialog=new ProgressDialog(this);
++        progressDialog.setMessage("Creating Group Chat");
++        String groupName=groupTitle.getText().toString();
++        String groupDes=groupDescription.getText().toString();
++        String key=database.getReference().push().getKey();
++        String uid=firebaseAuth.getCurrentUser().getUid();
++
++        if(TextUtils.isEmpty(groupName)){
++            binding.editTextGroupTitle.setError("Please Fill the name of group");
++            binding.editTextGroupTitle.requestFocus();
++            //if the text of title null => show error
++            return;
++        }
++
++        //show processing
++       progressDialog.show();
++        if(imageUri==null){
++
++             Group group=new Group(key,groupName,groupDes,uid,System.currentTimeMillis(),"No ICON");
++             addToFireBaseGroup(group,key);
++
++
++        }
++        else{
++            String fileNamePathFirebase="Group_Images/"+"image"+key;
++            StorageReference storageReference= FirebaseStorage.getInstance().getReference(fileNamePathFirebase);
++            storageReference.putFile(imageUri)
++                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
++                        @Override
++                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
++                            Task<Uri> uriTask=taskSnapshot.getStorage().getDownloadUrl();
++                            while(!!uriTask.isSuccessful()){
++                                Uri downloadURi=uriTask.getResult();
++                                if(uriTask.isSuccessful()){
++                                    Group group=new Group(key,groupName,groupDes,uid,System.currentTimeMillis(),downloadURi.toString());
++
++                                }
++                            }
++                            progressDialog.dismiss();
++
++
++                        }
++                    }).addOnFailureListener(new OnFailureListener() {
++                        @Override
++                        public void onFailure(@NonNull Exception e) {
++                            //failed and return notification
++                            progressDialog.dismiss();
++                            Toast.makeText(GroupCreative.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
++
++                        }
++                    })
++            ;
++        ;
++        }
++
++    }
++    public void addToFireBaseGroup(Group group,String key){
++        database.getReference("Groups").child(key).setValue(group).addOnSuccessListener(new OnSuccessListener<Void>() {
++                    @Override
++                    public void onSuccess(Void unused) {
++
++                    }
++                })
++                .addOnFailureListener(new OnFailureListener() {
++                    @Override
++                    public void onFailure(@NonNull Exception e) {
++
++                    }
++                });
++    }
++
++}
+\ No newline at end of file
+Index: app/src/main/java/ChatApp/android/di/ViewModelProviderFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/di/ViewModelProviderFactory.java b/app/src/main/java/ChatApp/android/di/ViewModelProviderFactory.java
+new file mode 100644
+--- /dev/null	(date 1655360955176)
++++ b/app/src/main/java/ChatApp/android/di/ViewModelProviderFactory.java	(date 1655360955176)
+@@ -0,0 +1,49 @@
++package ChatApp.android.di;
++
++import androidx.annotation.NonNull;
++import androidx.lifecycle.ViewModel;
++import androidx.lifecycle.ViewModelProvider;
++
++import java.util.Map;
++
++import javax.inject.Inject;
++import javax.inject.Provider;
++
++public class ViewModelProviderFactory implements ViewModelProvider.Factory {
++
++    private static final String TAG = "ViewModelProviderFactor";
++    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
++
++    @Inject
++    public ViewModelProviderFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
++        this.creators = creators;
++    }
++
++    @SuppressWarnings("unchecked")
++    @NonNull
++    @Override
++    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
++
++        Provider<?extends ViewModel> creator = creators.get(modelClass);
++
++        if (creator == null){
++            for (Map.Entry<Class<? extends ViewModel>,Provider<ViewModel>> entry: creators.entrySet()){
++                if (modelClass.isAssignableFrom(entry.getKey())){
++                    creator = entry.getValue();
++                    break;
++                }
++            }
++        }
++
++        if(creator == null){
++            throw new IllegalArgumentException("unknown class"+ modelClass);
++        }
++
++        try {
++            return (T) creator.get();
++        }
++        catch (Exception e){
++            throw new RuntimeException(e);
++        }
++    }
++}
+Index: app/src/main/java/ChatApp/android/Activities/GetQrCode.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ChatApp.android.Activities;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.graphics.Bitmap;\r\nimport android.graphics.BitmapFactory;\r\nimport android.media.Image;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\n\r\nimport ChatApp.android.R;\r\n\r\npublic class GetQrCode extends AppCompatActivity {\r\n\r\n    Button ConfirmBtn;\r\n    ImageView QrCodeImage;\r\n    TextView QrCodeInfo;\r\n    byte[] value;\r\n    String name;\r\n    Bitmap bitmap;\r\n    Intent intent;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_get_qr_code);\r\n        RetrieveQrCodeImage();\r\n        onConfirmButton();\r\n    }\r\n\r\n    private void onConfirmButton()\r\n    {\r\n        ConfirmBtn = findViewById(R.id.ButtonConfirm);\r\n        ConfirmBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                finish();\r\n            }\r\n        });\r\n    }\r\n\r\n    private void RetrieveQrCodeImage()\r\n    {\r\n        QrCodeImage = findViewById(R.id.QRCodeImg);\r\n        QrCodeInfo = findViewById(R.id.TextViewQrCodeInfo);\r\n        intent=getIntent();\r\n        value = intent.getByteArrayExtra(\"QRCodebyteArray\");\r\n        name = intent.getStringExtra(\"QRCodeInfo\");\r\n        bitmap = BitmapFactory.decodeByteArray(value, 0, value.length);\r\n        QrCodeImage.setImageBitmap(bitmap);\r\n        QrCodeInfo.setText(\"Dunno Chat: \" + name);\r\n    }\r\n\r\n    @Override\r\n    protected void onDestroy() {\r\n        super.onDestroy();\r\n        ConfirmBtn = null;\r\n        QrCodeImage= null;\r\n        QrCodeInfo= null;\r\n        value= null;\r\n        name= null;\r\n        bitmap= null;\r\n        intent= null;\r\n        Runtime.getRuntime().gc();\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/Activities/GetQrCode.java b/app/src/main/java/ChatApp/android/Activities/GetQrCode.java
+--- a/app/src/main/java/ChatApp/android/Activities/GetQrCode.java	(revision 4bc2722ecf9bc2df60608c3d7a4148bc24aa673d)
++++ b/app/src/main/java/ChatApp/android/Activities/GetQrCode.java	(date 1655319956711)
+@@ -54,6 +54,7 @@
+         bitmap = BitmapFactory.decodeByteArray(value, 0, value.length);
+         QrCodeImage.setImageBitmap(bitmap);
+         QrCodeInfo.setText("Dunno Chat: " + name);
++
+     }
+ 
+     @Override
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"ChatApp.android\">\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.CAMERA\" />\r\n    <uses-permission android:name=\"android.permission.RECORD_AUDIO\" />\r\n    <uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />\r\n    <uses-permission android:name=\"android.permission.VIBRATE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.DunnoChat\">\r\n        <activity\r\n            android:name=\".Activities.ProfileContactUser\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.PostTimeLine\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.SearchUser\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.SignUp\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.SignIn\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.EditProfile\"\r\n            android:exported=\"false\" />\r\n\r\n        <service\r\n            android:name=\".Services.MyFirebaseMessagingService\"\r\n            android:exported=\"false\">\r\n            <intent-filter>\r\n                <action android:name=\"com.google.firebase.MESSAGING_EVENT\" />\r\n            </intent-filter>\r\n        </service>\r\n        <service\r\n            android:name=\".Services.FloatingWidgetService\"\r\n            android:enabled=\"true\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.ScanQrCode\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.GetQrCode\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.ChatUserScreen\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.UserHomeChat\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.SetUpAccountSignUp\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.ConfirmPhoneOTP\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.PhoneNumberVerify\"\r\n            android:exported=\"false\"\r\n            android:windowSoftInputMode=\"stateVisible\" />\r\n        <activity\r\n            android:name=\".Activities.VideoCallIn\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Activities.VideoCallOut\"\r\n            android:exported=\"false\"/>\r\n        <activity\r\n            android:name=\".SplashScreen\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"false\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 4bc2722ecf9bc2df60608c3d7a4148bc24aa673d)
++++ b/app/src/main/AndroidManifest.xml	(date 1655317128436)
+@@ -18,6 +18,9 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.DunnoChat">
+         <activity
++            android:name=".Activities.GroupCreative"
++            android:exported="false" />
++        <activity
+             android:name=".Activities.ProfileContactUser"
+             android:exported="false" />
+         <activity
+@@ -47,6 +50,7 @@
+             android:name=".Services.FloatingWidgetService"
+             android:enabled="true"
+             android:exported="false" />
++
+         <activity
+             android:name=".Activities.ScanQrCode"
+             android:exported="false" />
+@@ -74,7 +78,7 @@
+             android:exported="false" />
+         <activity
+             android:name=".Activities.VideoCallOut"
+-            android:exported="false"/>
++            android:exported="false" />
+         <activity
+             android:name=".SplashScreen"
+             android:exported="true">
+Index: app/src/main/java/ChatApp/android/di/ViewModelKey.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/di/ViewModelKey.java b/app/src/main/java/ChatApp/android/di/ViewModelKey.java
+new file mode 100644
+--- /dev/null	(date 1655362162606)
++++ b/app/src/main/java/ChatApp/android/di/ViewModelKey.java	(date 1655362162606)
+@@ -0,0 +1,21 @@
++package ChatApp.android.di;
++
++import androidx.lifecycle.ViewModel;
++
++import com.google.android.datatransport.runtime.dagger.MapKey;
++
++import java.lang.annotation.Documented;
++import java.lang.annotation.ElementType;
++import java.lang.annotation.Retention;
++import java.lang.annotation.RetentionPolicy;
++import java.lang.annotation.Target;
++
++
++@Documented
++@Target({ElementType.METHOD})
++@Retention(RetentionPolicy.RUNTIME)
++@MapKey
++public @interface ViewModelKey {
++
++    Class<? extends ViewModel> value();
++}
+Index: app/src/main/java/ChatApp/android/Activities/EditProfile.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ChatApp.android.Activities;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.app.ActivityCompat;\r\nimport androidx.core.content.ContextCompat;\r\n\r\nimport android.Manifest;\r\nimport android.app.ProgressDialog;\r\nimport android.content.ContentValues;\r\nimport android.content.Intent;\r\nimport android.content.pm.PackageManager;\r\nimport android.net.Uri;\r\nimport android.os.Bundle;\r\nimport android.provider.MediaStore;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.RadioButton;\r\nimport android.widget.RadioGroup;\r\nimport android.widget.Toast;\r\n\r\nimport com.bumptech.glide.Glide;\r\nimport com.google.android.gms.tasks.OnFailureListener;\r\nimport com.google.android.gms.tasks.OnSuccessListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\nimport com.google.firebase.auth.FirebaseUser;\r\nimport com.google.firebase.database.DataSnapshot;\r\nimport com.google.firebase.database.DatabaseError;\r\nimport com.google.firebase.database.DatabaseReference;\r\nimport com.google.firebase.database.FirebaseDatabase;\r\nimport com.google.firebase.database.ValueEventListener;\r\nimport com.google.firebase.storage.FirebaseStorage;\r\nimport com.google.firebase.storage.StorageReference;\r\nimport com.google.firebase.storage.UploadTask;\r\n\r\nimport java.util.HashMap;\r\nimport java.util.Map;\r\n\r\nimport ChatApp.android.Model.User;\r\nimport ChatApp.android.databinding.ActivityEditProfileBinding;\r\nimport ChatApp.android.R;\r\n\r\npublic class EditProfile extends AppCompatActivity {\r\n\r\n\r\n    /* Edit Profile will include\r\n    *  --> Dunno name user\r\n    * --> Profile Picture\r\n    * ---> Cover Picture\r\n    * */\r\n\r\n    //\r\n\r\n    /**\r\n     * The first thing we will get information about user ( by user ID in realtime database)\r\n     * and setting information to edit field\r\n     * when user click to update button\r\n     * Update all of thing: 1. for normal fied , just easy update by updateuser .\r\n     * 2. for email , first get id and update by function of firebase update email\r\n     * */\r\n    private  ActivityEditProfileBinding binding;\r\n    FirebaseAuth auth;\r\n    FirebaseUser currentUser;\r\n    DatabaseReference databaseReference;\r\n   StorageReference storageReference;\r\n    String storagePath=\"Uses_imageProfile_imageCover/\";\r\n    //user in database\r\n    User user;// user interface load in application\r\n\r\n\r\n    private ProgressDialog progressDialog;\r\n    //setting permission constant\r\n    private static final int CAMERA_REQUEST_CODE=100;\r\n    private static final int STORAGE_REQUEST_CODE=200;\r\n    private static final int IMAGE_PICK_GALLERY_CODE=300;\r\n    private static final int IMAGE_PICK_CAMERA_CODE=400;\r\n\r\n    //array permision\r\n    String cameraPermission[];\r\n    String storagePermission[];\r\n    private Button btnBack,btnUpdate;\r\n\r\n    ImageView coverImage,profileImage;\r\n    EditText editNameUser,editEmailUser,editAddressUser;\r\n    RadioGroup radioGroup;\r\n    RadioButton genderRadio;\r\n    String gender;\r\n\r\n\r\n    Uri imageProfileUri,imageCoverUri;\r\n    Uri imageUri;\r\n    String modeGetImage;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        binding=ActivityEditProfileBinding.inflate(getLayoutInflater());\r\n        setContentView(binding.getRoot());\r\n\r\n        cameraPermission=new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};\r\n        storagePermission=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};\r\n        //initialize id of ui\r\n        btnBack=binding.btnBack;\r\n        btnUpdate=binding.btbUpdateProfile;\r\n        //load item from UI\r\n        coverImage=binding.coverImageUser;\r\n        profileImage=binding.profileImageUser;\r\n        editNameUser=binding.editTextNameUser;\r\n        editEmailUser=binding.editTextEmailUser;\r\n        editAddressUser=binding.editTextAddressUser;\r\n\r\n        radioGroup=binding.radioGroup;\r\n\r\n        //initialize firebase\r\n        auth=FirebaseAuth.getInstance();\r\n        currentUser= auth.getCurrentUser();\r\n        databaseReference=FirebaseDatabase.getInstance().getReference(\"users\");\r\n        storageReference= FirebaseStorage.getInstance().getReference();\r\n\r\n\r\n        getCurrentUser();\r\n        coverImage.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                modeGetImage=\"cover\";\r\n                showEditProfileImage();\r\n                binding.coverImageUser.setImageURI(imageCoverUri);\r\n            }\r\n        });\r\n        profileImage.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                modeGetImage=\"profile\";\r\n                showEditProfileImage();\r\n                binding.profileImageUser.setImageURI(imageProfileUri);\r\n            }\r\n        });\r\n\r\n        //radio group event\r\n        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {\r\n            @Override\r\n            public void onCheckedChanged(RadioGroup group, int checkedId) {\r\n                int radioID=group.getCheckedRadioButtonId();\r\n                genderRadio=findViewById(radioID);\r\n                gender=genderRadio.getText().toString();\r\n            }\r\n        });\r\n\r\n        //get current user to load in edit profile page\r\n\r\n        btnUpdate.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                uploadNewInformation();\r\n            }\r\n        });\r\n\r\n        exitEditProfileScreen();\r\n    }\r\n\r\n\r\n    public void exitEditProfileScreen(){\r\n        btnBack.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                finish();\r\n            }\r\n        });\r\n    }\r\n\r\n    // Storage Permission\r\n    private boolean checkStoragePermission(){\r\n        // check if storage permission is enabled or not\r\n        //return false if permission is not enable\r\n        //return true if enabled\r\n        boolean result= ContextCompat.checkSelfPermission(EditProfile.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);\r\n        return result;\r\n\r\n    }\r\n    public void requestStoragePermission(){\r\n        ActivityCompat.requestPermissions(EditProfile.this,storagePermission,STORAGE_REQUEST_CODE);\r\n\r\n    }\r\n    //Camera Permission\r\n    private boolean checkCameraPermission(){\r\n        // check if camera permission is enabled or not\r\n        //return false if permission is not enable\r\n        //return true if enabled\r\n        boolean resultCamera= ContextCompat.checkSelfPermission(EditProfile.this,Manifest.permission.CAMERA)==(PackageManager.PERMISSION_GRANTED);\r\n        boolean result= ContextCompat.checkSelfPermission(EditProfile.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);\r\n        return result&&resultCamera;\r\n\r\n    }\r\n    public void requestCameraPermission(){\r\n        ActivityCompat.requestPermissions(EditProfile.this,cameraPermission,CAMERA_REQUEST_CODE);\r\n\r\n\r\n    }\r\n\r\n\r\n\r\n    public void showEditProfileImage(){\r\n        AlertDialog.Builder builder=new AlertDialog.Builder(this);\r\n        //setting options\r\n        String options[]={\"View Cover\",\"Take photo\",\"Choose from gallery\",\"Cancel\"};\r\n        builder.setTitle(\"Cover\");\r\n        builder.setItems(options,((dialog, which) -> {\r\n            if (which==0){\r\n                Toast.makeText(this, \"This function during updated\", Toast.LENGTH_SHORT).show();\r\n\r\n            }\r\n            else  if(which==1){\r\n                //camera clicked\r\n                if(!checkCameraPermission()){\r\n                    requestCameraPermission();\r\n                }\r\n                else {\r\n                    pickFromCamera();\r\n                }\r\n            }\r\n            else if(which==2){\r\n                if(!checkStoragePermission()){\r\n                    requestStoragePermission();\r\n\r\n                }\r\n                else{\r\n                    pickFromGallery();\r\n                }\r\n\r\n\r\n\r\n            }\r\n            else if(which==3){\r\n                return;\r\n            }\r\n        }));\r\n        builder.create().show();\r\n    }\r\n\r\n\r\n    public void getCurrentUser(){\r\n\r\n\r\n        DatabaseReference reference=databaseReference.child(currentUser.getUid());\r\n\r\n       reference.addValueEventListener(new ValueEventListener() {\r\n            @Override\r\n            public void onDataChange(@NonNull DataSnapshot snapshot) {\r\n                if (snapshot.exists()){\r\n                    user=snapshot.getValue(User.class);\r\n\r\n                    editNameUser.setText(user.getName());\r\n                    editEmailUser.setText(user.getEmail());\r\n                    editAddressUser.setText(user.getAddressUser());\r\n                    String getGender=user.getGender();\r\n\r\n                    editEmailUser.setEnabled(false);\r\n\r\n                    if(getGender.equals(\"Female\")){\r\n                        binding.radioFemale.setChecked(true);\r\n                    }else{\r\n                        binding.radioMale.setChecked(true);\r\n                    }\r\n\r\n                    Glide.with(EditProfile.this).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUser);\r\n                    Glide.with(EditProfile.this).load(user.getCoverImage()).placeholder(R.drawable.wall).into(binding.coverImageUser);\r\n\r\n                }\r\n            }\r\n            @Override\r\n            public void onCancelled(@NonNull DatabaseError error) {\r\n\r\n            }\r\n        });\r\n\r\n\r\n    }\r\n\r\n\r\n    private void pickFromCamera(){\r\n\r\n        ContentValues values=new ContentValues();\r\n        values.put(MediaStore.Images.Media.TITLE,\"Temp Pic\");\r\n        values.put(MediaStore.Images.Media.DESCRIPTION,\"Temp Description\");\r\n\r\n        imageUri=EditProfile.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);\r\n\r\n        Intent cameraIntent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);\r\n        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);\r\n        startActivityForResult(cameraIntent,IMAGE_PICK_CAMERA_CODE);\r\n\r\n    }\r\n    private  void pickFromGallery(){\r\n        //pick from gallery\r\n        Intent galleryIntent=new Intent();\r\n        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);\r\n        galleryIntent.setType(\"image/*\");\r\n        startActivityForResult(galleryIntent,IMAGE_PICK_GALLERY_CODE);\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {\r\n\r\n        switch (requestCode){\r\n            case CAMERA_REQUEST_CODE:{\r\n                if(grantResults.length>0){\r\n                    boolean cameraAccepted =grantResults[0]==PackageManager.PERMISSION_GRANTED;\r\n                    boolean writeStorageAccepted=grantResults[1]==PackageManager.PERMISSION_GRANTED;\r\n                    if (cameraAccepted&&writeStorageAccepted){\r\n                        pickFromCamera();\r\n                    }\r\n                    else{\r\n                       Toast.makeText(EditProfile.this,\"Please  enable Camera and Storage Permission\",Toast.LENGTH_SHORT).show();\r\n                    }\r\n                }\r\n            }\r\n            case STORAGE_REQUEST_CODE:{\r\n                if(grantResults.length>0){\r\n\r\n                    boolean writeStorageAccepted=grantResults[1]==PackageManager.PERMISSION_GRANTED;\r\n                    if (writeStorageAccepted){\r\n                        pickFromGallery();\r\n                    }\r\n                    else{\r\n                        Toast.makeText(EditProfile.this,\"Please  enable Storage Permission\",Toast.LENGTH_SHORT).show();\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults);\r\n\r\n    }\r\n\r\n    @Override\r\n    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {\r\n        // this method called when user press allow or deny from request permission diaglog\r\n        //It will handle permission case (Allow & denied )\r\n\r\n\r\n            switch (requestCode){\r\n                case IMAGE_PICK_CAMERA_CODE:{\r\n                    if(modeGetImage.equals(\"cover\")){\r\n                        imageCoverUri=data.getData();\r\n                        Toast.makeText(this, \"Modata ak\"+data.getData(), Toast.LENGTH_SHORT).show();\r\n                    }\r\n                    else{\r\n                        imageProfileUri=data.getData();\r\n                    }\r\n                }\r\n                case IMAGE_PICK_GALLERY_CODE:{\r\n                    if(modeGetImage.equals(\"cover\")){\r\n                        imageCoverUri=data.getData();\r\n\r\n                    }\r\n                    else{\r\n                        imageProfileUri=data.getData();\r\n                    }\r\n                }\r\n            }\r\n\r\n\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n    }\r\n\r\n    private void uploadProfileAvatar(Uri uri,String modeChooseImage) {\r\n        /**\r\n         *The rule of database is only 1 image for profile image user and 1 image for cover image user\r\n         * */\r\n        if(uri!=null) {\r\n            String filePath = storagePath + \"\" + modeChooseImage + \"_\" + user.getUid();\r\n            StorageReference storageReference1 = storageReference.child(filePath);\r\n            storageReference1.putFile(uri)\r\n                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {\r\n                        @Override\r\n                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {\r\n                            //storage image to storage database and then storage to user\r\n                            //whe\r\n                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();\r\n                            while (!uriTask.isSuccessful()) {\r\n                                Uri downloadUri = uriTask.getResult();\r\n                                if (uriTask.isSuccessful()) {\r\n                                    HashMap<String, Object> result = new HashMap<>();\r\n                                    result.put(modeChooseImage, downloadUri.toString());\r\n                                    databaseReference.child(user.getUid()).child(modeChooseImage).updateChildren(result)\r\n                                            .addOnSuccessListener(new OnSuccessListener<Void>() {\r\n                                                @Override\r\n                                                public void onSuccess(Void unused) {\r\n\r\n                                                }\r\n                                            }).addOnFailureListener(new OnFailureListener() {\r\n                                                @Override\r\n                                                public void onFailure(@NonNull Exception e) {\r\n                                                    progressDialog.dismiss();\r\n                                                    Toast.makeText(EditProfile.this, \"Image updated Failed\", Toast.LENGTH_SHORT).show();\r\n\r\n                                                }\r\n                                            });\r\n\r\n                                } else {\r\n\r\n                                }\r\n                            }\r\n\r\n                        }\r\n                    }).addOnFailureListener(new OnFailureListener() {\r\n                        @Override\r\n                        public void onFailure(@NonNull Exception e) {\r\n\r\n                        }\r\n                    });\r\n        }\r\n\r\n\r\n    }\r\n\r\n\r\n\r\n    private void uploadNewInformation(){\r\n        //First check the valid of field\r\n\r\n\r\n        if(!user.getEmail().equals(editEmailUser.getText().toString())){\r\n            /**\r\n             * We need to authentication from old email\r\n             * update email to firebase\r\n             * then reauthentication with email new and password\r\n             * */\r\n\r\n        }\r\n        /// normal field\r\n        int checkedId=radioGroup.getCheckedRadioButtonId();\r\n        RadioButton radioButton=radioGroup.findViewById(checkedId);\r\n\r\n\r\n\r\n\r\n        user.setAddressUser(editAddressUser.getText().toString());\r\n        user.setGender(radioButton.getText().toString());\r\n        user.setName(editNameUser.getText().toString());\r\n        Map<String,Object> result =user.toMap();\r\n        //upload new image for avatar and cover\r\n        uploadProfileAvatar(imageProfileUri,\"profileImage\");\r\n        uploadProfileAvatar(imageCoverUri,\"coverImage\");\r\n        //set uri\r\n\r\n        databaseReference.child(user.getUid()).updateChildren(result)\r\n                .addOnSuccessListener(new OnSuccessListener<Void>() {\r\n                    @Override\r\n                    public void onSuccess(Void unused) {\r\n                        finish();\r\n                    }\r\n                });\r\n        //email field password\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/Activities/EditProfile.java b/app/src/main/java/ChatApp/android/Activities/EditProfile.java
+--- a/app/src/main/java/ChatApp/android/Activities/EditProfile.java	(revision 4bc2722ecf9bc2df60608c3d7a4148bc24aa673d)
++++ b/app/src/main/java/ChatApp/android/Activities/EditProfile.java	(date 1655320604482)
+@@ -260,13 +260,14 @@
+                     String getGender=user.getGender();
+ 
+                     editEmailUser.setEnabled(false);
++                    if(!getGender.isEmpty()) {
+ 
+-                    if(getGender.equals("Female")){
+-                        binding.radioFemale.setChecked(true);
+-                    }else{
+-                        binding.radioMale.setChecked(true);
++                        if (getGender.equals("Female")) {
++                            binding.radioFemale.setChecked(true);
++                        } else {
++                            binding.radioMale.setChecked(true);
++                        }
+                     }
+-
+                     Glide.with(EditProfile.this).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUser);
+                     Glide.with(EditProfile.this).load(user.getCoverImage()).placeholder(R.drawable.wall).into(binding.coverImageUser);
+ 
+@@ -323,7 +324,7 @@
+             case STORAGE_REQUEST_CODE:{
+                 if(grantResults.length>0){
+ 
+-                    boolean writeStorageAccepted=grantResults[1]==PackageManager.PERMISSION_GRANTED;
++                    boolean writeStorageAccepted=grantResults[0]==PackageManager.PERMISSION_GRANTED;
+                     if (writeStorageAccepted){
+                         pickFromGallery();
+                     }
+Index: app/src/main/res/drawable/ic_groupchat.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_groupchat.xml b/app/src/main/res/drawable/ic_groupchat.xml
+new file mode 100644
+--- /dev/null	(date 1655317429587)
++++ b/app/src/main/res/drawable/ic_groupchat.xml	(date 1655317429587)
+@@ -0,0 +1,6 @@
++<vector android:height="24dp" android:tint="#3F51B5"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@color/colorAccent" android:pathData="M16,11c1.66,0 2.99,-1.34 2.99,-3S17.66,5 16,5c-1.66,0 -3,1.34 -3,3s1.34,3 3,3zM8,11c1.66,0 2.99,-1.34 2.99,-3S9.66,5 8,5C6.34,5 5,6.34 5,8s1.34,3 3,3zM8,13c-2.33,0 -7,1.17 -7,3.5L1,19h14v-2.5c0,-2.33 -4.67,-3.5 -7,-3.5zM16,13c-0.29,0 -0.62,0.02 -0.97,0.05 1.16,0.84 1.97,1.97 1.97,3.45L17,19h6v-2.5c0,-2.33 -4.67,-3.5 -7,-3.5z"/>
++
++</vector>
+Index: app/src/main/java/ChatApp/android/Activities/UserHomeChat.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ChatApp.android.Activities;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.core.content.ContextCompat;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport androidx.fragment.app.FragmentTransaction;\r\n\r\n\r\n\r\nimport android.app.ProgressDialog;\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.Menu;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\nimport android.widget.ImageButton;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.Toast;\r\n\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\nimport com.google.android.material.navigation.NavigationBarView;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\nimport com.google.firebase.database.DataSnapshot;\r\nimport com.google.firebase.database.DatabaseError;\r\nimport com.google.firebase.database.FirebaseDatabase;\r\nimport com.google.firebase.database.ValueEventListener;\r\nimport com.google.firebase.messaging.FirebaseMessaging;\r\n\r\nimport org.json.JSONException;\r\n\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\n\r\nimport ChatApp.android.Fragments.AccountDetail;\r\nimport ChatApp.android.Fragments.ContactUser;\r\nimport ChatApp.android.Fragments.ConversationUser;\r\nimport ChatApp.android.Fragments.Notification;\r\nimport ChatApp.android.Fragments.Timelines;\r\nimport ChatApp.android.Model.User;\r\nimport ChatApp.android.R;\r\n\r\nimport ChatApp.android.databinding.ActivityUserHomeChatBinding;\r\n\r\n\r\npublic class UserHomeChat extends AppCompatActivity {\r\n    private ActivityUserHomeChatBinding binding;\r\n\r\n    MenuItem ButtonScanQRCode;\r\n    User user;\r\n    ConversationUser conversationUserFragment=new ConversationUser();\r\n    AccountDetail accountDetailFragment=new AccountDetail();\r\n    ContactUser contactUserFragment=new ContactUser();\r\n    Timelines timelinesFragment=new Timelines();\r\n    Notification notificationFragment=new Notification();\r\n    BottomNavigationView bottomNavigationView;\r\n\r\n    LinearLayout searchBar;\r\n    Toolbar toolbar;\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        binding= ActivityUserHomeChatBinding.inflate(getLayoutInflater());\r\n        setContentView(R.layout.activity_user_home_chat);\r\n        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,conversationUserFragment).commit();\r\n        bottomNavigationView=findViewById(R.id.bottomNavigationView);\r\n\r\n//        String token = FirebaseMessaging.getInstance().getToken().toString();\r\n//        Log.d(\"TOKEN\",token);\r\n//        FirebaseMessaging.getInstance().deleteToken();\r\n//            FirebaseMessaging.getInstance().getToken()\r\n//                .addOnCompleteListener(task -> {\r\n//                            if (task.isSuccessful() && task.getResult() != null) {\r\n//                        NotificationModel nm = new NotificationModel(task.getResult(),\"test\",\"haha\");\r\n//                        new PushNotificationSender().execute(nm);\r\n//                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();\r\n//                        FirebaseDatabase.getInstance().getReference(\"users\").child(uid).child(\"token\").setValue(task.getResult());\r\n//                                Log.d(\"TOKEN\", task.getResult());\r\n//                            }\r\n//                        });\r\n\r\n        toolbar=findViewById(R.id.customToolbar);\r\n        setSupportActionBar(toolbar);\r\n        toolbar.setOverflowIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_add_24));\r\n\r\n        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {\r\n            @Override\r\n            public boolean onMenuItemClick(MenuItem item) {\r\n                switch (item.getItemId()){\r\n                    case R.id.ButtonQrScanMenu:\r\n                        Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);\r\n                        startActivity(i);\r\n                        return true;\r\n                    case R.id.btnCreateGroupMenu:\r\n\r\n\r\n\r\n                }\r\n                return false;\r\n            }\r\n        });\r\n        toolbar.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent intent=new Intent(UserHomeChat.this,SearchUser.class);\r\n                startActivity(intent);\r\n            }\r\n\r\n        });\r\n\r\n      bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {\r\n          @Override\r\n          public boolean onNavigationItemSelected(@NonNull MenuItem item) {\r\n              switch (item.getItemId()){\r\n                  case R.id.message:\r\n                      toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(false);\r\n                      getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,conversationUserFragment).commit();\r\n                      return  true;\r\n                  case R.id.contact:\r\n                      toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(true);\r\n                      getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,contactUserFragment).commit();\r\n                      return true;\r\n                  case R.id.notification:\r\n                      toolbar.getMenu().findItem(R.id.btnAddNewContactMenu).setVisible(false);\r\n                      getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,notificationFragment).commit();\r\n                      return true;\r\n\r\n                  case R.id.timeline:\r\n                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,timelinesFragment).commit();\r\n                      return true;\r\n                  case R.id.account:\r\n                      getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,accountDetailFragment).commit();\r\n                      return  true;\r\n              }\r\n              return false;\r\n          }\r\n      });\r\n      //onScanQRCode();\r\n      onSearchUsers();\r\n}\r\n\r\n    @Override\r\n    public boolean onCreateOptionsMenu(Menu menu) {\r\n\r\n        getMenuInflater().inflate(R.menu.menu_home,menu);\r\n        menu.findItem(R.id.btnAddNewContactMenu).setVisible(false);\r\n        return super.onCreateOptionsMenu(menu);\r\n\r\n    }\r\n    private void loadFragment(Fragment fragment) {\r\n        // load fragment\r\n        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();\r\n        transaction.replace(R.id.frame_layout, fragment);\r\n\r\n        transaction.commit();\r\n    }\r\n\r\n    @Override\r\n    public boolean onOptionsItemSelected(@NonNull MenuItem item) {\r\n        switch (item.getItemId()){\r\n            case R.id.ButtonQrScanMenu:\r\n                Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);\r\n                startActivity(i);\r\n                return true;\r\n            case R.id.btnCreateGroupMenu:\r\n\r\n\r\n\r\n        }\r\n        return super.onOptionsItemSelected(item);\r\n    }\r\n\r\n   /* private void onScanQRCode()\r\n    {\r\n        ButtonScanQRCode = findViewById(R.id.ButtonQrScanMenu);\r\n        ButtonScanQRCode.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent i = new Intent(UserHomeChat.this,ScanQrCode.class);\r\n                startActivity(i);\r\n            }\r\n        });\r\n    }*/\r\n\r\n    //search event\r\n    private void onSearchUsers(){\r\n\r\n    }\r\n\r\n    //when user use application => status of user will online\r\n    @Override\r\n    protected void onStart() {\r\n        super.onStart();\r\n    }\r\n    //when user stop use application => status offline\r\n    @Override\r\n    protected void onStop() {\r\n        super.onStop();\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ChatApp/android/Activities/UserHomeChat.java b/app/src/main/java/ChatApp/android/Activities/UserHomeChat.java
+--- a/app/src/main/java/ChatApp/android/Activities/UserHomeChat.java	(revision 4bc2722ecf9bc2df60608c3d7a4148bc24aa673d)
++++ b/app/src/main/java/ChatApp/android/Activities/UserHomeChat.java	(date 1655316307720)
+@@ -95,6 +95,9 @@
+                         startActivity(i);
+                         return true;
+                     case R.id.btnCreateGroupMenu:
++                        Intent intent=new Intent(UserHomeChat.this,GroupCreative.class);
++                        startActivity(intent);
++                        return true;
+ 
+ 
+ 

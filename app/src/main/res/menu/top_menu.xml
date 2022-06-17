@@ -17,5 +17,7 @@
         android:title="Create group" />
     <item android:title="Add friend" />
     <item android:title="Dunno Calendar" />
+    <item android:title="Block user" android:id="@+id/btnBlockFriend" />
     <item android:title="Login history" />
+
 </menu>

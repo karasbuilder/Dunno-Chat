@@ -260,13 +260,14 @@ public class EditProfile extends AppCompatActivity {
                     String getGender=user.getGender();
 
                     editEmailUser.setEnabled(false);
+                    if(!getGender.isEmpty()) {
 
-                    if(getGender.equals("Female")){
-                        binding.radioFemale.setChecked(true);
-                    }else{
-                        binding.radioMale.setChecked(true);
+                        if (getGender.equals("Female")) {
+                            binding.radioFemale.setChecked(true);
+                        } else {
+                            binding.radioMale.setChecked(true);
+                        }
                     }
-
                     Glide.with(EditProfile.this).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUser);
                     Glide.with(EditProfile.this).load(user.getCoverImage()).placeholder(R.drawable.wall).into(binding.coverImageUser);
 
@@ -323,7 +324,7 @@ public class EditProfile extends AppCompatActivity {
             case STORAGE_REQUEST_CODE:{
                 if(grantResults.length>0){
 
-                    boolean writeStorageAccepted=grantResults[1]==PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted=grantResults[0]==PackageManager.PERMISSION_GRANTED;
                     if (writeStorageAccepted){
                         pickFromGallery();
                     }

@@ -100,6 +100,9 @@ public class UserHomeChat extends AppCompatActivity {
                         startActivity(i);
                         return true;
                     case R.id.btnCreateGroupMenu:
+                        Intent intent=new Intent(UserHomeChat.this,GroupCreative.class);
+                        startActivity(intent);
+                        return true;
 
 
 
