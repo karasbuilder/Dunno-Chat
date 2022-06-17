@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:contentPadding="3dp"
+    android:layout_marginTop="1dp"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/groupIcon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/avatar" />
+
+
+    <TextView
+        android:id="@+id/groupTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+
+        android:layout_toEndOf="@id/groupIcon"
+
+        android:text="Group Title"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/namePaShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupTitle"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/groupIcon"
+        android:text="Sender Name User"
+        android:textColor="@color/btn_purple"
+
+        />
+
+    <TextView
+        android:id="@+id/messPaShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupTitle"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/namePaShow"
+        android:singleLine="true"
+        android:text="The message"
+        android:textColor="#666262" />
+    <TextView
+        android:id="@+id/timePaShow"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/amp_gray"
+        android:layout_below="@id/namePaShow"
+        android:singleLine="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="6dp"
+        android:text="00:00"
+        />
+
+
+
+
+</RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -31,7 +31,7 @@ import ChatApp.android.databinding.DeleteDialogBinding;
 import ChatApp.android.databinding.RecivedChatComponentBinding;
 import ChatApp.android.databinding.SentChatComponentBinding;
 
-public class MessageAdapter  extends RecyclerView.Adapter {
+public class MessageAdapter  extends RecyclerView.Adapter{
 
     Context context;
     ArrayList<Message> messages;
@@ -106,7 +106,7 @@ public class MessageAdapter  extends RecyclerView.Adapter {
                 viewHolder.binding.feeling.setVisibility(View.VISIBLE);
             } else {
                 ReceiverViewHolder viewHolder = (ReceiverViewHolder)holder;
-                viewHolder.binding.feeling.setImageResource(reactions[pos]);
+              viewHolder.binding.feeling.setImageResource(reactions[pos]);
                 viewHolder.binding.feeling.setVisibility(View.VISIBLE);
 
 

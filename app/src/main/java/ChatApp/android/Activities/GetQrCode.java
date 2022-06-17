@@ -54,6 +54,7 @@ public class GetQrCode extends AppCompatActivity {
         bitmap = BitmapFactory.decodeByteArray(value, 0, value.length);
         QrCodeImage.setImageBitmap(bitmap);
         QrCodeInfo.setText("Dunno Chat: " + name);
+
     }
 
     @Override

@@ -2,6 +2,9 @@ package ChatApp.android.Model;
 
 public class Message {
     private String messageId, message, senderId, imageUrl;
+
+
+    private String type;
     private long timestamp;
     private int feeling = -1;
 
@@ -12,6 +15,13 @@ public class Message {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getMessageId() {

@@ -6,9 +6,54 @@ public class Group {
 
 
 
-    private String groupID,groupName,adminID,adminName;
-    private  long createAt;
-    private ArrayList<User> members;
+    private String groupID;
+    private String groupName;
+    private String groupDescription;
+    private String adminID;
+    private String groupIcon;
+    private long createAt;
+
+
+    public Group(){
+
+    }
+    public Group(String groupID,String groupName,String groupDescription,String adminID,long createAt,String icon){
+        this.groupID=groupID;
+        this.groupName=groupName;
+        this.groupDescription=groupDescription;
+        this.groupIcon=icon;
+        this.adminID=adminID;
+        this.createAt=createAt;
+        
+
+    }
+    public String getGroupIcon() {
+        return groupIcon;
+    }
+
+    public void setGroupIcon(String groupIcon) {
+        this.groupIcon = groupIcon;
+    }
+
+
+    public String getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
+    }
+
+
+
+    public long getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(long createAt) {
+        this.createAt = createAt;
+    }
+
 
     public String getGroupID() {
         return groupID;
@@ -34,23 +79,10 @@ public class Group {
         this.adminID = adminID;
     }
 
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
 
 
 
-    public ArrayList<User> getMembers() {
-        return members;
-    }
 
-    public void setMembers(ArrayList<User> members) {
-        this.members = members;
-    }
 
 
 
