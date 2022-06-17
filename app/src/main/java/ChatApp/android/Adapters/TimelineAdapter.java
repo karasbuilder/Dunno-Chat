@@ -3,6 +3,7 @@ package ChatApp.android.Adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,9 +88,25 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
 
         String current_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String uid = post.getUid();
-        Glide.with(context).load(post.getProfileimage())
-                .placeholder(R.drawable.photo)
-                .into(holder.profileimage);
+
+        FirebaseDatabase.getInstance().getReference("users").child(post.getUid()).child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String profile_image = null;
+                if(snapshot.exists()) {
+                    profile_image = snapshot.getValue().toString();
+                }
+                Glide.with(context).load(profile_image)
+                        .placeholder(R.drawable.avatar)
+                        .into(holder.profileimage);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        // Load the image using Glide
 
         long time=post.getTimestamp();
         holder.timestamp.setText(dateFormat.format(new Date(time)));
@@ -105,10 +124,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
         if(post.isLiked())
         {
             holder.likeicon.setImageResource(R.drawable.like_ic);
+            holder.likebutton.setTextColor(Color.parseColor("#00A8C1"));
         }
         else
         {
             holder.likeicon.setImageResource(R.drawable.notlike_ic);
+            holder.likebutton.setTextColor(Color.parseColor("#000000"));
         }
 
         FirebaseDatabase.getInstance().getReference("users").child(uid).child("name").addValueEventListener(new ValueEventListener() {
@@ -125,7 +146,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
 
         holder.content.setText(post.getContent());
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("timeline").child(current_uid).child(post.getPostid());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("timeline").child(post.getUid()).child(post.getPostid());
         holder.likebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
