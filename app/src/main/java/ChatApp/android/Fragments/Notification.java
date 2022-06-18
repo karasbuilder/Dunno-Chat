@@ -20,6 +20,7 @@ public class Notification extends Fragment {
 
     }
 
+    //not yet finished
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

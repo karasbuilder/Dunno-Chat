@@ -92,6 +92,8 @@ public class FloatingWidgetService extends Service {
         return (IBinder) intent;
     }
 
+
+    //create floating bubble
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onCreate() {
@@ -255,6 +257,7 @@ public class FloatingWidgetService extends Service {
         }
     }
 
+    //move floating bubble to left side
     private void moveToLeft() {
                 ValueAnimator va = ValueAnimator.ofFloat(params.x, 0);
                 int mDuration = 180;
@@ -267,6 +270,7 @@ public class FloatingWidgetService extends Service {
                 va.start();
     }
 
+    //move floating bubble to right side
     private void moveToRight() {
         metrics = getResources().getDisplayMetrics();
         windowWidth = metrics.widthPixels;
@@ -280,6 +284,8 @@ public class FloatingWidgetService extends Service {
         va.start();
     }
 
+
+    //if move to middle then set back to left or right depoend on current position
     private void resetPosition(int x_cord_now) {
         metrics = getResources().getDisplayMetrics();
         windowWidth = metrics.widthPixels;
@@ -293,6 +299,7 @@ public class FloatingWidgetService extends Service {
 
     }
 
+    //change message position
     private void resetMessagePosition(int x_cord_now) {
         metrics = getResources().getDisplayMetrics();
         constraintLayout = mFloatingView.findViewById(R.id.root_container);
@@ -312,6 +319,7 @@ public class FloatingWidgetService extends Service {
         constraintSet.applyTo(constraintLayout);
     }
 
+    //receive and display message next to bubble
     private void ReceiveMessageListen()
     {
         database = FirebaseDatabase.getInstance();

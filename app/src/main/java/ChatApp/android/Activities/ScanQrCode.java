@@ -38,6 +38,7 @@ public class ScanQrCode extends AppCompatActivity {
             requestPermission();
         }
 
+        //set behaviour for qr scan: start, stop, error, success
         scannerLiveView.setScannerViewEventListener(new ScannerLiveView.ScannerViewEventListener() {
             @Override
             public void onScannerStarted(ScannerLiveView scanner) {
@@ -54,6 +55,7 @@ public class ScanQrCode extends AppCompatActivity {
                 Toast.makeText(ScanQrCode.this, "Scanner Error Occurred Please Start Again...", Toast.LENGTH_SHORT).show();
             }
 
+            //On success scan, direct to profile contact user activity
             @Override
             public void onCodeScanned(String scanned_data) {
 
@@ -61,24 +63,19 @@ public class ScanQrCode extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), ProfileContactUser.class);
                 i.putExtra("visitID", current_uid);
                 startActivity(i);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("scanned_UID", current_uid);
-//                pcu.setArguments(bundle);
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.qrcodescanframe_layout,pcu)
-//                        .addToBackStack("ScanQRCode")
-//                        .commit();
 
             }
         });
     }
 
+    //func for checking permission
     private boolean checkPermission(){
         int cameraPermission = ContextCompat.checkSelfPermission(getApplicationContext(),CAMERA);
         int vibratePermission = ContextCompat.checkSelfPermission(getApplicationContext(),VIBRATE);
         return cameraPermission == PackageManager.PERMISSION_GRANTED && vibratePermission == PackageManager.PERMISSION_GRANTED;
     }
 
+    //func for requesting permission
     private void requestPermission(){
         int PERMISSION_CODE = 200;
         ActivityCompat.requestPermissions(this,new String[]{CAMERA,VIBRATE},PERMISSION_CODE);
@@ -99,6 +96,7 @@ public class ScanQrCode extends AppCompatActivity {
         scannerLiveView.startScanner();
     }
 
+    //Dialog when user give or deny the permission request
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

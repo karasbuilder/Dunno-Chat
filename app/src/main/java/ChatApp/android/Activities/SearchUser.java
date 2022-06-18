@@ -40,11 +40,6 @@ public class SearchUser extends AppCompatActivity {
         onCreateFriendView();
         setContentView(binding.getRoot());
 
-
-
-
-
-
     }
     public void onCreateFriendView(){
         database=FirebaseDatabase.getInstance();

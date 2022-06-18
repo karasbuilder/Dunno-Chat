@@ -21,6 +21,8 @@ public class PushNotificationSender extends AsyncTask<NotificationModel, Void, V
     public final static String AUTH_KEY_FCM = "AAAAV2nuKLE:APA91bEYryE8KuV7I2Hs7MR4-8vnTSShBYaKz95_cbiBK-_bIwcv-aerF5-KpaCi3nmQkFAtQkQzR_PJjDbonHJXeWWeAboSJBbeaC-VDBsNArZbvHxNGTXdD5tLb6g0UThTv20CWaui";
     public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
+
+    //Send push notification with header, body to specific user ( with token )
     @Override
     protected Void doInBackground(NotificationModel... nmodel) {
         String rawtoken = nmodel[0].receiver_token;
@@ -52,12 +54,6 @@ public class PushNotificationSender extends AsyncTask<NotificationModel, Void, V
         conn.setRequestProperty("Content-Type", "application/json");
 
         JSONObject json = new JSONObject();
-
-//        StringBuilder builder = new StringBuilder();
-//        for (String value : rawtoken) {
-//            builder.append(value);
-//        }
-//        String token = builder.toString();
 
         try {
             json.put("to", rawtoken);

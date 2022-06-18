@@ -101,7 +101,7 @@ public class Timelines extends Fragment {
 
         posts = new ArrayList<>();
 
-        //Get current user's friend list
+        //Get current user's friend list and set our uid to index [0]
         FirebaseDatabase.getInstance().getReference("users").child(current_uid).child("friends").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,6 +124,7 @@ public class Timelines extends Fragment {
             }
         });
 
+        //Load posts from current user and friends' timeline
         database=FirebaseDatabase.getInstance().getReference("timeline");
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -167,48 +168,6 @@ public class Timelines extends Fragment {
             }
         });
 
-//                database = FirebaseDatabase.getInstance().getReference("timeline");
-//        database.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                HashMap<String, String> likeslistMap = new HashMap<String, String>();
-//                                ArrayList<String> likeslist;
-//                                posts.clear();
-////                                likeslist.clear();
-//                                likeslistMap.clear();
-//                                for(DataSnapshot datas: snapshot.getChildren()){
-//                                    post = new Post();
-//                                    post.setPostid(datas.getKey());
-//                                    post.setUid(datas.child("uid").getValue().toString());
-//                                    post.setContent(datas.child("content").getValue().toString());
-//                                    post.setTimestamp((Long) datas.child("timestamp").getValue());
-//                                    if(datas.child("likes").exists())
-//                                    {
-//                                        post.setLiked(false);
-//                                        likeslistMap = (HashMap<String, String>) datas.child("likes").getValue();
-//                                        Set<String> keySet = likeslistMap.keySet();
-//                                        likeslist = new ArrayList<String>(keySet);
-//                                        if(likeslist.contains(current_uid))
-//                                        {
-//                                            post.setLiked(true);
-//                                        }
-//                                        post.setLikes(likeslist);
-//                                    }
-//                                    posts.add(post);
-//                                }
-//                                timelineAdapter.notifyDataSetChanged();
-//                            }
-//                        },300);
-//                    }
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-
         timelineAdapter = new TimelineAdapter(getActivity(), posts);
         timelinerv.setLayoutManager(new LinearLayoutManager(getActivity()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -251,6 +210,7 @@ public class Timelines extends Fragment {
             }
         });
 
+                //load posts' user's image
                 FirebaseDatabase.getInstance().getReference("users").child(current_uid).child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -323,26 +283,6 @@ public class Timelines extends Fragment {
                     ///Clear posting place after posting
                     postplace.setText("");
 
-                    //create posts in current user's friend list
-//                    FirebaseDatabase.getInstance().getReference("users").child(current_uid).
-//                            child("friends").addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            if(is_post) {
-//                                is_post = false;
-//                                for (DataSnapshot uids : snapshot.getChildren()) {
-//                                    String friend_uid = uids.getKey().trim();
-//                                    FirebaseDatabase.getInstance().getReference("timeline")
-//                                            .child(friend_uid).child(postId).updateChildren(newpost);
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
                 }
                 else
                 {

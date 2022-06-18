@@ -33,6 +33,7 @@ public class GetQrCode extends AppCompatActivity {
         onConfirmButton();
     }
 
+    //set behaviour for confirm button
     private void onConfirmButton()
     {
         ConfirmBtn = findViewById(R.id.ButtonConfirm);
@@ -44,6 +45,7 @@ public class GetQrCode extends AppCompatActivity {
         });
     }
 
+    //Create QR code depend on user's uid
     private void RetrieveQrCodeImage()
     {
         QrCodeImage = findViewById(R.id.QRCodeImg);

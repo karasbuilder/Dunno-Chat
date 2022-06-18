@@ -32,6 +32,8 @@ import ChatApp.android.R;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "DunnoFirebaseService";
 
+
+    //func for receiving push nofitication
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
@@ -47,18 +49,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 normalNofitication(title,body);
             }
         }
-//        if(isAppForeground()){
-//            // Handle notification silently without displaying in notification tray
-//        }else {
-//
-//            if (remoteMessage.getNotification() != null) {
-//                //Log.d(TAG, "Current useruid: " + user.getUid());
-//                String body = remoteMessage.getNotification().getBody();
-//                String title = remoteMessage.getNotification().getTitle();
-//                //int color = Integer.parseInt(remoteMessage.getNotification().getColor());
-//                sendNotification(body, title);
-//            }
-//        }
     }
 
     @Override
@@ -67,13 +57,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendRegistrationToServer(String token) {
-//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(token);
-//        Log.d("Firebase uid",uid);
-//        Log.d(TAG, "Refreshed Firebase token: " + token);
         // TODO: Implement this method to send token to your app server.
     }
 
+    //Receive push notification header and body content then display
     private void sendNotification(String messageBody, String messageTitle, Intent intent, String decline, String accept) {
         //Intent intent = new Intent(this, UserHomeChat.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -74,6 +74,7 @@ public class VideoCallOut extends AppCompatActivity  {
         CallDeclineButton();
     }
 
+    //Check the response of call receiver
     private void checkResponse()
     {
         reference = FirebaseDatabase.getInstance().getReference("videochat").child(callreceiver_room).child("res");
@@ -112,6 +113,7 @@ public class VideoCallOut extends AppCompatActivity  {
         });
     }
 
+    //Set behaviour for decline button in sender screen
     private void CallDeclineButton()
     {
         outcomingcallDecline_btn = findViewById(R.id.btnoutcomingDecline);
@@ -145,6 +147,7 @@ public class VideoCallOut extends AppCompatActivity  {
         });
     }
 
+    //Send notification to call receiver
     private void sendCallInvitation() {
         //Set call send response = true when click video call
         FirebaseDatabase.getInstance().getReference("videochat").child(callsender_room).child("res").setValue("true");
@@ -158,6 +161,7 @@ public class VideoCallOut extends AppCompatActivity  {
         }, 2000);
     }
 
+    //Join video call room upon receiver's accept
     private void joinmeeting(String key)
     {
         try {

@@ -45,6 +45,7 @@ public class VideoCallIn extends AppCompatActivity {
         checkIfCallSenderEnd();
     }
 
+    //Check if there is a video call invitation
     private void checkIfCallSenderEnd() {
         FirebaseDatabase.getInstance().getReference("videochat").child(callsender_room).child("res").addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,6 +63,7 @@ public class VideoCallIn extends AppCompatActivity {
         });
     }
 
+    //Get call sender infomation
     private void getCallSenderName()
     {
         txtincomingcall_sender = findViewById(R.id.txtincomingCall);
@@ -81,6 +83,7 @@ public class VideoCallIn extends AppCompatActivity {
         });
     }
 
+    //Set behaviour for accept button
     private void acceptCallInvitation() {
         acceptcallin_btn = findViewById(R.id.btnincomingCallAccept);
         acceptcallin_btn.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,7 @@ public class VideoCallIn extends AppCompatActivity {
 
     }
 
+    //Join video call room upon accept
     private void joinmeeting()
     {
         try {
@@ -119,6 +123,7 @@ public class VideoCallIn extends AppCompatActivity {
         }
     }
 
+    //Set behaviour for decline button
     private void declineCallInvitation()
     {
         declinecallin_btn = findViewById(R.id.btnincomingCalldecline);

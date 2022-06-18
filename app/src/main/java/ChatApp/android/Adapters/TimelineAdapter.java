@@ -111,6 +111,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
         long time=post.getTimestamp();
         holder.timestamp.setText(dateFormat.format(new Date(time)));
 
+        //get likes amount from post
         int num = post.getLikesAmount();
         if(num == 0)
         {
@@ -121,6 +122,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
             holder.likes.setText("Likes: " +num);
         }
 
+        //check if my like or not
         if(post.isLiked())
         {
             holder.likeicon.setImageResource(R.drawable.like_ic);
@@ -132,6 +134,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
             holder.likebutton.setTextColor(Color.parseColor("#000000"));
         }
 
+        //get post's user's name
         FirebaseDatabase.getInstance().getReference("users").child(uid).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -144,8 +147,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
             }
         });
 
+        //get post's content
         holder.content.setText(post.getContent());
 
+        //set behaviour when click like button
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("timeline").child(post.getUid()).child(post.getPostid());
         holder.likebutton.setOnClickListener(new View.OnClickListener() {
             @Override

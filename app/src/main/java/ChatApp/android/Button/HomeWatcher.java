@@ -24,6 +24,8 @@ public class HomeWatcher {
         mReceiver = new InnerReceiver();
     }
 
+
+    //start monitoring button behaviour
     public void startWatch() {
         if (mReceiver != null) {
             mContext.registerReceiver(mReceiver, mFilter);
@@ -42,6 +44,8 @@ public class HomeWatcher {
         final String SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps";
         final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
 
+
+        //set listener if click home or back button
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
