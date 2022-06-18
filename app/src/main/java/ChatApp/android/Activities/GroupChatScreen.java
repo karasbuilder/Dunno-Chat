@@ -189,7 +189,7 @@ public class GroupChatScreen extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for(DataSnapshot dataSnapshot:snapshot.getChildren()){
                             binding.groupName.setText(dataSnapshot.child("groupName").getValue().toString());
-                            Glide.with(GroupChatScreen.this).load(binding.iconGroup)
+                            Glide.with(getApplicationContext()).load(binding.iconGroup)
                                     .placeholder(R.drawable.avatar)
                                     .into(binding.iconGroup);
                         }

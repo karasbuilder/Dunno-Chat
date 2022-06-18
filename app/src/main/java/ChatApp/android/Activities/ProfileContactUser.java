@@ -92,7 +92,7 @@ public class ProfileContactUser extends AppCompatActivity {
                     }
                     receivedUser = snapshot.getValue(User.class);
                     userContactName.setText(receivedUser.getName());
-                    Glide.with(ProfileContactUser.this).load(receivedUser.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUserContact);
+                    Glide.with(getApplicationContext()).load(receivedUser.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUserContact);
                 }
             }
 

@@ -85,6 +85,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         Toast.makeText(ConfirmPhoneOTP.this, "Failed Verification Code", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
 
                     @Override

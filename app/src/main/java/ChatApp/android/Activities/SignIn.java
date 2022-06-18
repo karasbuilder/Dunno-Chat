@@ -120,7 +120,6 @@ public class SignIn extends AppCompatActivity {
                 else{
 
                     loginWithEmailPassword(email,password);
-                    setTokenOnLogin();
                 }
 
 
@@ -193,6 +192,7 @@ public class SignIn extends AppCompatActivity {
                             progressDialog.dismiss();
                             //after login sucess => load to user page
                             Intent intent=new Intent(SignIn.this,UserHomeChat.class);
+                            setTokenOnLogin();
                             startActivity(intent);
                             finish();
                         }

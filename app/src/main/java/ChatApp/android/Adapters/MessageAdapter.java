@@ -138,7 +138,7 @@ public class MessageAdapter  extends RecyclerView.Adapter{
             if(message.getMessage().equals("photo")) {
                 viewHolder.binding.imageUser.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context)
+                Glide.with(context.getApplicationContext())
                         .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholder)
                         .into(viewHolder.binding.imageUser);
@@ -238,14 +238,14 @@ public class MessageAdapter  extends RecyclerView.Adapter{
             });
         } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder)holder;
-            /*if(message.getMessage().equals("photo")) {
-                viewHolder.binding.image.setVisibility(View.VISIBLE);
+            if(message.getMessage().equals("photo")) {
+                viewHolder.binding.imageUser.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context)
+                Glide.with(context.getApplicationContext())
                         .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholder)
-                        .into(viewHolder.binding.image);
-            }*/
+                        .into(viewHolder.binding.imageUser);
+            }
             viewHolder.binding.message.setText(message.getMessage());
 
             //convert time stamp from firebase to data load into component

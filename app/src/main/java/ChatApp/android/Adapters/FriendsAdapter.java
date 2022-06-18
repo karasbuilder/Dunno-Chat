@@ -59,7 +59,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
        holder.binding.namUserContact.setText(user.getName());
        holder.binding.addressUserContact.setText(user.getAddressUser());
 
-        Glide.with(context).load(user.getProfileImage())
+        Glide.with(context.getApplicationContext()).load(user.getProfileImage())
                 .placeholder(R.drawable.avatar)
                 .into(holder.binding.imageUserContact);
 

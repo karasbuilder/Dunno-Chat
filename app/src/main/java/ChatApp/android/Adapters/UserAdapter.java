@@ -75,7 +75,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         holder.binding.username.setText(user.getName());
 
-        Glide.with(context).load(user.getProfileImage())
+        Glide.with(context.getApplicationContext()).load(user.getProfileImage())
                 .placeholder(R.drawable.avatar)
                 .into(holder.binding.profile);
 

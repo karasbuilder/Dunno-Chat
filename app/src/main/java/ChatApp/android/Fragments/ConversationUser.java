@@ -87,11 +87,8 @@ public class ConversationUser extends Fragment {
                     User user = snapshot1.getValue(User.class);
                     if(!user.getUid().equals(FirebaseAuth.getInstance().getUid()))
                         users.add(user);
-
                 }
-
                 usersAdapter.notifyDataSetChanged();
-
             }
 
 

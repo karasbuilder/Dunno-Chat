@@ -223,7 +223,7 @@ public class ChatUserScreen extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivity(intent);
+                startActivityForResult(intent,25);
             }
         });
 

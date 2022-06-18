@@ -96,7 +96,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
                 if(snapshot.exists()) {
                     profile_image = snapshot.getValue().toString();
                 }
-                Glide.with(context).load(profile_image)
+                Glide.with(context.getApplicationContext()).load(profile_image)
                         .placeholder(R.drawable.avatar)
                         .into(holder.profileimage);
             }

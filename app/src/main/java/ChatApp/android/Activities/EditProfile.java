@@ -268,8 +268,8 @@ public class EditProfile extends AppCompatActivity {
                             binding.radioMale.setChecked(true);
                         }
                     }
-                    Glide.with(EditProfile.this).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUser);
-                    Glide.with(EditProfile.this).load(user.getCoverImage()).placeholder(R.drawable.wall).into(binding.coverImageUser);
+                    Glide.with(getApplicationContext()).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUser);
+                    Glide.with(getApplicationContext()).load(user.getCoverImage()).placeholder(R.drawable.wall).into(binding.coverImageUser);
 
                 }
             }

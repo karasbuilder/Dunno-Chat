@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ChatApp.android.Activities.ConfirmPhoneOTP;
 import ChatApp.android.Model.Request;
@@ -59,9 +60,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     }
     public void addFriendsSuccess(String newFriends){
 
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put(newFriends,"");
 
-               useRef.child(currentID)
-                .child("friends").setValue(newFriends)
+               useRef.child(currentID).child("friends").setValue(hashMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -99,7 +101,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                        User user=snapshot.getValue(User.class);
                        String visitorID=user.getUid();
                        holder.binding.displayName.setText(user.getName());
-                       Glide.with(context).load(user.getProfileImage())
+                       Glide.with(context.getApplicationContext()).load(user.getProfileImage())
                                .placeholder(R.drawable.avatar)
                                .into(holder.binding.imageView2);
                    }
@@ -124,7 +126,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
 
 
-                        Glide.with(context).load(user.getProfileImage())
+                        Glide.with(context.getApplicationContext()).load(user.getProfileImage())
                                 .placeholder(R.drawable.avatar)
                                 .into(holder.binding.imageView2);
 

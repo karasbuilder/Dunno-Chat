@@ -59,7 +59,7 @@ public class ParticipantsAddAdapter extends RecyclerView.Adapter<ParticipantsAdd
         //set data to ui
         holder.binding.nameParticipants.setText(name);
         holder.binding.emailParticipants.setText(email);
-        Glide.with(context).load(image)
+        Glide.with(context.getApplicationContext()).load(image)
                 .placeholder(R.drawable.avatar)
                 .into(holder.binding.imageUserParticipant);
 
