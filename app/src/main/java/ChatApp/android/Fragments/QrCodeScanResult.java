@@ -1,5 +1,6 @@
 package ChatApp.android.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import ChatApp.android.Activities.ProfileContactUser;
 import ChatApp.android.Model.User;
 import ChatApp.android.R;
 import ChatApp.android.databinding.FragmentQrCodeScanResultBinding;
@@ -52,6 +54,9 @@ public class QrCodeScanResult extends Fragment {
                     user=snapshot.getValue(User.class);
                     binding.QrAccountName.setText(user.getName());
                     Glide.with(getActivity()).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.QrProfile);
+                    Intent i = new Intent(getActivity(), ProfileContactUser.class);
+                    i.putExtra("visitID", scanned_uid);
+                    startActivity(i);
                 }
             }
             @Override
@@ -68,6 +73,7 @@ public class QrCodeScanResult extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().remove(QrCodeScanResult.this).commit();
+                getActivity().finish();
             }
         });
     }

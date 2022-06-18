@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -37,6 +38,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import ChatApp.android.databinding.ActivitySignInBinding;
 import ChatApp.android.R;
@@ -117,6 +120,7 @@ public class SignIn extends AppCompatActivity {
                 else{
 
                     loginWithEmailPassword(email,password);
+                    setTokenOnLogin();
                 }
 
 
@@ -166,6 +170,17 @@ public class SignIn extends AppCompatActivity {
         });
 
     }
+
+    private void setTokenOnLogin() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(task.getResult());
+                                Log.d("TOKEN", task.getResult());
+            }
+        });
+    }
+
     public void loginWithEmailPassword(String email,String password){
         progressDialog.setTitle("Signing ..........");
         progressDialog.show();
@@ -195,8 +210,6 @@ public class SignIn extends AppCompatActivity {
 
     public  void recoverPasswordDiaglog(){
         //initialize dialog
-
-
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         LinearLayout linearLayout=new LinearLayout(this);
         builder.setTitle("Recover Password By Email");
@@ -276,5 +289,5 @@ public class SignIn extends AppCompatActivity {
 
 
     }
-        //https://www.javatpoint.com/android-firebase-authentication-google-login
+
 }

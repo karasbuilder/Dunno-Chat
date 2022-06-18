@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import ChatApp.android.Activities.PhoneNumberVerify;
 import ChatApp.android.Activities.UserHomeChat;
@@ -27,6 +30,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if(auth.getCurrentUser()!=null){
+                    setTokenIfAlreadyLogin();
                     Intent intent = new Intent(SplashScreen.this, UserHomeChat.class);
                     startActivity(intent);
                     finish();
@@ -38,5 +42,16 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         },3000);
+    }
+
+    private void setTokenIfAlreadyLogin() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(task.getResult());
+                Log.d("SPLASH UID", uid);
+                Log.d("SPLASH TOKEN", task.getResult());
+            }
+        });
     }
 }

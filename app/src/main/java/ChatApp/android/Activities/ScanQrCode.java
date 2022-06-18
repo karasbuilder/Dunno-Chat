@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ public class ScanQrCode extends AppCompatActivity {
 
     ScannerLiveView scannerLiveView;
     String current_uid;
-    QrCodeScanResult qcsr = new QrCodeScanResult();
+    ProfileContactUser pcu = new ProfileContactUser();
     ZXDecoder decoder;
 
     @Override
@@ -57,13 +58,17 @@ public class ScanQrCode extends AppCompatActivity {
             public void onCodeScanned(String scanned_data) {
 
                 current_uid = scanned_data;
-                Bundle bundle = new Bundle();
-                bundle.putString("scanned_UID", current_uid);
-                qcsr.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.qrcodescanframe_layout,qcsr)
-                        .addToBackStack("ScanQRCode")
-                        .commit();
+                Intent i = new Intent(getApplicationContext(), ProfileContactUser.class);
+                i.putExtra("visitID", current_uid);
+                startActivity(i);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("scanned_UID", current_uid);
+//                pcu.setArguments(bundle);
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.qrcodescanframe_layout,pcu)
+//                        .addToBackStack("ScanQRCode")
+//                        .commit();
+
             }
         });
     }
@@ -114,7 +119,7 @@ public class ScanQrCode extends AppCompatActivity {
         scannerLiveView.setScannerViewEventListener(null);
         scannerLiveView = null;
         current_uid = null;
-        qcsr  = null;
+        pcu  = null;
         decoder = null;
         Runtime.getRuntime().gc();
     }

@@ -28,7 +28,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="OK"
         android:textAllCaps="false"
-        android:textColor="#3179E0"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

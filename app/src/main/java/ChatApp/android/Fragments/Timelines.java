@@ -93,7 +93,6 @@ public class Timelines extends Fragment {
         PostPlace();
         PostButton();
         return view;
-
     }
 
     //get all the posts in current user timeline
@@ -106,10 +105,17 @@ public class Timelines extends Fragment {
         FirebaseDatabase.getInstance().getReference("users").child(current_uid).child("friends").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
                     friendslistmap = (HashMap<String, String>) snapshot.getValue();
                     friendslistSet = friendslistmap.keySet();
                     friendlist = new ArrayList<String>(friendslistSet);
-                friendlist.add(0,current_uid);
+                    friendlist.add(0,current_uid);
+                }
+                else
+                {
+                    friendlist = new ArrayList<String>();
+                    friendlist.add(0,current_uid);
+                }
             }
 
             @Override

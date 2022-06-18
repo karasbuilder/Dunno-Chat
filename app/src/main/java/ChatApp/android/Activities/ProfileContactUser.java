@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +41,7 @@ public class ProfileContactUser extends AppCompatActivity {
     private TextView userContactName;
     private Button buttonAddFriend;
     private User receivedUser;
+    private String currentuid;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class ProfileContactUser extends AppCompatActivity {
 
         receiverUserId = getIntent().getExtras().get("visitID").toString();
 
+        currentuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         //retrived data from firebase === sender ID
         getInformationUser();
 
@@ -78,8 +81,16 @@ public class ProfileContactUser extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    receivedUser=snapshot.getValue(User.class);
-
+                    if(receiverUserId.equals(currentuid)) {
+                        buttonAddFriend.setVisibility(View.GONE);
+                        binding.editTextMessageRequest.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        buttonAddFriend.setVisibility(View.VISIBLE);
+                        binding.editTextMessageRequest.setVisibility(View.VISIBLE);
+                    }
+                    receivedUser = snapshot.getValue(User.class);
                     userContactName.setText(receivedUser.getName());
                     Glide.with(ProfileContactUser.this).load(receivedUser.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUserContact);
                 }

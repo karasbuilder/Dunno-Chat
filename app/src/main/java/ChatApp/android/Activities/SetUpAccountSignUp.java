@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -92,7 +93,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                 startActivityForResult(intent, 45);
             }
         });
-        //User(String uid, String name, String phoneNumber,String email,String passwordUser ,String profileImage,String coverImage)
+
 
         binding.btnSaveSetting.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -142,6 +143,7 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                                                         Intent intent = new Intent(SetUpAccountSignUp.this, UserHomeChat.class);
                                                         Toast.makeText(SetUpAccountSignUp.this, "User Created Successfully", Toast.LENGTH_SHORT).show();
                                                         startActivity(intent);
+                                                        setTokenOnComepleteSetUp();
                                                         finish();
                                                     }
                                                 });
@@ -151,7 +153,6 @@ public class SetUpAccountSignUp extends AppCompatActivity {
                         }
                     });
                 } else {
-
 
 
                     User user = new User(uid, name, phone,email,password,"imageUrl","coverURL",address,gender);
@@ -176,6 +177,16 @@ public class SetUpAccountSignUp extends AppCompatActivity {
         });
 
 
+    }
+
+    private void setTokenOnComepleteSetUp() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference("users").child(uid).child("token").setValue(task.getResult());
+                Log.d("TOKEN", task.getResult());
+            }
+        });
     }
 
     @Override
