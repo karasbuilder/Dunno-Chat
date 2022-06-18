@@ -66,9 +66,10 @@ public class GroupChatScreen extends AppCompatActivity {
 
 
 
-
+        //get current firebase data platform from google services json data
         database=FirebaseDatabase.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
+        //getting the information group id of user
         Intent intent=getIntent();
         groupID=intent.getStringExtra("groupID");
         loadGroupInformation();
@@ -100,6 +101,7 @@ public class GroupChatScreen extends AppCompatActivity {
 
                 }
                 else{
+                    //send message when user click to symbol send in message box
                     sendMessage(message);
                 }
             }
@@ -111,6 +113,7 @@ public class GroupChatScreen extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btnAddGroupMenu:
+                        //when user click to create group application
                         Intent intent = new Intent(GroupChatScreen.this, GroupParticipantsAdd.class);
                         intent.putExtra("groupID", groupID);
                         startActivity(intent);
@@ -123,6 +126,7 @@ public class GroupChatScreen extends AppCompatActivity {
 
     }
     public void loadMyGroupRole(){
+        //load group role of current user for setting up about some feature of group
         DatabaseReference ref=FirebaseDatabase.getInstance().getReference("Groups");
         ref.child(groupID).child("Participants")
                 .orderByChild("uid").equalTo(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
@@ -140,6 +144,7 @@ public class GroupChatScreen extends AppCompatActivity {
                 });
     }
     public void sendMessage(String message){
+        //store message data in to firebase storage
             String timeStamp=""+System.currentTimeMillis();
 
         Message mess=new Message(message,firebaseAuth.getUid(),System.currentTimeMillis());
@@ -161,6 +166,7 @@ public class GroupChatScreen extends AppCompatActivity {
                     });
     }
     public void loadGroupMessages(){
+        //loading all information message of definitive group
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupID).child("Messages").addValueEventListener(new ValueEventListener() {
             @Override
@@ -182,6 +188,7 @@ public class GroupChatScreen extends AppCompatActivity {
         });
     }
     private  void loadGroupInformation(){
+        //loading all information of definition group about name , id .... image
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Groups");
         reference.orderByChild("groupID").equalTo(groupID)
                 .addValueEventListener(new ValueEventListener() {
@@ -206,6 +213,7 @@ public class GroupChatScreen extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //option menu of group chat screen user , when they clickit
         getMenuInflater().inflate(R.menu.menu_group,menu);
         if(myGroupRole.equals("creator")||myGroupRole.equals("admin")){
             menu.findItem(R.id.btnAddGroupMenu).setVisible(true);

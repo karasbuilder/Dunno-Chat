@@ -113,7 +113,7 @@ public class ChatUserScreen extends AppCompatActivity {
         }
 
         //Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
-
+        //binding the ui display about name and image of user who we need to mess
         binding.name.setText(name);
         Glide.with(ChatUserScreen.this).load(profile)
                 .placeholder(R.drawable.avatar)
@@ -267,7 +267,11 @@ public class ChatUserScreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        /**
+         *On activity result will roppedbut it can run now
+         * when user choose choosing the attracht men button to getting the image , and when user choose definitive image , the stored image will store in storage firebase
+         * after we will get uri of that file path , and loading it into image of message
+         * **/
         if(requestCode == 25) {
 
             if(data != null) {

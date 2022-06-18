@@ -127,6 +127,7 @@ public class EditProfile extends AppCompatActivity {
         coverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check the current image we choose now is what image in data of user ( cover wall image)
                 modeGetImage="cover";
                 showEditProfileImage();
                 binding.coverImageUser.setImageURI(imageCoverUri);
@@ -135,6 +136,7 @@ public class EditProfile extends AppCompatActivity {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // profile image in user profile data
                 modeGetImage="profile";
                 showEditProfileImage();
                 binding.profileImageUser.setImageURI(imageProfileUri);
@@ -165,6 +167,7 @@ public class EditProfile extends AppCompatActivity {
 
 
     public void exitEditProfileScreen(){
+        //when user click to back icon to return the edit profile account detail screen
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +186,7 @@ public class EditProfile extends AppCompatActivity {
 
     }
     public void requestStoragePermission(){
+        //request permission devices of user about storage
         ActivityCompat.requestPermissions(EditProfile.this,storagePermission,STORAGE_REQUEST_CODE);
 
     }
@@ -206,7 +210,7 @@ public class EditProfile extends AppCompatActivity {
 
     public void showEditProfileImage(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        //setting options
+        //setting options for showing modal choosing the option for getting image location
         String options[]={"View Cover","Take photo","Choose from gallery","Cancel"};
         builder.setTitle("Cover");
         builder.setItems(options,((dialog, which) -> {
@@ -217,18 +221,23 @@ public class EditProfile extends AppCompatActivity {
             else  if(which==1){
                 //camera clicked
                 if(!checkCameraPermission()){
+                    //if check all request about camera is not allow => get the request permission again
                     requestCameraPermission();
                 }
                 else {
+                    //if permission already allow => load to pick image from by camera
                     pickFromCamera();
                 }
             }
             else if(which==2){
+                //in the options 2 of modal choose options get image
                 if(!checkStoragePermission()){
+                    //if user can not allow to storage write external permission => if we choose again => we will ask again about permission
                     requestStoragePermission();
 
                 }
                 else{
+                    //if permission is allowed => already load to gallery choose image function
                     pickFromGallery();
                 }
 
@@ -245,7 +254,7 @@ public class EditProfile extends AppCompatActivity {
 
     public void getCurrentUser(){
 
-
+    //get current user from firebase function
         DatabaseReference reference=databaseReference.child(currentUser.getUid());
 
        reference.addValueEventListener(new ValueEventListener() {
@@ -253,7 +262,7 @@ public class EditProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     user=snapshot.getValue(User.class);
-
+                //if user exist already => get all the field information and fill its full to input
                     editNameUser.setText(user.getName());
                     editEmailUser.setText(user.getEmail());
                     editAddressUser.setText(user.getAddressUser());
@@ -268,6 +277,7 @@ public class EditProfile extends AppCompatActivity {
                             binding.radioMale.setChecked(true);
                         }
                     }
+                    //if user no image cover and profile => load default image be setting insde system
                     Glide.with(getApplicationContext()).load(user.getProfileImage()).centerCrop().placeholder(R.drawable.avatar).into(binding.profileImageUser);
                     Glide.with(getApplicationContext()).load(user.getCoverImage()).placeholder(R.drawable.wall).into(binding.coverImageUser);
 
@@ -284,7 +294,7 @@ public class EditProfile extends AppCompatActivity {
 
 
     private void pickFromCamera(){
-
+        //the function load to choose intent camera image
         ContentValues values=new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"Temp Pic");
         values.put(MediaStore.Images.Media.DESCRIPTION,"Temp Description");
@@ -307,7 +317,7 @@ public class EditProfile extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
+        //check on the request string of permission
         switch (requestCode){
             case CAMERA_REQUEST_CODE:{
                 if(grantResults.length>0){

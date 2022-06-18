@@ -57,21 +57,23 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //intialize ui by getting binding view feature
         binding = ActivityConfirmPhoneOtpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //setting dialog when user sending otp vetification code sms
         dialog = new ProgressDialog(this);
         dialog.setMessage("Sending OTP...");
         dialog.setCancelable(false);
         dialog.show();
-
+        //getting extra information about phone number of user in previous page
         phoneNumber = getIntent().getStringExtra("phoneNumber");
-
+        /// binding setting phone number to showing in screen
         binding.txtPhoneNumber.setText(phoneNumber);
+        //setting get current user uid because we already create account by email and password
         auth = FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
-
+        //phone way setting send sms verification code => documentation about way how to do it of firebase
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber(phoneNumber)
                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -84,6 +86,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+                        //if user type wrong verification code => dismiss current dialog
                         Toast.makeText(ConfirmPhoneOTP.this, "Failed Verification Code", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
@@ -93,7 +96,8 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                         super.onCodeSent(verifyID, forceResendingToken);
                         dialog.dismiss();
                         verificationID = verifyID;
-                        //
+                        //get the verification current ID code => check it with input method manager
+                        //if toggle soft input
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                         binding.otpView.requestFocus();
@@ -116,6 +120,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                //link multiple authentication
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID, otp);
                 linkCredential(credential);
+                //when the otp finish ( method of library check when we complete all field of number code)
 
 
 
@@ -125,6 +130,8 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
 
     }
     public void linkCredential(AuthCredential credential) {
+        //we have already email passwrod register in previous screen , now we want to create the same user id => need to link multiple method
+        //here is the way setting link with already credential
         auth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -137,7 +144,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                             FirebaseUser user=task.getResult().getUser();
                             Toast.makeText(ConfirmPhoneOTP.this, user.getEmail()+"|||"+user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
 
-
+                        //when complete all field => load to set up page
                             String password=getIntent().getStringExtra("passwordUser");
                             Intent intent=new Intent(ConfirmPhoneOTP.this,SetUpAccountSignUp.class);
                             intent.putExtra("passwordUser",password);
@@ -145,6 +152,7 @@ public class ConfirmPhoneOTP extends AppCompatActivity {
                             finish();
 
                         } else {
+                            //notification ì user data merge failed to database
 
 
 
