@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
        /* getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();*/
         setContentView(R.layout.activity_splash_screen);
-        setContentView(R.layout.activity_splash_screen);
+
         /**This function will delay the loading of application , and during that time check the current user have stayed in or not
          * if not user already sign in account => it will load to main activity
          *

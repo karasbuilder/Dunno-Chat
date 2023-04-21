@@ -24,7 +24,7 @@
     <ViewFlipper
         android:id="@+id/viewDunnoFlipper"
         android:layout_width="match_parent"
-        android:layout_height="380sp"
+        android:layout_height="420sp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
@@ -40,12 +40,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400sp"
+            android:layout_height="420sp"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="320dp"
                 android:background="@drawable/intro1" />
 
             <TextView
@@ -59,7 +59,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
+                android:layout_height="70sp"
                 android:gravity="center"
                 android:text="Perform video calls with high-quality over all type of networks"
                 android:textColor="#7C7878" />
@@ -73,8 +73,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/intro1" />
+                android:layout_height="320dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/intro2" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,8 +101,8 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/intro1" />
+                android:layout_height="320dp"
+                android:background="@drawable/intro3" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,8 +128,8 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/intro1" />
+                android:layout_height="320dp"
+                android:background="@drawable/intro4" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -154,7 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_blue"
         android:gravity="center"
