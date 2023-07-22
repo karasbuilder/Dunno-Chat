@@ -1,5 +1,5 @@
 # Dunno-Chat
-# University Project 2022
+# School Project 2022
 ### Figma Design:
 ![image](https://github.com/Kafierence/Dunno-Chat/assets/87579593/99860cc7-1ddd-4dc3-96cb-8003225ae0bb)
 ### Libary
@@ -15,3 +15,12 @@
 - QR Generator: androidmads.library.qrgenearator:QRGenearator:1.0.4
 - Material: com.google.android.material:material:1.5.0
   .....
+### Feature:
+- Realtime Chat App communication to all account exist in system
+- Contact to friend by search
+- Chatting Box send message include text, image, video
+- Create Group Chat
+- Setting Profile Infomation
+- OTP Verification
+- QR Scan contact
+- Call Video
